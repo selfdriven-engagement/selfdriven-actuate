@@ -1,6 +1,6 @@
 # Table of contents
 
-* [On-Boarding](README.md)
+* [Overview](README.md)
 * [Steps](steps/README.md)
   * [Discovery](steps/discovery.md)
   * [Getting Started](steps/getting-started.md)
