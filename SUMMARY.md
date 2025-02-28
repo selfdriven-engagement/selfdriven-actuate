@@ -1,0 +1,18 @@
+# Table of contents
+
+* [Progressive Self-Actuation Framework](README.md)
+* [On-Boarding](on-boarding/README.md)
+  * [Discovery](on-boarding/discovery.md)
+  * [Getting Started](on-boarding/getting-started.md)
+  * [Design](on-boarding/design.md)
+  * [Planning](on-boarding/planning.md)
+  * [Facilitator On-Boarding](on-boarding/facilitator-on-boarding.md)
+  * [Build](on-boarding/build.md)
+  * [Community On-Boarding](on-boarding/community-on-boarding.md)
+  * [Reflection](on-boarding/reflection.md)
+* [The Framework](the-framework/README.md)
+  * [Context (5W1H)](the-framework/context-5w1h.md)
+  * [Structures](the-framework/structures.md)
+  * [Management](the-framework/management.md)
+  * [Trust](the-framework/trust.md)
+  * [Resources](the-framework/resources.md)
