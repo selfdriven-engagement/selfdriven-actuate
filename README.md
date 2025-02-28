@@ -1,4 +1,4 @@
-# Progressive Self-Actuation Framework
+# Overview
 
 The selfdriven Foundation has introduced the _Progressive Actuation Framework_, aiming to revolutionise how communities approach development and progress - and become self-driven. \
 \
