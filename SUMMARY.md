@@ -2,7 +2,7 @@
 
 * [Overview](README.md)
 * [Steps](steps/README.md)
-  * [Discovery](steps/discovery.md)
+  * [1. Discovery](steps/discovery.md)
   * [Getting Started](steps/getting-started.md)
   * [Design](steps/design.md)
   * [Planning](steps/planning.md)
