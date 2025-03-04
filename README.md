@@ -1,3 +1,17 @@
+---
+layout:
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
+---
+
 # Start
 
 To help with community on-boarding the selfdriven Foundation has introduced the _Progressive Self-Actuation Framework_, aiming to revolutionise how communities approach development and progress - and become self-driven.\
