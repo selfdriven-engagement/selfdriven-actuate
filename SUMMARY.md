@@ -16,3 +16,4 @@
   * [Management](framework/management.md)
   * [Trust](framework/trust.md)
   * [Resources](framework/resources.md)
+  * [Diagrams](framework/diagrams.md)

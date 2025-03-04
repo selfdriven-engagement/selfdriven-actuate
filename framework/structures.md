@@ -1,7 +1,11 @@
+---
+description: Who, What, How, Where
+---
+
 # Structures
 
-Who, What, How, Where
 
-Information Stuctures
+
+Information Structures
 
 Services
