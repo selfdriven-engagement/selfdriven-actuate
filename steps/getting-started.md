@@ -2,5 +2,7 @@
 icon: square-2
 ---
 
-# Getting Started
+# 2. Getting Started
 
+**Service Costs Estimates**\
+Cloud, professional & educational
