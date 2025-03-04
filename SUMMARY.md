@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Overview](README.md)
+* [Start](README.md)
 * [Steps](steps/README.md)
   * [1. Discovery](steps/discovery.md)
   * [2. Getting Started](steps/getting-started.md)
