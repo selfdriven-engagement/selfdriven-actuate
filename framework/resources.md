@@ -6,6 +6,8 @@
 
 [octomics.io](https://docs.selfdriven.foundation/progression-actuation)
 
+[selfdriven.foundation](https://selfdriven.foundation)
+
 [selfdriven.finance](https://selfdriven.finance)
 
 [selfdriven.ventures](https://selfdriven.ventures)
@@ -13,3 +15,5 @@
 [selfdriven.services](https://selfdriven.services)
 
 [selfdriven.network](https://selfdriven.network)
+
+[selfdriven.ai](https://selfdriven.ai)
