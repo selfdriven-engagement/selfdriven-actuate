@@ -1,5 +1,4 @@
 ---
-icon: square-1
 description: Under the standing the needs to the community.
 ---
 

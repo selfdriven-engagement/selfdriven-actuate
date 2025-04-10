@@ -1,7 +1,3 @@
----
-icon: square-4
----
-
 # 4. Planning
 
 **Project Management Plan**\

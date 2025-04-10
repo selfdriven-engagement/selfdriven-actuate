@@ -1,7 +1,3 @@
----
-icon: square-5
----
-
 # 5. Facilitator On-Boarding
 
 **selfdriven.app/Studio**\

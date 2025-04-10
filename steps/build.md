@@ -1,7 +1,3 @@
----
-icon: square-6
----
-
 # 6. Build
 
 **Standard**\
