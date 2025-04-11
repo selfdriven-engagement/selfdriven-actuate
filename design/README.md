@@ -1,5 +1,7 @@
 ---
-description: Eight key design elements / layers.
+description: >-
+  Eight key design elements / layers as the foundational layers to build trust
+  in society, communities & systems.
 ---
 
 # Design
