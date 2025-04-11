@@ -1,5 +1,5 @@
 ---
-description: Eight step process.
+description: Eight key design elements / layers.
 ---
 
 # Design
