@@ -8,4 +8,8 @@ description: Eight step process.
 
 ***
 
+<figure><img src="../.gitbook/assets/selfdriven 8 Key Design Steps.png" alt=""><figcaption></figcaption></figure>
+
 [Project Investment Template (Google Sheet)](https://docs.google.com/spreadsheets/d/1EK5rjuhaUNilZJy2BymAJuczODP1cNX0X3HDTRLCf6w)
+
+***
