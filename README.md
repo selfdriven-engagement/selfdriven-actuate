@@ -22,7 +22,7 @@ The framework emphasises collaborative efforts, leveraging collective intelligen
 
 [Framework](framework/)
 
-[Community Design Document (5W1H)](https://docs.google.com/document/d/1rpL6873cT_lFzz96CCGgxrii6JtrtbhBn-19xBOxVp4/edit?tab=t.0)
+[Community Design Template (5W1H)](https://docs.google.com/document/d/1rpL6873cT_lFzz96CCGgxrii6JtrtbhBn-19xBOxVp4/edit?tab=t.0)
 
 ***
 
