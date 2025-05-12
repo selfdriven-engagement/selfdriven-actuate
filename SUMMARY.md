@@ -26,3 +26,5 @@
   * [6. Incentives are aligned](design/build.md)
   * [7. Reflective](design/reflection.md)
   * [8. Trust](design/getting-started.md)
+* [Perspectives](perspectives/README.md)
+  * [Community Facilitator](perspectives/community-facilitator.md)
