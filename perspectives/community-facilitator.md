@@ -5,6 +5,7 @@ General info at [selfdriven.foundation](https://selfdriven.foundation/).
 **Philosophy:**
 
 * [selfdriven.foundation/whitepaper](https://selfdriven.foundation/whitepaper) - The original white-paper focus on learning.
+* [selfdriven.foundation/the-shift](https://selfdriven.foundation/the-shift)
 * [selfdriven.foundation/society](https://selfdriven.foundation/society)
 * [selfdriven.foundation/identity](https://selfdriven.foundation/identity)
 * [selfdriven.foundation/trust](https://selfdriven.foundation/trust)
