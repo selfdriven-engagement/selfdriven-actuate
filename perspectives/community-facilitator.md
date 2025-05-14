@@ -13,11 +13,13 @@ General info at [selfdriven.foundation](https://selfdriven.foundation/).
 
 * [selfdriven.foundation/apps](https://selfdriven.foundation/apps) - including APIs
 * [selfdriven.foundation/on-chain](https://selfdriven.foundation/on-chain) - Why Cardano?
-* [octomics.io](https://www.octomics.io/) - On-Chain Proof of Activity/Growth & Incentives.
+* [octomics.io](https://www.octomics.io/) - On-Chain Proof of Activity/Growth and Incentives.
 * [entityOS.cloud](https://entityos.cloud/) - Underlying platform for organisational objects/services etc, so have full use of all its functionality to build on top of.
 
 **Org/Community:**
 
 * [selfdriven.foundation/organisation](https://selfdriven.foundation/organisation)
 * [selfdriven.foundation/community](https://selfdriven.foundation/community)
+* [selfdriven.foundation/governance](https://selfdriven.foundation/governance)
+* [selfdriven.foundation/tokenomics](https://selfdriven.foundation/tokenomics)
 * [skillzeb.io](https://skillzeb.io)

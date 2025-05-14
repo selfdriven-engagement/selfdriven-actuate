@@ -1,3 +1,3 @@
 # Perspectives
 
-Community Facilitator
+[Community Facilitator](community-facilitator.md)
