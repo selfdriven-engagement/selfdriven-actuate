@@ -12,7 +12,7 @@ User Experience (Personas), Interfaces, Information Structures & Intelligence Se
 * Intelligence Services - GenAI integration for project and governance assistance.
 
 {% hint style="info" %}
-**Template for use with Generative In-Organice Intelligence**\
+**Template for use with Generative In-Organic Intelligence**\
 [https://skillzeb.io/template-explorer/resource-transformer-starter](https://skillzeb.io/template-explorer/resource-transformer-starter)
 {% endhint %}
 
