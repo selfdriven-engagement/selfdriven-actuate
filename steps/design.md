@@ -7,7 +7,14 @@ User Experience (Personas), Interfaces, Information Structures & Intelligence Se
 * App to allow different user roles to share community information - governance (decision making), projects & financials
 * Web-based interfaces - responsive to user-role and device size.
 * Information structures required to store community information: on-cloud and on-chain.
+* Key Processes - with stages & input/outputs\
+
 * Intelligence Services - GenAI integration for project and governance assistance.
+
+{% hint style="info" %}
+**Template for use with Generative In-Organice Intelligence**\
+[https://skillzeb.io/template-explorer/resource-transformer-starter](https://skillzeb.io/template-explorer/resource-transformer-starter)
+{% endhint %}
 
 ***
 
