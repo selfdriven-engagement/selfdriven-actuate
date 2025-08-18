@@ -2,14 +2,14 @@
 layout: default
 title: Home
 ---
-
-To help with community onboarding the selfdriven Foundation has introduced the _Progressive Self-Actuation Framework_, aiming to revolutionise how communities approach development and progress - and become self-driven.\
+**
+To support community onboarding, the Selfdriven Foundation has introduced the Progressive Self-Actuation Framework, which aims to revolutionise how communities approach development and progress — ultimately enabling them to become self-driven.**\
 \
 The framework emphasises collaborative efforts, leveraging collective intelligence to drive sustainable and inclusive growth. By fostering active participation and shared responsibility, it seeks to empower communities to address challenges and achieve common goals effectively.
 
-[Steps](https://github.com/selfdriven-foundation/onboarding/steps/)
+[Steps](https://github.com/selfdriven-foundation/onboarding/tree/main/steps/)
 
-[Framework](https://github.com/selfdriven-foundation/onboarding/framework/)
+[Framework](https://github.com/selfdriven-foundation/onboarding/tree/main/framework/)
 
 [Community Design Template (5W1H)](https://docs.google.com/document/d/1rpL6873cT_lFzz96CCGgxrii6JtrtbhBn-19xBOxVp4/edit?tab=t.0)
 
