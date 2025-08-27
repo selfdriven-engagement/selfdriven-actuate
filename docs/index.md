@@ -10,7 +10,7 @@ The framework emphasises collaborative efforts, leveraging collective intelligen
 - [Framework](https://github.com/selfdriven-foundation/onboarding/tree/main/framework/)
 - [Design](https://github.com/selfdriven-foundation/onboarding/tree/main/design/)
 - [Community Design Template (5W1H)](https://docs.google.com/document/d/1rpL6873cT_lFzz96CCGgxrii6JtrtbhBn-19xBOxVp4)
-- [Use-Cases, Examples](ttps://github.com/selfdriven-foundation/onboarding/tree/main/use-cases/)
+- [Use-Cases, Examples](https://github.com/selfdriven-foundation/onboarding/tree/main/use-cases/)
 
 ### References
 - [selfdriven.fyi/on-boarding](https://selfdriven.fyi/on-boarding)
