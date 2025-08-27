@@ -9,16 +9,13 @@ The framework emphasises collaborative efforts, leveraging collective intelligen
 - [Steps](https://github.com/selfdriven-foundation/onboarding/tree/main/steps/)
 - [Framework](https://github.com/selfdriven-foundation/onboarding/tree/main/framework/)
 - [Design](https://github.com/selfdriven-foundation/onboarding/tree/main/design/)
-- [Community Design Template (5W1H)](https://docs.google.com/document/d/1rpL6873cT_lFzz96CCGgxrii6JtrtbhBn-19xBOxVp4/edit?tab=t.0)
+- [Community Design Template (5W1H)](https://docs.google.com/document/d/1rpL6873cT_lFzz96CCGgxrii6JtrtbhBn-19xBOxVp4)
+- [Use-Cases, Examples](ttps://github.com/selfdriven-foundation/onboarding/tree/main/use-cases/)
 
-***
-
-[selfdriven.fyi/on-boarding](https://selfdriven.fyi/on-boarding)
-
-[selfdriven.services](https://selfdriven.services)
-
-[skillzeb.io Resource Transformer Template](https://skillzeb.io/template-explorer/resource-transformer-starter)
-
+### Reference
+- [selfdriven.fyi/on-boarding](https://selfdriven.fyi/on-boarding)
+- [selfdriven.services](https://selfdriven.services)
+- [skillzeb.io Resource Transformer Template](https://skillzeb.io/template-explorer/resource-transformer-starter)
 
 ### Related
 - [selfdriven.foundation](selfdriven.foundation)
