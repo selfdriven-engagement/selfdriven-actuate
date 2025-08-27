@@ -12,7 +12,7 @@ The framework emphasises collaborative efforts, leveraging collective intelligen
 - [Community Design Template (5W1H)](https://docs.google.com/document/d/1rpL6873cT_lFzz96CCGgxrii6JtrtbhBn-19xBOxVp4)
 - [Use-Cases, Examples](ttps://github.com/selfdriven-foundation/onboarding/tree/main/use-cases/)
 
-### Reference
+### References
 - [selfdriven.fyi/on-boarding](https://selfdriven.fyi/on-boarding)
 - [selfdriven.services](https://selfdriven.services)
 - [skillzeb.io Resource Transformer Template](https://skillzeb.io/template-explorer/resource-transformer-starter)
