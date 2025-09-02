@@ -12,8 +12,5 @@ The framework emphasises collaborative efforts, leveraging collective intelligen
 
 ***
 
-[selfdriven.foundation/on-boarding](https://selfdriven.foundation/on-boarding)
-
+[selfdriven.fyi/on-boarding](https://selfdriven.fyi/on-boarding)
 [selfdriven.services](https://selfdriven.services)
-
-[skillzeb.io Resource Transformer Template](https://skillzeb.io/template-explorer/resource-transformer-starter)
