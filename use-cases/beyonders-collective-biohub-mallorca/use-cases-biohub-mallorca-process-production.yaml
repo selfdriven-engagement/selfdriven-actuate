@@ -9,12 +9,12 @@ process:
     - resilient
     - community-driven
 
-  custodians:
-    - role: "Biochar Steward"
+  roles:
+    - name: "Biochar Steward"
       rotation: "every 6 months"
-    - role: "Quality & Certification Lead"
+    - name: "Quality & Certification Lead"
       rotation: "every 12 months"
-    - role: "Community Reinvestment Circle"
+    - name: "Community Reinvestment Circle"
       rotation: "every 6 months"
 
   archetype: "resource-flow"
