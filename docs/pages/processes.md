@@ -4,7 +4,7 @@ title: Processes - selfdriven Onboarding
 permalink: /processes/
 ---
 
-# Processes
+# Key Processes
 
 The “selfdriven Progressive Self-Actuation Framework" emphasises the importance of understanding community's key processes -- including the key community sustainability processes.
 
