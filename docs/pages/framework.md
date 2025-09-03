@@ -49,3 +49,6 @@ Develop strategies for skill acquisition and application. Leverage skillzeb.io�
 - Strategic Planning: Applying the 5W1H framework aids in creating structured action plans with defined roles, timelines, and objectives, leading to more organised and effective community development efforts.
 
 **In summary,** the fusion of skillzeb.io’s universal skill set with the 5W1H analytical method within the “Community Progressive Actuation” framework empowers communities to gain deep insights into their contexts. This integrated approach facilitates strategic planning and targeted action, driving sustainable and inclusive growth.
+
+### Resources
+- [Community Design Template (5W1H)](https://docs.google.com/document/d/1rpL6873cT_lFzz96CCGgxrii6JtrtbhBn-19xBOxVp4)
