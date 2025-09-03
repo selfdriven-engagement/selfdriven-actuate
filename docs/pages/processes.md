@@ -6,7 +6,7 @@ permalink: /processes/
 
 # Processes
 
-The “selfdriven Progressive Self-Actuation Framework" emphasises the importance of understanding community sustainable processes.
+The “selfdriven Progressive Self-Actuation Framework" emphasises the importance of understanding community's key processes -- including the key community sustainability processes.
 
 ## Framework for Discovering & Designing Sustainable Community Processes
 
