@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Processes - selfdriven Onboarding
-permalink: /processes/
+permalink: /design/processes/
 ---
 
 # Key Processes

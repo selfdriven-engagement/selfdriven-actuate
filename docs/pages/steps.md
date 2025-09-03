@@ -39,7 +39,7 @@ permalink: /steps/
             <td><strong><a href="/design/">Design</a></strong></td>
             <td>
                 <ul>
-                    <li><a href="/processes/">Key Processes</a> - with stages &#x26; input/outputs</li>
+                    <li><a href="/design/processes/">Key Processes</a> - with stages &#x26; input/outputs</li>
                     <li>Information Structures</li>
                     <li>Intelligence Services</li>
 <li>User Experience</li>
