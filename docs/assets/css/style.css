@@ -155,3 +155,35 @@ body {
 	top: 1rem;
 	right: 1rem;
 }
+
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 2px solid #000;
+  border-radius: 12px;
+  overflow: hidden; /* ensures the inner cells don’t poke through */
+}
+
+th,
+td {
+  border: 1px solid #000;
+  padding: 8px 12px;
+}
+
+th:first-child,
+td:first-child {
+  border-left: none;
+}
+
+th:last-child,
+td:last-child {
+  border-right: none;
+}
+
+tr:first-child th {
+  border-top: none;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
