@@ -168,6 +168,7 @@ th,
 td {
   border: 1px solid #000;
   padding: 8px 12px;
+  text-align: left;
 }
 
 th:first-child,
