@@ -6,7 +6,7 @@ title: Home
 \
 The framework emphasises collaborative efforts, leveraging collective intelligence to drive sustainable and inclusive growth. By fostering active participation and shared responsibility, it seeks to empower communities to address challenges and achieve common goals effectively.
 
-- [Steps](https://github.com/selfdriven-foundation/onboarding/tree/main/steps/)
+- [Steps](/steps/)
 - [Framework](https://github.com/selfdriven-foundation/onboarding/tree/main/framework/)
 - [Design](https://github.com/selfdriven-foundation/onboarding/tree/main/design/)
 - [Community Design Template (5W1H)](https://docs.google.com/document/d/1rpL6873cT_lFzz96CCGgxrii6JtrtbhBn-19xBOxVp4)
@@ -19,6 +19,7 @@ The framework emphasises collaborative efforts, leveraging collective intelligen
 
 ### Related
 - [selfdriven.foundation](selfdriven.foundation)
+- [energy.selfdriven.foundation](https://energy.selfdriven.foundation) - Passive (Funding) & Active
 - [selfdriven.fyi/intelligence](https://selfdriven.fyi/intelligence)
 - [selfdriven.fyi/cog-assist](https://selfdriven.fyi/cog-assist)
 - [selfdriven.network AI Interface](https://selfdriven.network)
