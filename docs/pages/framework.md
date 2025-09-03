@@ -4,7 +4,7 @@ title: Framework - selfdriven Onboarding
 permalink: /framework/
 ---
 
-## Framework
+# Framework
 
 The “selfdriven Progressive Self-Actuation Framework" emphasises the importance of understanding community contexts to drive effective development. By integrating SkillZeb.io’s universal skill set with the 5W1H analytical method, communities can gain a comprehensive understanding of their unique dynamics, leading to more targeted and impactful initiatives.
 
