@@ -12,8 +12,6 @@ permalink: /design/
 
 ### Trust built on Identity
 
-<img src="/assets/img/selfdriven-8-key-design-steps.png" alt="" style="max-width:600px; width:100%">
+<img src="/assets/img/selfdriven-8-key-design-steps.png" alt="" style="max-width:800px; width:100%">
 
-### Resources
 
-- [Project Investment Template (Google Sheet)](https://docs.google.com/spreadsheets/d/1EK5rjuhaUNilZJy2BymAJuczODP1cNX0X3HDTRLCf6w)

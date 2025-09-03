@@ -30,8 +30,8 @@ permalink: /steps/
             <td><strong>Getting Started</strong></td>
             <td>
                 <ul>
-<li><strong>Service Costs Estimates</strong><br>Cloud, professional &#x26; educational</li>
-                </ul>
+					<li><strong>Service Costs Estimates</strong><br>Professional &#x26; Cloud</li>
+					<li>a href="hhttps://docs.google.com/spreadsheets/d/1EK5rjuhaUNilZJy2BymAJuczODP1cNX0X3HDTRLCf6w" target="_blank">Project Investment Template (Google Sheet)</a></li>
             </td>
         </tr>
         <tr>
