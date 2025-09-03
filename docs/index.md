@@ -7,7 +7,7 @@ title: Home
 The framework emphasises collaborative efforts, leveraging collective intelligence to drive sustainable and inclusive growth. By fostering active participation and shared responsibility, it seeks to empower communities to address challenges and achieve common goals effectively.
 
 - [Steps](/steps/)
-- [Framework](htt/framework/)
+- [Framework](framework/)
 - [Design](/design/)
 - [Community Design Template (5W1H)](https://docs.google.com/document/d/1rpL6873cT_lFzz96CCGgxrii6JtrtbhBn-19xBOxVp4)
 - [Use-Cases, Examples](https://github.com/selfdriven-foundation/onboarding/tree/main/use-cases/)
