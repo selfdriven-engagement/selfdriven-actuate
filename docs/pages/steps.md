@@ -30,7 +30,7 @@ permalink: /steps/
             <td><strong>Getting Started</strong></td>
             <td>
                 <ul>
-                    <li><strong>Service Costs Estimates</strong><br>Cloud, professional &#x26; educational</li>
+<li><strong>Service Costs Estimates</strong><br>Cloud, professional &#x26; educational</li>
                 </ul>
             </td>
         </tr>
@@ -39,7 +39,6 @@ permalink: /steps/
             <td><strong>Design</strong></td>
             <td>
                 <ul>
-                    
                     <li>Key Processes - with stages &#x26; input/outputs</li>
                     <li>Information Structures</li>
                     <li>Intelligence Services</li>
