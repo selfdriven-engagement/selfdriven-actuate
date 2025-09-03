@@ -4,7 +4,7 @@ title: Processes - selfdriven Onboarding
 permalink: /design/processes/
 ---
 
-# Key Processes
+# Processes
 
 The “selfdriven Progressive Self-Actuation Framework" emphasises the importance of understanding community's key processes -- including the key community sustainability processes.
 
@@ -66,3 +66,5 @@ Processes that define the energy flow; inputs (resources), outputs, value.
 - Visual loop: Discover → Prototype → Reflect → Embed.
 
 ⸻
+
+- [Use-Cases](/use-cases/) - Examples.

@@ -23,7 +23,6 @@ operating system for regeneration
 ### Resources 
 
 - [Community Worksheet](https://github.com/selfdriven-foundation/onboarding/blob/main/use-cases/beyonders-collective-biohub-mallorca/biohub-mallorca-selfdriven-onboarding-community-worksheet-1.pdf)
+- [Key Processes](https://github.com/selfdriven-foundation/onboarding/tree/main/use-cases/beyonders-collective-biohub-mallorca/use-cases-biohub-mallorca-design-processes.md)
 - [Github Repo](https://github.com/selfdriven-foundation/onboarding/tree/main/use-cases/beyonders-collective-biohub-mallorca)
-
-## Design - Key Processes
 
