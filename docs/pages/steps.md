@@ -39,11 +39,12 @@ permalink: /steps/
             <td><strong>Design</strong></td>
             <td>
                 <ul>
-                    <li>User Experience</li>
-                    <li>Interfaces</li>
+                    
                     <li>Key Processes - with stages &#x26; input/outputs</li>
                     <li>Information Structures</li>
                     <li>Intelligence Services</li>
+<li>User Experience</li>
+                    <li>Interfaces</li>
                 </ul>
             </td>
         </tr>
