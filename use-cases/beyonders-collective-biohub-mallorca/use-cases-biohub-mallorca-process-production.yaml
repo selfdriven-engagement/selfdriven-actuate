@@ -1,4 +1,6 @@
-process:
+template:
+definition:
+resource:
   name: "Biochar Production (Pyrolysis)"
   description: "Conversion of biomass feedstock into biochar, syngas, and heat through controlled pyrolysis."
 
@@ -8,17 +10,15 @@ process:
     - efficient
     - measurable
     - community-appropriate
+    - accountable
 
-  custodians:
-    - role: "Kiln Operator"
-      rotation: "daily/weekly shifts"
-    - role: "Safety Officer"
-      rotation: "every 6 months"
-    - role: "Monitoring & Verification Lead"
-      rotation: "every 12 months"
+  roles:
+    - name: "Kiln Operator"
+    - name: "Safety Officer"
+    - name: "Monitoring & Verification Lead"
 
-  sub_steps:
-    - sub_step: "Feedstock Preparation"
+  steps:
+    - name: "Feedstock Preparation"
       inputs: ["Sorted biomass feedstock", "Drying (sun or mechanical)"]
       outputs: ["Uniform, low-moisture feedstock (<20% moisture)"]
       resources: ["Drying racks", "Moisture meters"]
@@ -28,7 +28,7 @@ process:
           method: "Moisture meter reading"
           standard: "<20% (EBC/IBI guidelines)"
 
-    - sub_step: "Loading & Kiln Preparation"
+    - name: "Loading & Kiln Preparation"
       inputs: ["Prepared feedstock", "Kiln/retort"]
       outputs: ["Kiln loaded and sealed"]
       resources: ["Kiln operators", "Protective equipment (PPE)"]
@@ -37,7 +37,7 @@ process:
         - metric: "Sealing integrity"
           method: "Visual inspection, operator log"
 
-    - sub_step: "Pyrolysis (Carbonisation)"
+    - name: "Pyrolysis (Carbonisation)"
       inputs: ["Loaded kiln", "Ignition source", "Controlled air supply"]
       outputs: ["Thermal decomposition of biomass", "Biochar formation"]
       resources: ["Temperature sensors", "Airflow regulators"]
@@ -50,7 +50,7 @@ process:
           method: "Opacity test or gas sensors"
           standard: "Low-smoke, within local EPA thresholds"
 
-    - sub_step: "Cooling & Quenching"
+    - name: "Cooling & Quenching"
       inputs: ["Hot biochar", "Inert cooling method (water, sand, sealed chamber)"]
       outputs: ["Stabilised biochar"]
       resources: ["Cooling station", "Water or containment system"]
@@ -60,7 +60,7 @@ process:
           method: "Infrared thermometer"
           standard: "<50°C before handling"
 
-    - sub_step: "Collection & Storage"
+    - name: "Collection & Storage"
       inputs: ["Cooled biochar"]
       outputs: ["Bulk stored biochar"]
       resources: ["Storage bins (covered, dry)", "Labeling system"]
