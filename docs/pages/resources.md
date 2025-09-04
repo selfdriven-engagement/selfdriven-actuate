@@ -32,6 +32,6 @@ permalink: /resources/
 
 ### Related
 - [selfdriven AI](https://selfdriven.ai) - Research, Resources, Education
-- [selfdriven Level Up](https://selfdriven.fyi/levelup)
+- [selfdriven Level Up](https://selfdriven.fyi/levelup) - frameworks e.g. Improvement Cycle, The Three Laws of Performance.
 - [selfdriven Research](https://selfdriven.fyi/research)
 
