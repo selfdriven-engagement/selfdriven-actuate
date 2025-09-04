@@ -1,23 +1,9 @@
 # Production Process - Biohub Mallorca (Beyonders Collective)
 
-**A community of regenerators developing a new bioeconomy. A Place Waiting to Bloom.**
-
-### The Fire Beneath the Soil
-At its core is biochar—carbon-rich soil made from local biomass waste. It locks away CO₂ for centuries. It holds water. It revives microbial life. It boosts food systems. It turns organic waste into economic value.
-
-And in Mallorca, it’s the seed of a regenerative bioeconomy.
-
-We're not just selling soil. We're building a new economic
-operating system for regeneration
-
-## Design
-
-- [Processes Definition Template (YAML)](https://github.com/selfdriven-foundation/onboarding/blob/main/use-cases/beyonders-collective-biohub-mallorca/use-cases-biohub-mallorca-process-production.yaml)
-
+- [Production Processes Definition Template (YAML)](https://github.com/selfdriven-foundation/onboarding/blob/main/use-cases/beyonders-collective-biohub-mallorca/use-cases-biohub-mallorca-process-production.yaml)
 
 ## Accountability
-*(Mallorca Production → EU Market)*
-
+*EU Market*
 
 ### 1. EU Regulations
 
@@ -30,7 +16,7 @@ operating system for regeneration
 
 ---
 
-## 2. Voluntary Certification
+### 2. Voluntary Certification
 
 | Standard | Requirement | Status |
 |----------|-------------|--------|
@@ -39,7 +25,7 @@ operating system for regeneration
 
 ---
 
-## 3. Spain / Mallorca Context
+## #3. Spain / Mallorca Context
 
 | Requirement | Responsible Body | Status |
 |-------------|------------------|--------|
@@ -47,9 +33,7 @@ operating system for regeneration
 | Compliance with Spanish waste & air quality law (transposed EU directives) | MITECO + regional authority | ☐ |
 | Community environmental reporting (annual) | BioHub Custodians + Community Reinvestment Circle | ☐ |
 
----
-
-## 4. Verification Metrics
+### 4. Verification Metrics
 
 - 📏 Moisture content <20% (feedstock)  
 - 🌡 350–700°C kiln temperature logs (IBI/EBC)  
@@ -57,9 +41,8 @@ operating system for regeneration
 - 🧪 Lab tests: pH, heavy metals, carbon content  
 - 📊 Carbon sequestration: tonnes CO₂eq/year, MRV-ready  
 
----
 
-## 5. Governance & Transparency
+### 5. Governance & Transparency
 
 - ☐ Roles defined: Kiln Operator / Safety Officer / QA Lead / Community Circle  
 - ☐ Community ledger updated quarterly (production, emissions, revenue, reinvestment)  
