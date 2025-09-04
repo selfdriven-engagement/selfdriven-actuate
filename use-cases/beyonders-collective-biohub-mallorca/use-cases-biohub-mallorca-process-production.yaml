@@ -1,6 +1,7 @@
 template:
 definition:
 resource:
+process:
   name: "Biochar Production (Pyrolysis)"
   description: "Conversion of biomass feedstock into biochar, syngas, and heat through controlled pyrolysis."
 
@@ -68,3 +69,29 @@ resource:
       verification:
         - metric: "Contamination check"
           method: "Visual inspection, storage logs"
+          
+accountability:
+    eu:
+      fertilising_products_regulation: 
+        ref: "Regulation (EU) 2019/1009 + Delegated Reg. (EU) 2021/2088"
+        requirement: "Biochar as CMC14 material, CE-marked fertiliser/soil improver"
+      waste_framework_directive: 
+        ref: "Directive 2008/98/EC"
+        requirement: "Biochar ceases to be waste if recovery rules are met"
+      organic_farming:
+        ref: "EC 834/2007 + Implementing Reg. (EU) 2019/2164"
+        requirement: "Biochar approved as fertiliser/soil improver in organic systems"
+      carbon_removal_certification:
+        ref: "Upcoming EU CRCF (2025)"
+        requirement: "Prepare for EU carbon removal certification eligibility"
+    voluntary:
+      ebc: 
+        ref: "European Biochar Certificate (v9.5)"
+        requirement: "Pyrolysis 350–700°C, moisture <20%, emissions verification, accredited testing"
+      wbc:
+        ref: "World Biochar Certificate"
+        requirement: "Third-party audits, sustainability verification"
+    national:
+      spain_mallorca_environmental:
+        ref: "Spanish environmental law (transposed EU directives)"
+        requirement: "Emission permits, compliance with local air-quality standards"
