@@ -1,110 +1,70 @@
 process:
-  name: "BioHub Biochar Production & Sales"
-  description: "A regenerative community process that transforms local biomass into biochar, generating revenue and reinforcing self-actuating capacity."
+  name: "Biochar Production (Pyrolysis)"
+  description: "Conversion of biomass feedstock into biochar, syngas, and heat through controlled pyrolysis."
 
   principles:
     - regenerative
-    - inclusive
-    - circular
-    - resilient
-    - community-driven
+    - safe
+    - efficient
+    - measurable
+    - community-appropriate
 
-  roles:
-    - name: "Biochar Steward"
+  custodians:
+    - role: "Kiln Operator"
+      rotation: "daily/weekly shifts"
+    - role: "Safety Officer"
       rotation: "every 6 months"
-    - name: "Quality & Certification Lead"
+    - role: "Monitoring & Verification Lead"
       rotation: "every 12 months"
-    - name: "Community Reinvestment Circle"
-      rotation: "every 6 months"
 
-  archetype: "resource-flow"
+  sub_steps:
+    - sub_step: "Feedstock Preparation"
+      inputs: ["Sorted biomass feedstock", "Drying (sun or mechanical)"]
+      outputs: ["Uniform, low-moisture feedstock (<20% moisture)"]
+      resources: ["Drying racks", "Moisture meters"]
+      outcomes: ["Improved pyrolysis efficiency", "Reduced smoke/emissions"]
+      verification: 
+        - metric: "Moisture content"
+          method: "Moisture meter reading"
+          standard: "<20% (EBC/IBI guidelines)"
 
-  steps:
-    - step: "Feedstock Collection"
-      inputs: ["Agricultural residues", "Community labor", "Transport equipment"]
-      outputs: ["Sorted biomass feedstock"]
-      resources: ["Storage space", "Partnership agreements"]
-      outcomes: ["Waste diverted", "Community engagement", "Circular practice awareness"]
+    - sub_step: "Loading & Kiln Preparation"
+      inputs: ["Prepared feedstock", "Kiln/retort"]
+      outputs: ["Kiln loaded and sealed"]
+      resources: ["Kiln operators", "Protective equipment (PPE)"]
+      outcomes: ["Safe operation", "Minimized oxygen infiltration"]
+      verification:
+        - metric: "Sealing integrity"
+          method: "Visual inspection, operator log"
 
-    - step: "Biochar Production (Pyrolysis)"
-      inputs: ["Biomass feedstock", "Pyrolysis kiln", "Energy source"]
-      outputs: ["Biochar", "Heat energy", "Syngas (reusable)"]
-      resources: ["Technical expertise", "Safety protocols"]
-      outcomes: ["Carbon sequestration", "Local employment", "Energy co-benefits"]
-      sub_steps:
-        - sub_step: "Feedstock Preparation"
-          verification: ["<20% moisture content (EBC/IBI)"]
-        - sub_step: "Loading & Kiln Preparation"
-          verification: ["Sealing integrity logs"]
-        - sub_step: "Pyrolysis"
-          verification: ["350–700°C temperature logs (EBC/IBI)", "Emission opacity/gas sensors (EPA/EU thresholds)"]
-        - sub_step: "Cooling & Quenching"
-          verification: ["Safe handling <50°C"]
-        - sub_step: "Collection & Storage"
-          verification: ["Contamination-free storage logs"]
+    - sub_step: "Pyrolysis (Carbonisation)"
+      inputs: ["Loaded kiln", "Ignition source", "Controlled air supply"]
+      outputs: ["Thermal decomposition of biomass", "Biochar formation"]
+      resources: ["Temperature sensors", "Airflow regulators"]
+      outcomes: ["Efficient biochar yield", "Syngas/heat co-products"]
+      verification:
+        - metric: "Temperature range"
+          method: "Thermocouple data log"
+          standard: "350°C–700°C (per IBI/EBC)"
+        - metric: "Emission levels"
+          method: "Opacity test or gas sensors"
+          standard: "Low-smoke, within local EPA thresholds"
 
-    - step: "Processing & Quality Assurance"
-      inputs: ["Raw biochar", "Testing equipment", "Standards (IBI/EBC)"]
-      outputs: ["Market-ready biochar", "Certification"]
-      resources: ["Lab services", "Packaging", "Brand identity"]
-      outcomes: ["Market trust", "Product differentiation"]
+    - sub_step: "Cooling & Quenching"
+      inputs: ["Hot biochar", "Inert cooling method (water, sand, sealed chamber)"]
+      outputs: ["Stabilised biochar"]
+      resources: ["Cooling station", "Water or containment system"]
+      outcomes: ["Prevented re-ignition", "Safe handling"]
+      verification:
+        - metric: "Surface temperature"
+          method: "Infrared thermometer"
+          standard: "<50°C before handling"
 
-    - step: "Distribution & Sales"
-      inputs: ["Packaged biochar", "Marketing materials"]
-      outputs: ["Sales revenue", "Customer feedback"]
-      resources: ["Online store", "Logistics partners", "Payment rails (fiat, tokens)"]
-      outcomes: ["Sustainable income stream", "Strengthened local economy"]
-
-    - step: "Community Benefit Loop"
-      inputs: ["Revenue", "Community governance"]
-      outputs: ["Reinvestment funds", "Community credits/tokens circulation"]
-      resources: ["Cooperative governance structure", "SSI/VCs for contribution tracking"]
-      outcomes: ["Reinforced self-actuation", "Transparent reinvestment", "Expansion into new regenerative practices"]
-
-  indicators:
-    carbon_sequestration: "measured annually in tonnes CO₂eq"
-    participation_diversity: "tracked per project cycle"
-    revenue_generated: "monthly"
-    reinvestment_ratio: "percentage of profits reinvested in community projects"
-    knowledge_transfer: "number of trained members per year"
-
-  iteration_path:
-    - stage: "prototype"
-      method: "Pilot biochar kiln with small feedstock volumes"
-      feedback: "Weekly community reflection"
-    - stage: "scaled"
-      method: "Expand to wider farmer/community participation"
-      feedback: "Quarterly surveys and sales reports"
-    - stage: "embedded"
-      method: "Biochar process integrated into BioHub constitution"
-      feedback: "Annual review and transparent reporting"
-
-  resilience:
-    redundancy: "Multiple stewards co-hold responsibilities"
-    knowledge_transfer: "Process wiki, workshops, and recorded oral histories"
-
-  compliance:
-    eu:
-      fertilising_products_regulation: 
-        ref: "Regulation (EU) 2019/1009 + Delegated Reg. (EU) 2021/2088"
-        requirement: "Biochar as CMC14 material, CE-marked fertiliser/soil improver"
-      waste_framework_directive: 
-        ref: "Directive 2008/98/EC"
-        requirement: "Biochar ceases to be waste if recovery rules are met"
-      organic_farming:
-        ref: "EC 834/2007 + Implementing Reg. (EU) 2019/2164"
-        requirement: "Biochar approved as fertiliser/soil improver in organic systems"
-      carbon_removal_certification:
-        ref: "Upcoming EU CRCF (2025)"
-        requirement: "Prepare for EU carbon removal certification eligibility"
-    voluntary:
-      ebc: 
-        ref: "European Biochar Certificate (v9.5)"
-        requirement: "Pyrolysis 350–700°C, moisture <20%, emissions verification, accredited testing"
-      wbc:
-        ref: "World Biochar Certificate"
-        requirement: "Third-party audits, sustainability verification"
-    national:
-      spain_mallorca_environmental:
-        ref: "Spanish environmental law (transposed EU directives)"
-        requirement: "Emission permits, compliance with local air-quality standards"
+    - sub_step: "Collection & Storage"
+      inputs: ["Cooled biochar"]
+      outputs: ["Bulk stored biochar"]
+      resources: ["Storage bins (covered, dry)", "Labeling system"]
+      outcomes: ["Preservation of quality", "Readiness for QA/testing"]
+      verification:
+        - metric: "Contamination check"
+          method: "Visual inspection, storage logs"

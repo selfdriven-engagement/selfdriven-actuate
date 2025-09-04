@@ -1,6 +1,6 @@
 # Production Process - Biohub Mallorca (Beyonders Collective)
 
-- [Production Processes Definition Template (YAML)](https://github.com/selfdriven-foundation/onboarding/blob/main/use-cases/beyonders-collective-biohub-mallorca/use-cases-biohub-mallorca-process-production.yaml)
+[Open Production Processes Definition Template (YAML)](https://github.com/selfdriven-foundation/onboarding/blob/main/use-cases/beyonders-collective-biohub-mallorca/use-cases-biohub-mallorca-process-production.yaml)
 
 ## Accountability
 *EU Market*
@@ -14,16 +14,12 @@
 | Organic Farming Regulations (EC 834/2007 + EU 2019/2164) | Biochar permitted as fertiliser/soil conditioner in organic agriculture | ☐ |
 | Carbon Removal Certification Framework (CRCF, 2025→) | Prepare MRV (Measurement, Reporting, Verification) for carbon credits | ☐ |
 
----
-
 ### 2. Voluntary Certification
 
 | Standard | Requirement | Status |
 |----------|-------------|--------|
 | European Biochar Certificate (EBC v9.5) | Pyrolysis at 350–700°C; <20% feedstock moisture; accredited emissions tests; heavy metal & pH checks | ☐ |
 | World Biochar Certificate (WBC) | Third-party audits, sustainability verification, continuous monitoring | ☐ |
-
----
 
 ## #3. Spain / Mallorca Context
 
