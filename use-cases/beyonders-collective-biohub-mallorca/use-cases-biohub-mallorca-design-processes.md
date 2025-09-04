@@ -6,86 +6,86 @@ BioHub Sustainable Process Mapping – Biochar Production & Sales
 
 ### Step 1. Feedstock Collection
 - Inputs
-- Agricultural waste (crop residues, pruning, sawdust, manure)
-- Community labor / local partnerships
+    - Agricultural waste (crop residues, pruning, sawdust, manure)
+    - Community labor / local partnerships
 - Outputs
-- Sorted biomass ready for pyrolysis
+    - Sorted biomass ready for pyrolysis
 - Resources
-- Collection equipment (trailers, bags, trucks)
-- Storage space
-- Agreements with farmers / councils
+    - Collection equipment (trailers, bags, trucks)
+    - Storage space
+    - Agreements with farmers / councils
 - Outcomes / Value
-- Waste diverted from burning/landfill
-- Community engagement through resource sharing
-- Early education on circular economy
+    - Waste diverted from burning/landfill
+    - Community engagement through resource sharing
+    - Early education on circular economy
 
 ### Step 2. Biochar Production (Pyrolysis)
 - Inputs
-- Biomass feedstock
-- Pyrolysis unit (kiln, retort, or industrial plant)
-- Energy (could be partially renewable or from captured syngas)
+    - Biomass feedstock
+    - Pyrolysis unit (kiln, retort, or industrial plant)
+    - Energy (could be partially renewable or from captured syngas)
 - Outputs
-- Biochar
-- Heat energy (co-product)
-- Syngas (can be reused)
+    - Biochar
+    - Heat energy (co-product)
+    - Syngas (can be reused)
 - Resources
-- Technical expertise
-- Safety protocols & compliance with environmental standards
-- Skilled operators
+    - Technical expertise
+    - Safety protocols & compliance with environmental standards
+    - Skilled operators
 - Outcomes / Value
-- Carbon sequestration (negative emissions)
-- Renewable energy for local use
-- Local employment / skill building
+    - Carbon sequestration (negative emissions)
+    - Renewable energy for local use
+    - Local employment / skill building
 
 - [Production Process](https://github.com/selfdriven-foundation/onboarding/tree/main/use-cases/beyonders-collective-biohub-mallorca/use-cases-biohub-mallorca-design-processes-production.md)
 
 ### Step 3. Processing & Quality Assurance
 - Inputs
-- Raw biochar
-- Testing equipment (pH, surface area, contaminants)
-- Standards (e.g., IBI, EBC certification)
+    - Raw biochar
+    - Testing equipment (pH, surface area, contaminants)
+    - Standards (e.g., IBI, EBC certification)
 - Outputs
-- Market-ready biochar product (powder, pellets, blends)
-- Certification / proof of quality
+    - Market-ready biochar product (powder, pellets, blends)
+    - Certification / proof of quality
 - Resources
-- Lab services (in-house or partner)
-- Packaging materials
-- Branding guidelines
+    - Lab services (in-house or partner)
+    - Packaging materials
+    - Branding guidelines
 - Outcomes / Value
-- Trusted, verifiable product
-- Differentiation in the carbon/agriculture marketplace
+    - Trusted, verifiable product
+    - Differentiation in the carbon/agriculture marketplace
 
 ### Step 4. Distribution & Sales
 - Inputs
-- Packaged biochar
-- Marketing materials
-- Sales channels (local markets, e-commerce, B2B with farms/industry)
+    - Packaged biochar
+    - Marketing materials
+    - Sales channels (local markets, e-commerce, B2B with farms/industry)
 - Outputs
-- Sales revenue
-- Customer feedback
+    - Sales revenue
+    - Customer feedback
 - Resources
-- Online store / cooperative platform
-- Logistics partnerships
-- Token/payment rails (SDN, local credits, fiat)
+    - Online store / cooperative platform
+    - Logistics partnerships
+    - Token/payment rails (SDN, local credits, fiat)
 - Outcomes / Value
-- Sustained income stream for the BioHub
-- Local regenerative business ecosystem
-- Reinforcement of community self-sufficiency
+    - Sustained income stream for the BioHub
+    - Local regenerative business ecosystem
+    - Reinforcement of community self-sufficiency
 
 ### Step 5. Community Benefit Loop
 - Inputs
-- Revenue from sales
-- Community governance process (decision-making on reinvestment)
+    - Revenue from sales
+    - Community governance process (decision-making on reinvestment)
 - Outputs
-- Funding for education programs, micro-projects, new equipment
-- Community tokens / credits circulation
+    - Funding for education programs, micro-projects, new equipment
+    - Community tokens / credits circulation
 - Resources
-- Cooperative governance (circles, charters)
-- SSI/VCs to recognize member contributions
+    - Cooperative governance (circles, charters)
+    - SSI/VCs to recognize member contributions
 - Outcomes / Value
-- Reinforcement of self-actuating capacity
-- Trust and inclusion through transparent reinvestment
-- Expansion into other regenerative practices (compost, energy hubs)
+    - Reinforcement of self-actuating capacity
+    - Trust and inclusion through transparent reinvestment
+    - Expansion into other regenerative practices (compost, energy hubs)
 
 
 ### Key Process Summary
