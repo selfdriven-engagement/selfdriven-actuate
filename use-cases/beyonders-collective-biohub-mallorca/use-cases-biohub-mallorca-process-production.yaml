@@ -46,7 +46,7 @@ process:
       verification:
         - metric: "Temperature range"
           method: "Thermocouple data log"
-          standard: "350°C–700°C (per IBI/EBC)"
+          standard: "350°C-700°C (per IBI/EBC)"
         - metric: "Emission levels"
           method: "Opacity test or gas sensors"
           standard: "Low-smoke, within local EPA thresholds"
@@ -69,7 +69,7 @@ process:
       verification:
         - metric: "Contamination check"
           method: "Visual inspection, storage logs"
-          
+
 accountability:
     eu:
       fertilising_products_regulation: 
