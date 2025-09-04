@@ -37,7 +37,7 @@ BioHub Sustainable Process Mapping – Biochar Production & Sales
 - Renewable energy for local use
 - Local employment / skill building
 
-- [Production Processes](https://github.com/selfdriven-foundation/onboarding/tree/main/use-cases/beyonders-collective-biohub-mallorca/use-cases-biohub-mallorca-design-processes-production.md)
+- [Production Process](https://github.com/selfdriven-foundation/onboarding/tree/main/use-cases/beyonders-collective-biohub-mallorca/use-cases-biohub-mallorca-design-processes-production.md)
 
 ### Step 3. Processing & Quality Assurance
 - Inputs
