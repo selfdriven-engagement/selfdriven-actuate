@@ -30,6 +30,8 @@ operating system for regeneration
     - [Production Process Definition Template (YAML)](https://github.com/selfdriven-foundation/onboarding/blob/main/use-cases/beyonders-collective-biohub-mallorca/use-cases-biohub-mallorca-process-production.yaml)
     - [Accountability Notes](https://github.com/selfdriven-foundation/onboarding/blob/main/use-cases/beyonders-collective-biohub-mallorca/use-cases-biohub-mallorca-process-production-accountabilty.md)
 
+### References 
 
+- [If farmers play the long game, biochar will pay off for crops and climate](https://www.anthropocenemagazine.org/2025/08/if-farmers-play-the-long-game-biochar-will-pay-off-for-crops-and-climate/)
 
 
