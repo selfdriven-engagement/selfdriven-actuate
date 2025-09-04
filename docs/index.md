@@ -9,9 +9,7 @@ The framework emphasises collaborative efforts, leveraging collective intelligen
 - [Framework](framework/)
 - [Steps](/steps/)
 - [Use-Cases](/use-cases/) - Examples.
-
-### Resources
-- [Community Design Template (5W1H)](https://docs.google.com/document/d/1rpL6873cT_lFzz96CCGgxrii6JtrtbhBn-19xBOxVp4)
+- [Resources](/resources/) - Templates, Reading etc.
 
 ### References
 - [selfdriven.fyi/on-boarding](https://selfdriven.fyi/on-boarding)
