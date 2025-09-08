@@ -29,6 +29,11 @@ permalink: /resources/
 - [Find Your Why](https://simonsinek.com/books/find-your-why/)
 - [Brene Brown, Atlas of the Heart Book](https://brenebrown.com/book/atlas-of-the-heart/)
 
+### Standards
+- [ISO 37000, Governance](https://committee.iso.org/ISO_37000_Governance)
+- [ISO 27001, Information Security](https://www.iso.org/standard/27001)
+- [ISO 31000, Risk Management](https://www.iso.org/standard/65694.html)
+- [ISO 20022, Financial Information](https://www.iso.org/standard/65694.html)
 
 ### Related
 - [selfdriven AI](https://selfdriven.ai) - Research, Resources, Education
