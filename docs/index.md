@@ -2,7 +2,7 @@
 layout: default
 title: Home
 ---
-## To support community onboarding, the selfdriven Foundation has introduced the Progressive Self-Actuation Framework, which aims to revolutionise how communities approach development and progress — ultimately enabling them to become self-driven.
+## Onboard communities with the Progressive Self-Actuation Framework — a path to becoming self-driven.
 
 The framework emphasises collaborative efforts, leveraging collective intelligence to drive sustainable and inclusive growth. By fostering active participation and shared responsibility, it seeks to empower communities to address challenges and achieve common goals effectively.
 
