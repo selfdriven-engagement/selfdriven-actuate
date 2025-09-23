@@ -21,7 +21,8 @@ permalink: /steps/
             <td>
                 <ul>
                     <li><strong>Community Onboarding Worksheet</strong><br>“5W1H” based</li>
-                    <li><a href="https://docs.google.com/document/d/1rpL6873cT_lFzz96CCGgxrii6JtrtbhBn-19xBOxVp4" target="_blank">View Template</a></li>
+                    <li><a href="https://docs.google.com/document/d/1rpL6873cT_lFzz96CCGgxrii6JtrtbhBn-19xBOxVp4" target="_blank">Open Google Doc Template</a> and create a copy for your community.</li>
+                    <li><a href="https://docs.google.com/document/d/1rpL6873cT_lFzz96CCGgxrii6JtrtbhBn-19xBOxVp4" target="_blank">Then work collaboratively with your community to fill in each of the sections.</li>
                 </ul>
             </td>
         </tr>
