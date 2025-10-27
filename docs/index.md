@@ -15,13 +15,15 @@ The framework emphasises collaborative efforts, leveraging collective intelligen
 - [selfdriven.fyi/on-boarding](https://selfdriven.fyi/on-boarding)
 - [selfdriven.services](https://selfdriven.services)
 - [skillzeb.io Resource Transformer Template](https://skillzeb.io/template-explorer/resource-transformer-starter)
+- [selfdriven.network Human Interface](https://selfdriven.network/human-interface)
 
 ### Related
+- [selfdriven.network Interfaces](https://selfdriven.network/)
 - [selfdriven.foundation](selfdriven.foundation)
 - [energy.selfdriven.foundation](https://energy.selfdriven.foundation) - Passive (Funding) & Active
 - [selfdriven.fyi/intelligence](https://selfdriven.fyi/intelligence)
 - [selfdriven.fyi/cog-assist](https://selfdriven.fyi/cog-assist)
-- [selfdriven.network AI Interface](https://selfdriven.network)
+
 - [selfdriven.id](https://selfdriven.id) - Identity & Trust
 - [skillzeb.io](https://skillzeb.io) - templates
 - [selfdriven.fyi/research](https://selfdriven.fyi/research)
