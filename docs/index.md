@@ -9,7 +9,7 @@ The framework emphasises collaborative efforts, leveraging collective intelligen
 ### Frameworks
 
 - [Progressive Self-Actuation Framework](/framework)
-- [Engagement–Lab–Production Framework for Continuous Actuation](framework/progressive-self-actuation)
+- [Engagement–Lab–Production Framework for Continuous Actuation](/framework/engagement–lab–production)
 
 ### References
 
