@@ -7,7 +7,7 @@ title: Home
 ### Frameworks
 
 - [Progressive Self-Actuation Framework](/framework)
-- [Engagement–Lab–Production Framework for Continuous Actuation](/framework/engagement–lab–production)
+- [Engagement–Lab–Production Framework for Continuous Actuation](/framework/engagement-lab-production)
 
 ### References
 
