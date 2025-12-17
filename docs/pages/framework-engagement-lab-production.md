@@ -1,7 +1,7 @@
 ---
 layout: default
-title: Engagement–Lab–Production Framework for Continuous Actuation - selfdriven Community
-permalink: /framework/engagement–lab–production
+title: Engagement Lab Production Framework for Continuous Actuation - selfdriven Community
+permalink: /framework/engagement-lab-production
 ---
 
 # The Engagement–Lab–Production (ELP) Framework for Continuous Actuation
