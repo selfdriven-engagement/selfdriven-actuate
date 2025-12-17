@@ -4,7 +4,7 @@ title: Engagement–Lab–Production Framework for Continuous Actuation - selfdr
 permalink: /framework/engagement–lab–production
 ---
 
-## The Engagement–Lab–Production (ELP) Framework for Continuous Actuation
+# The Engagement–Lab–Production (ELP) Framework for Continuous Actuation
 
 **Traditional organisational structures optimise for stability and control, but struggle under conditions of rapid technological change, uncertainty, and distributed participation.**
 
@@ -28,9 +28,11 @@ Common failure modes follow:
 
 A structurally explicit separation of concerns is required.
 
-### The Three Zones
+---
 
-#### Engagement (Sense & Signal)
+## The Three Zones
+
+### [E] Engagement (Sense & Signal)
 
 **Purpose**  
 Maintain relationship with the external world and internal community.
@@ -55,7 +57,7 @@ Maintain relationship with the external world and internal community.
 **Core question:**  
 *What matters, to whom, and why now?*
 
-#### Lab (Learn & Explore)
+### [L] Lab (Learn & Explore)
 
 **Purpose**  
 Convert uncertainty into knowledge.
@@ -82,7 +84,7 @@ Convert uncertainty into knowledge.
 **Core question:**  
 *What could work, and under what conditions?*
 
-#### Production (Deliver & Sustain)
+### [P] Production (Deliver & Sustain)
 
 **Purpose**  
 Deliver reliable, repeatable value.
@@ -109,7 +111,9 @@ Deliver reliable, repeatable value.
 **Core question:**  
 *How do we deliver this safely, repeatedly, and at scale?*
 
-### Boundary Rules (Critical Interfaces)
+---
+
+## Boundary Rules (Critical Interfaces)
 
 #### Engagement ↔ Lab
 - Engagement may request exploration  
@@ -126,10 +130,12 @@ Deliver reliable, repeatable value.
 - Production does not negotiate scope directly  
 - Scope changes route through lab or formal change control  
 
+---
+
 ### Governance by Zone
 
-| Domain      | Governance Style        | Appropriate Metrics                  |
-|------------|-------------------------|--------------------------------------|
+| Domain     | Governance Style        | Appropriate Metrics                  |
+|:----------:|:-----------------------:|:------------------------------------:|
 | Engagement | Legitimacy & trust      | Participation, clarity, signal       |
 | Lab        | Learning velocity       | Hypotheses tested, insights          |
 | Production | Reliability & efficiency| Uptime, cost, quality                |
