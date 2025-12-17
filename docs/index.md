@@ -2,9 +2,7 @@
 layout: default
 title: Home
 ---
-## The Progressive Self-Actuation Framework — a path to becoming self-driven.
-
-The framework emphasises collaborative efforts, leveraging collective intelligence to drive sustainable and inclusive growth. By fostering active participation and shared responsibility, it seeks to empower communities to address challenges and achieve common goals effectively.
+## Frameworks & Resources for Self-Actuating Communities/Organisations.
 
 ### Frameworks
 
