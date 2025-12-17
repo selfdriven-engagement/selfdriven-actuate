@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Processes - selfdriven Onboarding
+title: Processes - selfdriven Actuate
 permalink: /design/processes/
 ---
 

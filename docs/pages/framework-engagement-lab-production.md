@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Engagement Lab Production Framework - selfdriven Community
+title: Engagement Lab Production Framework
 permalink: /framework/engagement-lab-production
 ---
 

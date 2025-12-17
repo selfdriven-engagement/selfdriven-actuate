@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Steps - selfdriven Onboarding
+title: Steps - selfdriven Actuate
 permalink: /steps/
 ---
 

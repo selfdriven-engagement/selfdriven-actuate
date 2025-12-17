@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Use-Case, BioHub Mallorca - selfdriven Onboarding
+title: Use-Case, BioHub Mallorca - selfdriven Actuate
 permalink: /use-cases/biohub-mallorca/
 ---
 

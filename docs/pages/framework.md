@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Framework - selfdriven Onboarding
+title: Progressive Self-Actuation Framework - selfdriven Actuate
 permalink: /framework
 ---
 

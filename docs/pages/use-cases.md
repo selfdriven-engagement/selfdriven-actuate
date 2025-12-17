@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Use-Cases - selfdriven Onboarding
+title: Use-Cases - selfdriven Actuate
 permalink: /use-cases/
 ---
 

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Resources - selfdriven Onboarding
+title: Resources - selfdriven Actuate
 permalink: /resources/
 ---
 

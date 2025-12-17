@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Design - selfdriven Onboarding
+title: Design - selfdriven Actuate
 permalink: /design/
 ---
 
