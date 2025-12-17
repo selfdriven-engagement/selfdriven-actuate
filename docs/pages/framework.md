@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Framework - selfdriven Onboarding
-permalink: /framework/
+permalink: /framework
 ---
 
 # Framework

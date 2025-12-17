@@ -6,12 +6,16 @@ title: Home
 
 The framework emphasises collaborative efforts, leveraging collective intelligence to drive sustainable and inclusive growth. By fostering active participation and shared responsibility, it seeks to empower communities to address challenges and achieve common goals effectively.
 
-- [Framework](framework/)
+### Frameworks
+
+- [Progressive Self-Actuation Framework](/framework)
+- [Engagement–Lab–Production Framework for Continuous Actuation](framework/progressive-self-actuation)
+
+### References
+
 - [Steps](/steps/)
 - [Use-Cases](/use-cases/) - Examples.
 - [Resources](/resources/) - Templates, Reading etc.
-
-### References
 - [selfdriven.fyi/on-boarding](https://selfdriven.fyi/on-boarding)
 - [selfdriven.services](https://selfdriven.services)
 - [skillzeb.io Resource Transformer Template](https://skillzeb.io/template-explorer/resource-transformer-starter)
