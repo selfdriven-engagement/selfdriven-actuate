@@ -10,7 +10,7 @@ permalink: /framework/engagement-lab-production
 
 This framework is a simple, resilient organisational model based on three functional domains: **Engagement**, **Lab**, and **Production**. Each domain plays a distinct role in value creation, learning, and delivery, while maintaining clear boundaries to prevent systemic failure. The model applies across corporations, cooperatives, research institutions, communities - any organisation.
 
-<img src="/assets/img/selfdriven-organisational-zones-elp.png" style="border-radius: 12px; width:100%; max-width: 800px;">
+<img src="/assets/img/selfdriven-organisational-zones-elp.png" style="border-radius: 12px; width:100%; max-width: 800px;  margin-top:20px;  margin-bottom:20px;">
 
 ### The Problem with Traditional Structures
 
