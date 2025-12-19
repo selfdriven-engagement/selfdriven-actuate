@@ -8,6 +8,7 @@ title: Home
 
 - [Progressive Self-Actuation Framework](/framework)
 - [Engagement–Lab–Production Framework for Continuous Actuation](/framework/engagement-lab-production)
+- [Input, Injected-Intelligence, Output Framework](/input-injected-intelligence-output-framework)
 
 ### References
 
