@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Home
+title: Actuate | selfdriven Community
 ---
 ## Frameworks & Resources for Self-Actuating Communities/Organisations.
 
@@ -11,7 +11,6 @@ title: Home
 - [Organisatioal Areas of Focus Framework](/framework/organisational-areas-of-focus)
 - [Input, Injected-Intelligence, Output Framework](https://selfdriven.ai/input-injected-intelligence-output-framework)
 - [Cooperative](https://www.selfdriven.coop) - templates etc
-
 
 ### References
 
