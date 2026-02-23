@@ -8,8 +8,10 @@ title: Home
 
 - [Progressive Self-Actuation Framework](/framework)
 - [Engagement–Lab–Production Framework for Continuous Actuation](/framework/engagement-lab-production)
+- [Organisatioal Areas of Focus Framework](/framework/organisational-areas-of-focus)
 - [Input, Injected-Intelligence, Output Framework](https://selfdriven.ai/input-injected-intelligence-output-framework)
 - [Cooperative](https://www.selfdriven.coop) - templates etc
+
 
 ### References
 
