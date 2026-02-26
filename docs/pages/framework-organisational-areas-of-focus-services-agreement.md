@@ -4,9 +4,15 @@ title: Services Agreement - selfdriven Areas of Focus Framework
 permalink: /framework/areas-of-focus/services-agreement
 ---
 
-# selfdriven Services — Areas of Focus Services Agreement Template
+# Areas of Focus Services Agreement Template
 
 **Human Attention for Knowledge, Orchestration & Conducting Services**
+
+---
+
+**Notes:**
+- *The amounts used with this template are example only.*
+- *This Agreement is a template and does not constitute legal advice. The Parties should seek independent legal counsel before execution.*
 
 ---
 
@@ -14,8 +20,8 @@ permalink: /framework/areas-of-focus/services-agreement
 
 This Agreement is entered into between:
 
-- **selfdriven Services** (ABN/ACN: [___________]), ("the Foundation")
-- **[Client Name]** (ABN/ACN: [___________]), ("the Client")
+- **[Provider Name]** ([___________]), ("the Provder")
+- **[Client Name]** ([___________]), ("the Client")
 
 collectively referred to as "the Parties".
 
@@ -35,7 +41,7 @@ This Agreement defines the scope of services, the allocation of human attention 
 
 ## 2. Areas of Focus — Scope of Services
 
-The Foundation shall provide services across the following eight (8) Areas of Focus ("AoF"):
+The [Provider Name] shall provide services across the following eight (8) Areas of Focus ("AoF"):
 
 | AoF # | Area of Focus | Description |
 |--------|---------------|-------------|
@@ -131,7 +137,7 @@ The breakdown between human attention and physical services within the $20,000 m
 
 ### 5.1 Reporting
 
-The Foundation shall provide the Client with a monthly report for each Area of Focus, including:
+The *[Provider Name]* shall provide the Client with a monthly report for each Area of Focus, including:
 
 - Summary of activities and attention applied.
 - Progress against agreed objectives.
@@ -190,7 +196,7 @@ This Agreement is governed by the laws of [State/Territory], Australia.
 
 ## 10. Execution
 
-| | selfdriven Services | [Client Name] |
+| | *[Provider Name]* | *[Client Name]* |
 |---|---|---|
 | **Signature** | _________________________ | _________________________ |
 | **Name** | [___________] | [___________] |
@@ -203,6 +209,3 @@ This Agreement is governed by the laws of [State/Territory], Australia.
 
 Source: [actuate.selfdriven.community/framework/areas-of-focus](https://actuate.selfdriven.community/framework/areas-of-focus)
 
----
-
-*This Agreement is a template and does not constitute legal advice. The Parties should seek independent legal counsel before execution.*
