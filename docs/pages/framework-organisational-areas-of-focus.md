@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Organisational Areas of Focus Framework
+title: selfdriven Areas of Focus Framework
 permalink: /framework/areas-of-focus
 redirect_from:
   - /framework/organisational-areas-of-focus
