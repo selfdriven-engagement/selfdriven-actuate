@@ -85,3 +85,6 @@ This systemic view is essential to the selfdriven philosophy. In a decentralised
 
 The selfdriven Organisational Areas of Focus framework provides a comprehensive and coherent structure for managing the complexity of a decentralised, community-driven organisation. By distributing attention across Direction, Engagement, Enablement, Protocols, Sustainability, Processes, Accountability, and Organisational coordination, the framework ensures that no critical dimension of organisational life is neglected. It reflects the selfdriven commitment to intentional design, transparent governance, and the sustained empowerment of self-actuating communities.
 
+----
+
+- [Template Services Agreement](/framework/areas-of-focus/services-agreement)
