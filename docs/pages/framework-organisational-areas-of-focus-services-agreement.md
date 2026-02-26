@@ -20,14 +20,14 @@ permalink: /framework/areas-of-focus/services-agreement
 
 This Agreement is entered into between:
 
-- **[Provider Name]** ([___________]), ("the Provder")
-- **[Client Name]** ([___________]), ("the Client")
+- **[Provider Name]** ([ ___________ ]), ("the Provder")
+- **[Client Name]** ([ ___________ ]), ("the Client")
 
 collectively referred to as "the Parties".
 
-**Effective Date:** [___________]
+**Effective Date:** [ ___________ ]
 
-**Agreement Term:** [___________] months, commencing from the Effective Date.
+**Agreement Term:** [ ___________ ] months, commencing from the Effective Date.
 
 ---
 
@@ -44,7 +44,7 @@ This Agreement defines the scope of services, the allocation of human attention 
 The [Provider Name] shall provide services across the following eight (8) Areas of Focus ("AoF"):
 
 | AoF # | Area of Focus | Description |
-|--------|---------------|-------------|
+|--------|---------------|:------------|
 | 1 | Direction | Overall direction, path, intent, and design setting, including the reflection process. |
 | 2 | Engagement | Explainability of values, protocols, and processes — the soul and the story. |
 | 3 | Enablement | The outputs and products of the organisation. |
@@ -99,12 +99,12 @@ For Areas of Focus numbered 1 through 7, the monthly budget is **primarily alloc
 |---|---|
 | AoF Monthly Budget | $20,000 |
 | Less: per Support Human (up to 3) | ($2,000) each |
-| **Primary Human — no Support Humans** | **$20,000** |
-| **Primary Human — 1 Support Human** | **$18,000** |
-| **Primary Human — 2 Support Humans** | **$16,000** |
-| **Primary Human — 3 Support Humans** | **$14,000** |
+| Primary Human — no Support Humans | $20,000 |
+| Primary Human — 1 Support Human | $18,000 |
+| Primary Human — 2 Support Humans | $16,000 |
+| Primary Human — 3 Support Humans | $14,000 |
 
-The Primary Human receives the AoF monthly budget less $2,000 per engaged Support Human, to a maximum of three (3) Support Humans.
+The Primary Human receives the AoF monthly budget less $2,000 per supporting human, to a maximum of three (3).
 
 ### 4.3 Area of Focus #8 — Organisational
 
@@ -190,7 +190,7 @@ Each Party agrees to keep confidential all information disclosed by the other Pa
 
 ## 9. Governing Law
 
-This Agreement is governed by the laws of [State/Territory], Australia.
+This Agreement is governed by the laws of [State/Territory/Country].
 
 ---
 
@@ -199,9 +199,9 @@ This Agreement is governed by the laws of [State/Territory], Australia.
 | | *[Provider Name]* | *[Client Name]* |
 |---|---|---|
 | **Signature** | _________________________ | _________________________ |
-| **Name** | [___________] | [___________] |
-| **Title** | [___________] | [___________] |
-| **Date** | [___________] | [___________] |
+| **Name** | [ ___________ ] | [ ___________ ] |
+| **Title** | [ ___________ ] | [ ___________ ] |
+| **Date** | [ ___________ ] | [ ___________ ] |
 
 ---
 
