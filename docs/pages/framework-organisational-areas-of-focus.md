@@ -49,7 +49,7 @@ Protocols define the technical and procedural standards that underpin the organi
 
 *Ongoing sustainability of the Archy Technology organisation, including capital for sustained human attention and conductors.*
 
-Sustainability addresses the long-term viability of the organisation. It encompasses financial sustainability — including capital management, token economics, and funding strategies — as well as the sustainability of human attention and energy. This area recognises that organisations require not only financial resources but also the sustained focus and motivation of their participants. It includes the design of incentive structures, reward mechanisms, and governance models that ensure the organisation can endure and thrive beyond its founding phase.
+Sustainability addresses the long-term viability of the organisation. It encompasses financial sustainability — including capital management, economics, and funding strategies — as well as the sustainability of human attention and energy. This area recognises that organisations require not only financial resources but also the sustained focus and motivation of their participants. It includes the design of incentive structures, reward mechanisms, and governance models that ensure the organisation can endure and thrive beyond its founding phase.
 
 ### 6. Processes
 
