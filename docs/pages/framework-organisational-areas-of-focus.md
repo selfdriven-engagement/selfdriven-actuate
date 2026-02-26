@@ -8,7 +8,7 @@ permalink: /framework/organisational-areas-of-focus
 
 The selfdriven Foundation has established a structured organisational framework built around eight distinct Areas of Focus. These areas collectively define how the organisation directs its energy, aligns its teams, and delivers on its mission of helping communities self-actuate. Rather than a traditional hierarchical structure, the framework distributes responsibility across interconnected domains, each contributing a vital function to the overall health and effectiveness of the organisation.
 
-This summary paper provides an overview of each area, explaining its purpose, scope, and contribution to the selfdriven ecosystem. The framework is designed to support decentralised governance while maintaining the coordination and coherence necessary for sustained impact.
+Following is an overview of each area, explaining its purpose, scope, and contribution to the selfdriven ecosystem. The framework is designed to support decentralised governance while maintaining the coordination and coherence necessary for sustained impact.
 
 | # | Area of Focus | Description |
 |:-:|:-------------:|:------------|
