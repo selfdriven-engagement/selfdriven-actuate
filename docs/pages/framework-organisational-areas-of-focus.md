@@ -7,7 +7,7 @@ permalink: /framework/organisational-areas-of-focus
 ## Organisational Areas of Focus
 
 | # | Area of Focus | Description |
-|!-!|:-------------:|:------------|
+|:-:|:-------------:|:------------|
 | 1 | Direction | Overall direction, path, intent, and design setting, including the reflection process. |
 | 2 | Engagement | Explainability of values, protocols, and processes — the soul and the story. |
 | 3 | Enablement | The outputs and products of the organisation. |
