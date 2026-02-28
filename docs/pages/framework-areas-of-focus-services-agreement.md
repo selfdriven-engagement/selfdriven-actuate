@@ -209,3 +209,6 @@ This Agreement is governed by the laws of [State/Territory/Country].
 
 Source: [actuate.selfdriven.community/framework/areas-of-focus](https://actuate.selfdriven.community/framework/areas-of-focus)
 
+## Schedule B - Supporting Organisational Framework
+
+[A Modern Organisational Framework for the Speed of Agentic AI](/framework/organisation-for-speed-agentic-ai)
