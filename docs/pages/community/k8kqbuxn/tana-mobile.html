@@ -1,0 +1,857 @@
+---
+layout: null
+permalink: /community/k8kqbuxn/tana/mobile
+title: TANA Mobile App
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#f8f4ef">
+<title>TANA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --brown-deep: #593934;
+  --brown-warm: #af815f;
+  --olive: #6b5f38;
+  --cream: #edd6b7;
+  --cream-light: #f5ebe0;
+  --cream-pale: #faf6f1;
+  --bg: #f8f4ef;
+  --card-bg: #ffffff;
+  --card-border: rgba(175,129,95,0.12);
+  --text-primary: #3a2e2a;
+  --text-secondary: #7a6a62;
+  --text-muted: #a89888;
+  --accent-dots: #c47a4a;
+  --danger: #c0604a;
+  --success: #6b8a5e;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html, body { height:100%; overflow:hidden; }
+body {
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #2c1e1b;
+  display: flex; align-items: center; justify-content: center;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ═══ APP SHELL ═══ */
+#app {
+  width: 100%; max-width: 430px; height: 100dvh;
+  background: var(--bg);
+  display: flex; flex-direction: column;
+  overflow: hidden; position: relative;
+  box-shadow: 0 0 60px rgba(89,57,52,0.12);
+}
+
+/* ═══ STATUS BAR ═══ */
+.status-bar {
+  height: 44px; display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 600; color: var(--text-primary);
+  flex-shrink: 0; padding-top: 8px; background: var(--bg);
+}
+
+/* ═══ SCREEN AREA ═══ */
+.screen-area {
+  flex: 1; overflow: hidden; position: relative;
+}
+.screen-wrap {
+  height: 100%;
+  transition: opacity 0.2s cubic-bezier(0.22,1,0.36,1), transform 0.2s cubic-bezier(0.22,1,0.36,1);
+}
+.screen-wrap.transitioning { opacity: 0; transform: scale(0.97); }
+
+.screen {
+  height: 100%; overflow-y: auto; overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  display: none;
+}
+.screen.active { display: block; }
+
+/* ═══ TAB BAR ═══ */
+.tab-bar {
+  height: 82px;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid var(--card-border);
+  display: none; align-items: flex-start; justify-content: space-around;
+  padding-top: 8px; padding-bottom: 20px;
+  flex-shrink: 0; z-index: 10;
+}
+.tab-bar.visible { display: flex; }
+
+.tab-item {
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  padding: 4px 14px; border: none; background: transparent;
+  cursor: pointer; -webkit-tap-highlight-color: transparent;
+  color: var(--text-muted); position: relative;
+  transition: color 0.2s ease;
+}
+.tab-item.active { color: var(--brown-warm); }
+.tab-item .tab-label { font-size: 10px; font-weight: 500; letter-spacing: 0.02em; }
+.tab-item.active .tab-label { font-weight: 600; }
+.tab-dot {
+  position: absolute; top: 2px; right: 8px;
+  width: 6px; height: 6px; border-radius: 50%; background: var(--danger);
+}
+
+/* ═══ SCROLLBAR ═══ */
+.screen::-webkit-scrollbar { width: 4px; }
+.screen::-webkit-scrollbar-track { background: transparent; }
+.screen::-webkit-scrollbar-thumb { background: rgba(175,129,95,0.15); border-radius: 2px; }
+
+/* ═══ LOGIN SCREEN ═══ */
+.login-screen {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 40px 28px; min-height: 100%;
+  background: linear-gradient(170deg, var(--bg) 0%, var(--cream-light) 50%, var(--bg) 100%);
+}
+.login-screen.appear { animation: fadeUp 0.6s cubic-bezier(0.22,1,0.36,1) both; }
+.login-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 26px; font-weight: 600; color: var(--text-primary);
+  margin-bottom: 36px; letter-spacing: -0.02em;
+}
+.login-title span { color: var(--brown-warm); }
+.login-form { width: 100%; max-width: 340px; }
+.form-label {
+  display: block; font-size: 13px; font-weight: 500;
+  color: var(--text-muted); margin-bottom: 6px;
+}
+.form-input {
+  width: 100%; height: 50px; padding: 0 16px;
+  font-size: 15px; font-family: inherit; color: var(--text-primary);
+  background: var(--card-bg); border: 1.5px solid var(--card-border);
+  border-radius: 12px; outline: none; margin-bottom: 16px;
+  box-shadow: 0 1px 3px rgba(89,57,52,0.05);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.form-input:focus {
+  border-color: var(--brown-warm);
+  box-shadow: 0 0 0 3px rgba(175,129,95,0.12);
+}
+.form-input::placeholder { color: #c4b5a8; }
+.password-wrap { position: relative; margin-bottom: 4px; }
+.password-wrap .form-input { margin-bottom: 0; padding-right: 44px; }
+.toggle-pw {
+  position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+  background: none; border: none; cursor: pointer; color: var(--text-muted); padding: 4px;
+}
+.forgot-link {
+  display: block; text-align: center; margin: 18px 0 24px;
+  font-size: 14px; font-weight: 500; color: var(--brown-warm);
+  cursor: pointer; text-decoration: none;
+}
+.login-btn {
+  width: 100%; height: 52px; font-size: 15px; font-weight: 600;
+  font-family: inherit; color: var(--cream); background: var(--brown-deep);
+  border: none; border-radius: 12px; cursor: pointer;
+  box-shadow: 0 3px 12px rgba(89,57,52,0.2);
+  letter-spacing: 0.03em; transition: all 0.3s ease;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.login-btn:active { transform: scale(0.98); }
+.login-btn.loading { background: var(--text-muted); cursor: default; }
+.spinner {
+  width: 16px; height: 16px; border: 2px solid var(--cream);
+  border-top-color: transparent; border-radius: 50%;
+  animation: spin 0.7s linear infinite; display: inline-block;
+}
+
+/* ═══ HOME SCREEN ═══ */
+.home-header {
+  padding: 16px 20px 12px; display: flex;
+  align-items: center; justify-content: space-between;
+}
+.home-header-left { display: flex; align-items: center; gap: 12px; }
+.logo-badge {
+  width: 42px; height: 42px; border-radius: 12px; background: var(--brown-deep);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 8px rgba(89,57,52,0.18); flex-shrink: 0;
+}
+.home-subtitle { font-size: 13px; color: var(--text-muted); margin-bottom: 1px; }
+.home-title {
+  font-size: 20px; font-weight: 700; color: var(--text-primary);
+  font-family: 'Playfair Display', Georgia, serif;
+}
+.bell-btn {
+  width: 40px; height: 40px; border-radius: 12px; background: var(--cream-light);
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
+  border: 1px solid var(--card-border);
+}
+.tab-pills { padding: 0 20px; display: flex; gap: 8px; margin-bottom: 22px; }
+.pill-btn {
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px 18px; border-radius: 20px;
+  border: 1.5px solid var(--card-border); background: var(--card-bg);
+  color: var(--text-secondary); font-size: 13px; font-weight: 500;
+  font-family: inherit; cursor: pointer; transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.pill-btn.active {
+  border-color: var(--brown-warm); background: rgba(175,129,95,0.1);
+  color: var(--brown-deep);
+}
+.section-heading {
+  padding: 0 20px; font-size: 13.5px; color: var(--text-muted); margin-bottom: 14px;
+}
+
+/* ═══ DASH CARDS ═══ */
+.cards-grid {
+  padding: 0 20px; display: grid; grid-template-columns: 1fr 1fr;
+  gap: 12px; margin-bottom: 12px;
+}
+.dash-card {
+  background: var(--card-bg); border-radius: 16px; padding: 18px 20px;
+  border: 1px solid var(--card-border); box-shadow: 0 1px 4px rgba(89,57,52,0.05);
+  display: flex; flex-direction: column; min-height: 120px;
+  cursor: pointer; -webkit-tap-highlight-color: transparent;
+  transition: transform 0.15s ease;
+}
+.dash-card:active { transform: scale(0.97); }
+.dash-card-title {
+  font-size: 14px; font-weight: 600; color: var(--brown-deep);
+  padding-bottom: 10px; border-bottom: 1px solid rgba(175,129,95,0.08); margin-bottom: 8px;
+}
+.dash-card-spacer { flex: 1; }
+.dash-card-footer { display: flex; align-items: baseline; gap: 10px; }
+.dash-card-count {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 30px; font-weight: 600; line-height: 1;
+  opacity: 0; transform: translateY(6px);
+  transition: all 0.4s cubic-bezier(0.22,1,0.36,1);
+}
+.dash-card-count.visible { opacity: 1; transform: translateY(0); }
+.dash-card-badge {
+  font-size: 10.5px; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--olive);
+}
+
+/* ═══ PANEL CARDS ═══ */
+.panel-card {
+  margin: 0 20px 16px; background: var(--card-bg); border-radius: 16px;
+  padding: 18px 20px; border: 1px solid var(--card-border);
+  box-shadow: 0 1px 4px rgba(89,57,52,0.05);
+}
+.panel-card.updates {
+  background: linear-gradient(135deg, var(--card-bg) 0%, var(--cream-pale) 100%);
+}
+.panel-card-header {
+  display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;
+}
+.panel-card-title { font-size: 15px; font-weight: 700; color: var(--brown-deep); }
+.panel-card-body {
+  font-size: 13.5px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 14px;
+}
+.panel-card-body.muted { color: var(--text-muted); font-style: italic; font-size: 13px; margin-bottom: 0; }
+.panel-card-btn {
+  width: 100%; padding: 10px 16px; border-radius: 20px;
+  border: 1.5px solid var(--card-border); background: transparent;
+  color: var(--text-primary); font-size: 13px; font-weight: 500;
+  font-family: inherit; cursor: pointer; transition: all 0.2s ease;
+}
+.panel-card-btn:active { background: rgba(175,129,95,0.08); border-color: var(--brown-warm); }
+
+/* ═══ TASKS SCREEN ═══ */
+.tasks-header {
+  padding: 16px 20px 10px;
+}
+.tasks-title {
+  font-size: 22px; font-weight: 700; color: var(--text-primary);
+  font-family: 'Playfair Display', Georgia, serif; margin-bottom: 4px;
+}
+.tasks-sub { font-size: 13px; color: var(--text-muted); }
+.task-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 14px 20px; border-bottom: 1px solid var(--card-border);
+  opacity: 0; animation: slideIn 0.35s cubic-bezier(0.22,1,0.36,1) forwards;
+}
+.task-check {
+  width: 22px; height: 22px; border-radius: 6px; margin-top: 1px;
+  border: 2px solid var(--card-border); background: transparent;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.task-check.done { border: none; background: var(--success); }
+.task-title { font-size: 14.5px; font-weight: 500; color: var(--text-primary); margin-bottom: 4px; line-height: 1.3; }
+.task-title.done { color: var(--text-muted); text-decoration: line-through; }
+.task-meta { display: flex; align-items: center; gap: 8px; }
+.task-due { font-size: 12px; color: var(--text-muted); }
+.task-due.urgent { color: var(--danger); }
+.priority-dot { width: 6px; height: 6px; border-radius: 50%; }
+.fab {
+  position: sticky; bottom: 20px; float: right; margin-right: 20px;
+  width: 52px; height: 52px; border-radius: 16px; border: none;
+  background: var(--brown-deep); color: var(--cream);
+  box-shadow: 0 4px 16px rgba(89,57,52,0.3);
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
+}
+.fab:active { transform: scale(0.93); }
+
+/* ═══ CONVERSATIONS SCREEN ═══ */
+.conv-header { padding: 16px 20px 10px; }
+.conv-title {
+  font-size: 22px; font-weight: 700; color: var(--text-primary);
+  font-family: 'Playfair Display', Georgia, serif;
+}
+.search-bar {
+  margin: 8px 20px 16px; display: flex; align-items: center; gap: 10px;
+  padding: 0 14px; height: 42px; border-radius: 12px;
+  background: var(--cream-light); border: 1px solid var(--card-border);
+}
+.search-bar span { font-size: 14px; color: var(--text-muted); }
+.conv-item {
+  display: flex; align-items: center; gap: 12px; padding: 12px 20px;
+  border-bottom: 1px solid var(--card-border); cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  opacity: 0; animation: slideIn 0.35s cubic-bezier(0.22,1,0.36,1) forwards;
+}
+.conv-avatar {
+  width: 44px; height: 44px; border-radius: 13px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 600; color: #fff; flex-shrink: 0;
+}
+.conv-info { flex: 1; min-width: 0; }
+.conv-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 3px; }
+.conv-name { font-size: 14.5px; font-weight: 500; color: var(--text-primary); }
+.conv-name.unread { font-weight: 600; }
+.conv-time { font-size: 12px; color: var(--text-muted); }
+.conv-msg {
+  font-size: 13px; color: var(--text-muted); font-weight: 400;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.conv-msg.unread { color: var(--text-secondary); font-weight: 500; }
+.conv-badge {
+  min-width: 20px; height: 20px; border-radius: 10px;
+  background: var(--brown-warm); display: flex; align-items: center;
+  justify-content: center; font-size: 11px; font-weight: 600;
+  color: #fff; padding: 0 6px;
+}
+
+/* ═══ MENU SCREEN ═══ */
+.menu-profile {
+  padding: 24px 20px 20px; display: flex; align-items: center; gap: 14px;
+  border-bottom: 1px solid var(--card-border); margin-bottom: 8px;
+}
+.menu-avatar {
+  width: 52px; height: 52px; border-radius: 14px; background: var(--brown-deep);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 8px rgba(89,57,52,0.2);
+}
+.menu-name { font-size: 17px; font-weight: 600; color: var(--text-primary); }
+.menu-role { font-size: 13px; color: var(--text-muted); }
+.menu-list { padding: 4px 12px; }
+.menu-item {
+  width: 100%; display: flex; align-items: center; gap: 14px;
+  padding: 13px 12px; border-radius: 12px; border: none;
+  background: transparent; cursor: pointer; font-family: inherit;
+  font-size: 15px; color: var(--text-primary); text-align: left;
+  -webkit-tap-highlight-color: transparent;
+  opacity: 0; animation: slideIn 0.3s cubic-bezier(0.22,1,0.36,1) forwards;
+}
+.menu-item:active { background: var(--cream-light); }
+.menu-item.danger { color: var(--danger); }
+.menu-item-icon {
+  width: 36px; height: 36px; border-radius: 10px; background: var(--cream-light);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.menu-item.danger .menu-item-icon { background: rgba(192,96,74,0.08); }
+.menu-item-label { flex: 1; }
+.menu-divider {
+  height: 1px; background: var(--card-border); margin: 8px 24px 0;
+}
+.menu-bottom { padding: 12px 12px 0; }
+
+/* ═══ PLACEHOLDER SCREEN ═══ */
+.placeholder {
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; padding: 40px; text-align: center; min-height: 400px;
+}
+.placeholder-icon {
+  width: 64px; height: 64px; border-radius: 18px; background: var(--cream-light);
+  display: flex; align-items: center; justify-content: center; margin-bottom: 16px;
+  border: 1px solid var(--card-border);
+}
+.placeholder-title { font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px; }
+.placeholder-sub { font-size: 14px; color: var(--text-muted); line-height: 1.5; }
+
+/* ═══ ANIMATIONS ═══ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-8px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<div id="app">
+  <!-- Status Bar -->
+  <div class="status-bar"><span id="clock"></span></div>
+
+  <!-- Screen Area -->
+  <div class="screen-area">
+    <div class="screen-wrap" id="screenWrap">
+
+      <!-- ═══ LOGIN ═══ -->
+      <div class="screen active" id="screen-login">
+        <div class="login-screen appear">
+          <div style="margin-bottom:8px">
+            <svg width="72" height="72" viewBox="0 0 120 120" fill="none">
+              <g transform="translate(10,10)">
+                <path d="M50 0 L95 25 L95 35 L55 13 L55 100 L45 100 L45 13 L5 35 L5 25 Z" fill="#593934" opacity="0.9"/>
+                <path d="M25 40 L70 15 L70 25 L30 47 L30 100 L20 100 L20 47 Z" fill="#593934" opacity="0.6"/>
+                <path d="M65 50 L65 100 L75 100 L75 45 L100 32 L100 25 Z" fill="#593934" opacity="0.35"/>
+              </g>
+            </svg>
+          </div>
+          <h1 class="login-title">Log in to <span>TANA</span></h1>
+          <div class="login-form">
+            <label class="form-label">Username</label>
+            <input type="text" class="form-input" id="loginUser" placeholder="Enter your username" autocomplete="username">
+            <label class="form-label">Password</label>
+            <div class="password-wrap">
+              <input type="password" class="form-input" id="loginPass" placeholder="Enter your password" autocomplete="current-password">
+              <button class="toggle-pw" onclick="togglePw()" aria-label="Toggle password">
+                <svg id="eyeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+            </div>
+            <a class="forgot-link">Forgot Password?</a>
+            <button class="login-btn" id="loginBtn" onclick="doLogin()">Log In</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ HOME ═══ -->
+      <div class="screen" id="screen-home" style="padding-bottom:100px">
+        <div class="home-header">
+          <div class="home-header-left">
+            <div class="logo-badge">
+              <svg width="28" height="28" viewBox="0 0 120 120" fill="none">
+                <g transform="translate(10,10)">
+                  <path d="M50 0 L95 25 L95 35 L55 13 L55 100 L45 100 L45 13 L5 35 L5 25 Z" fill="#edd6b7" opacity="0.9"/>
+                  <path d="M25 40 L70 15 L70 25 L30 47 L30 100 L20 100 L20 47 Z" fill="#edd6b7" opacity="0.6"/>
+                  <path d="M65 50 L65 100 L75 100 L75 45 L100 32 L100 25 Z" fill="#edd6b7" opacity="0.35"/>
+                </g>
+              </svg>
+            </div>
+            <div>
+              <div class="home-subtitle">Welcome back</div>
+              <div class="home-title">Dashboard</div>
+            </div>
+          </div>
+          <div class="bell-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#af815f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          </div>
+        </div>
+
+        <div class="tab-pills">
+          <button class="pill-btn active" onclick="setPill(this)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            My
+          </button>
+          <button class="pill-btn" onclick="setPill(this)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Community
+          </button>
+        </div>
+
+        <div class="section-heading">What you are accountable for…</div>
+
+        <div class="cards-grid">
+          <div class="dash-card">
+            <div class="dash-card-title">Tasks</div>
+            <div class="dash-card-spacer"></div>
+            <div class="dash-card-footer">
+              <div class="dash-card-count" style="color:var(--brown-deep)" data-count="12">—</div>
+              <div class="dash-card-badge">OPEN</div>
+            </div>
+          </div>
+          <div class="dash-card">
+            <div class="dash-card-title">Teams</div>
+            <div class="dash-card-spacer"></div>
+            <div class="dash-card-footer">
+              <div class="dash-card-count" style="color:var(--brown-deep)" data-count="3">—</div>
+              <div class="dash-card-badge">ACTIVE</div>
+            </div>
+          </div>
+        </div>
+        <div class="cards-grid" style="margin-bottom:24px">
+          <div class="dash-card">
+            <div class="dash-card-title">Tasks Due Soon</div>
+            <div class="dash-card-spacer"></div>
+            <div class="dash-card-footer">
+              <div class="dash-card-count" style="color:var(--brown-warm)" data-count="5">—</div>
+              <div class="dash-card-badge">TOTAL</div>
+            </div>
+          </div>
+          <div class="dash-card">
+            <div class="dash-card-title">Overdue Tasks</div>
+            <div class="dash-card-spacer"></div>
+            <div class="dash-card-footer">
+              <div class="dash-card-count" style="color:var(--danger)" data-count="2">—</div>
+              <div class="dash-card-badge">TOTAL</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-card updates">
+          <div class="panel-card-header">
+            <span class="panel-card-title">Updates</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a89888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>
+          </div>
+          <div class="panel-card-body muted">No new updates</div>
+        </div>
+
+        <div class="panel-card">
+          <div class="panel-card-title" style="margin-bottom:6px">What's up?</div>
+          <div class="panel-card-body">What's going on and who's doing it?</div>
+          <button class="panel-card-btn" onclick="navigateTo('tasks')">Community Planning</button>
+        </div>
+
+        <div class="panel-card">
+          <div class="panel-card-title" style="margin-bottom:6px">Need help?</div>
+          <div class="panel-card-body">There are other members of this community that can help you.</div>
+          <button class="panel-card-btn">Find a facilitator</button>
+        </div>
+      </div>
+
+      <!-- ═══ TASKS ═══ -->
+      <div class="screen" id="screen-tasks" style="padding-bottom:100px">
+        <div class="tasks-header">
+          <div class="tasks-title">Tasks</div>
+          <div class="tasks-sub">5 open tasks</div>
+        </div>
+        <div id="taskList"></div>
+        <button class="fab" aria-label="Add task">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#edd6b7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+      </div>
+
+      <!-- ═══ CONVERSATIONS ═══ -->
+      <div class="screen" id="screen-conversations" style="padding-bottom:100px">
+        <div class="conv-header"><div class="conv-title">Conversations</div></div>
+        <div class="search-bar">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a89888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <span>Search conversations…</span>
+        </div>
+        <div id="convList"></div>
+      </div>
+
+      <!-- ═══ MENU ═══ -->
+      <div class="screen" id="screen-menu" style="padding-bottom:100px">
+        <div class="menu-profile">
+          <div class="menu-avatar">
+            <svg width="32" height="32" viewBox="0 0 120 120" fill="none">
+              <g transform="translate(10,10)">
+                <path d="M50 0 L95 25 L95 35 L55 13 L55 100 L45 100 L45 13 L5 35 L5 25 Z" fill="#edd6b7" opacity="0.9"/>
+                <path d="M25 40 L70 15 L70 25 L30 47 L30 100 L20 100 L20 47 Z" fill="#edd6b7" opacity="0.6"/>
+                <path d="M65 50 L65 100 L75 100 L75 45 L100 32 L100 25 Z" fill="#edd6b7" opacity="0.35"/>
+              </g>
+            </svg>
+          </div>
+          <div>
+            <div class="menu-name">TANA Community</div>
+            <div class="menu-role">Member</div>
+          </div>
+        </div>
+        <div class="menu-list" id="menuList"></div>
+        <div class="menu-divider"></div>
+        <div class="menu-bottom" id="menuBottom"></div>
+      </div>
+
+      <!-- ═══ PLACEHOLDER ═══ -->
+      <div class="screen" id="screen-placeholder" style="padding-bottom:100px">
+        <div class="placeholder">
+          <div class="placeholder-icon" id="phIcon"></div>
+          <div class="placeholder-title" id="phTitle"></div>
+          <div class="placeholder-sub">This section is coming soon.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Tab Bar -->
+  <div class="tab-bar" id="tabBar">
+    <button class="tab-item active" data-tab="home" onclick="navigateTo('home')">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span class="tab-label">Home</span>
+    </button>
+    <button class="tab-item" data-tab="tasks" onclick="navigateTo('tasks')">
+      <div class="tab-dot"></div>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      <span class="tab-label">Tasks</span>
+    </button>
+    <button class="tab-item" data-tab="conversations" onclick="navigateTo('conversations')">
+      <div class="tab-dot"></div>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span class="tab-label">Chat</span>
+    </button>
+    <button class="tab-item" data-tab="menu" onclick="navigateTo('menu')">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      <span class="tab-label">More</span>
+    </button>
+  </div>
+</div>
+
+<script>
+// ═══ STATE ═══
+let currentScreen = 'login';
+let loggedIn = false;
+
+// ═══ CLOCK ═══
+function updateClock() {
+  document.getElementById('clock').textContent = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+}
+updateClock(); setInterval(updateClock, 30000);
+
+// ═══ SVG ICON HELPER ═══
+function icon(name, size=18, color='#af815f', sw=1.8) {
+  const icons = {
+    home: '<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>',
+    zap: '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>',
+    chat: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
+    users: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+    smile: '<circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/>',
+    git: '<circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M6 21V9a9 9 0 0 0 9 9"/>',
+    folder: '<path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>',
+    docs: '<rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>',
+    token: '<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/>',
+    pie: '<path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/>',
+    dollar: '<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>',
+    search: '<circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>',
+    settings: '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.26.6.85 1 1.51 1H21a2 2 0 0 1 0 4h-.09c-.66 0-1.25.4-1.51 1z"/>',
+    logout: '<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>',
+    chevron: '<polyline points="9 18 15 12 9 6"/>',
+    check: '<polyline points="20 6 9 17 4 12"/>',
+  };
+  return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round">${icons[name]||''}</svg>`;
+}
+
+// ═══ LOGIN ═══
+function togglePw() {
+  const inp = document.getElementById('loginPass');
+  const ico = document.getElementById('eyeIcon');
+  if (inp.type === 'password') {
+    inp.type = 'text';
+    ico.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
+  } else {
+    inp.type = 'password';
+    ico.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+  }
+}
+
+function doLogin() {
+  const btn = document.getElementById('loginBtn');
+  if (btn.classList.contains('loading')) return;
+  btn.classList.add('loading');
+  btn.innerHTML = '<span class="spinner"></span> Signing in…';
+  setTimeout(() => {
+    loggedIn = true;
+    document.getElementById('tabBar').classList.add('visible');
+    navigateTo('home');
+    btn.classList.remove('loading');
+    btn.innerHTML = 'Log In';
+    // Animate counts
+    setTimeout(animateCounts, 300);
+  }, 1000);
+}
+
+document.getElementById('loginPass').addEventListener('keydown', e => { if (e.key==='Enter') doLogin(); });
+
+// ═══ NAVIGATION ═══
+function navigateTo(screenId) {
+  const wrap = document.getElementById('screenWrap');
+  wrap.classList.add('transitioning');
+
+  setTimeout(() => {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+
+    // Map to known screens or placeholder
+    const knownScreens = ['login','home','tasks','conversations','menu'];
+    if (knownScreens.includes(screenId)) {
+      document.getElementById('screen-' + screenId).classList.add('active');
+    } else {
+      showPlaceholder(screenId);
+      document.getElementById('screen-placeholder').classList.add('active');
+    }
+
+    // Update tab bar
+    document.querySelectorAll('.tab-item').forEach(t => {
+      t.classList.toggle('active', t.dataset.tab === screenId);
+    });
+
+    // Scroll to top
+    const activeScreen = document.querySelector('.screen.active');
+    if (activeScreen) activeScreen.scrollTop = 0;
+
+    currentScreen = screenId;
+    wrap.classList.remove('transitioning');
+
+    // Re-animate tasks/conversations on enter
+    if (screenId === 'tasks') buildTasks();
+    if (screenId === 'conversations') buildConversations();
+    if (screenId === 'menu') buildMenu();
+    if (screenId === 'home') setTimeout(animateCounts, 300);
+  }, 200);
+}
+
+// ═══ PILL TABS ═══
+function setPill(btn) {
+  document.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// ═══ ANIMATE COUNTS ═══
+function animateCounts() {
+  document.querySelectorAll('.dash-card-count').forEach((el, i) => {
+    el.classList.remove('visible');
+    el.textContent = '—';
+    setTimeout(() => {
+      el.textContent = el.dataset.count;
+      el.classList.add('visible');
+    }, 200 + i * 120);
+  });
+}
+
+// ═══ PLACEHOLDER ═══
+const placeholderMeta = {
+  contacts: { title:'Contacts', icon:'users' },
+  opportunities: { title:'Opportunities', icon:'smile' },
+  decisions: { title:'Decisions', icon:'git' },
+  projects: { title:'Projects', icon:'folder' },
+  docs: { title:'Docs', icon:'docs' },
+  tokens: { title:'Tokens', icon:'token' },
+  operations: { title:'Operations', icon:'pie' },
+  financials: { title:'Financials', icon:'dollar' },
+  reports: { title:'Reports', icon:'search' },
+  settings: { title:'Settings', icon:'settings' },
+  whatsup: { title:"What's Up?", icon:'zap' },
+};
+function showPlaceholder(key) {
+  const meta = placeholderMeta[key] || { title: key, icon: 'folder' };
+  document.getElementById('phTitle').textContent = meta.title;
+  document.getElementById('phIcon').innerHTML = icon(meta.icon, 28, '#af815f');
+}
+
+// ═══ BUILD TASKS ═══
+function buildTasks() {
+  const tasks = [
+    { title:'Review Q4 community report', due:'Today', priority:'high', done:false },
+    { title:'Update SSI credential schema', due:'Tomorrow', priority:'medium', done:false },
+    { title:'Prepare KERI delegation docs', due:'Mar 5', priority:'medium', done:false },
+    { title:'Facilitate governance meeting', due:'Mar 7', priority:'low', done:true },
+    { title:'Deploy identity wallet update', due:'Mar 8', priority:'high', done:false },
+    { title:'Write newsletter draft', due:'Mar 10', priority:'low', done:false },
+  ];
+  const colors = { high:'var(--danger)', medium:'var(--brown-warm)', low:'var(--success)' };
+  const list = document.getElementById('taskList');
+  list.innerHTML = tasks.map((t,i) => `
+    <div class="task-item" style="animation-delay:${i*60}ms">
+      <div class="task-check ${t.done?'done':''}">${t.done?icon('check',14,'#fff',2.5):''}</div>
+      <div style="flex:1;min-width:0">
+        <div class="task-title ${t.done?'done':''}">${t.title}</div>
+        <div class="task-meta">
+          <span class="task-due ${t.due==='Today'?'urgent':''}">${t.due}</span>
+          <span class="priority-dot" style="background:${colors[t.priority]}"></span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ═══ BUILD CONVERSATIONS ═══
+function buildConversations() {
+  const convs = [
+    { name:'Governance Council', msg:'Next meeting agenda is ready', time:'2m', unread:3, avatar:'GC', color:'#593934' },
+    { name:'Identity WG', msg:'KERI delegation module PR merged', time:'1h', unread:0, avatar:'ID', color:'#6b5f38' },
+    { name:'Sarah Chen', msg:'Can you review the credential flow?', time:'3h', unread:1, avatar:'SC', color:'#af815f' },
+    { name:'Operations', msg:'Deployment scheduled for Friday', time:'1d', unread:0, avatar:'OP', color:'#5e7a6b' },
+    { name:'Alex Rivera', msg:'Thanks for the update!', time:'2d', unread:0, avatar:'AR', color:'#7a6a8a' },
+  ];
+  const list = document.getElementById('convList');
+  list.innerHTML = convs.map((c,i) => `
+    <div class="conv-item" style="animation-delay:${i*60}ms">
+      <div class="conv-avatar" style="background:${c.color}">${c.avatar}</div>
+      <div class="conv-info">
+        <div class="conv-top">
+          <span class="conv-name ${c.unread?'unread':''}">${c.name}</span>
+          <span class="conv-time">${c.time}</span>
+        </div>
+        <div class="conv-msg ${c.unread?'unread':''}">${c.msg}</div>
+      </div>
+      ${c.unread?`<div class="conv-badge">${c.unread}</div>`:''}
+    </div>
+  `).join('');
+}
+
+// ═══ BUILD MENU ═══
+function buildMenu() {
+  const items = [
+    { icon:'home', label:'Home', key:'home' },
+    { icon:'zap', label:"What's Up?", key:'whatsup' },
+    { icon:'chat', label:'Conversations', key:'conversations' },
+    { icon:'users', label:'Contacts', key:'contacts' },
+    { icon:'smile', label:'Opportunities', key:'opportunities' },
+    { icon:'git', label:'Decisions', key:'decisions' },
+    { icon:'folder', label:'Projects', key:'projects' },
+    { icon:'docs', label:'Docs', key:'docs' },
+    { icon:'token', label:'Tokens', key:'tokens' },
+    { icon:'pie', label:'Operations', key:'operations' },
+    { icon:'dollar', label:'Financials', key:'financials' },
+    { icon:'search', label:'Reports', key:'reports' },
+  ];
+  document.getElementById('menuList').innerHTML = items.map((it,i) => `
+    <button class="menu-item" style="animation-delay:${i*30}ms" onclick="navigateTo('${it.key}')">
+      <div class="menu-item-icon">${icon(it.icon,18,'#af815f')}</div>
+      <span class="menu-item-label">${it.label}</span>
+      ${icon('chevron',16,'#a89888')}
+    </button>
+  `).join('');
+  document.getElementById('menuBottom').innerHTML = `
+    <button class="menu-item" onclick="navigateTo('settings')">
+      <div class="menu-item-icon">${icon('settings',18,'#a89888')}</div>
+      <span class="menu-item-label">Settings</span>
+      ${icon('chevron',16,'#a89888')}
+    </button>
+    <button class="menu-item danger" onclick="doLogout()">
+      <div class="menu-item-icon">${icon('logout',18,'#c0604a')}</div>
+      <span class="menu-item-label">Log Out</span>
+    </button>
+  `;
+}
+
+// ═══ LOGOUT ═══
+function doLogout() {
+  const wrap = document.getElementById('screenWrap');
+  wrap.classList.add('transitioning');
+  setTimeout(() => {
+    loggedIn = false;
+    document.getElementById('tabBar').classList.remove('visible');
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('screen-login').classList.add('active');
+    currentScreen = 'login';
+    wrap.classList.remove('transitioning');
+  }, 300);
+}
+
+// ═══ INIT ═══
+buildTasks();
+buildConversations();
+buildMenu();
+</script>
+</body>
+</html>
