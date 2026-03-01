@@ -11,6 +11,7 @@ title: Actuate | selfdriven Community
 - [Areas of Focus Framework](/framework/areas-of-focus)
 - [Input, Injected-Intelligence, Output Framework](https://selfdriven.ai/input-injected-intelligence-output-framework)
 - [Cooperative](https://www.selfdriven.coop) - templates etc
+- [Framework for AI Assisted Actuation](/framework/ai-assisted-actuation)
 
 ### References
 
