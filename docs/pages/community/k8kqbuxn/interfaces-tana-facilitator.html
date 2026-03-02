@@ -9,6 +9,7 @@ title: TANA Facilitator Interface
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TANA — Community Platform</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' rx='24' fill='%23593934'/%3E%3Cg transform='translate(10,10)'%3E%3Cpath d='M50 0 L95 25 L95 35 L55 13 L55 100 L45 100 L45 13 L5 35 L5 25 Z' fill='%23edd6b7' opacity='0.9'/%3E%3Cpath d='M25 40 L70 15 L70 25 L30 47 L30 100 L20 100 L20 47 Z' fill='%23edd6b7' opacity='0.6'/%3E%3Cpath d='M65 50 L65 100 L75 100 L75 45 L100 32 L100 25 Z' fill='%23edd6b7' opacity='0.35'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Playfair+Display:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -765,7 +766,7 @@ pages.whatsup=()=>`
     <div class="avatar" style="background:var(--brown-deep)">MC</div>
     <textarea class="form-input" placeholder="Share an update with the community…" style="min-height:60px"></textarea>
   </div>
-  <div style="display:flex;justify-content:flex-end;margin-top:10px"><button class="btn btn-primary btn-sm">Post Update</button></div>
+  <div style="display:flex;justify-content:flex-end;margin-top:10px"><button class="btn btn-primary btn-sm" onclick="openNewPost()">Post Update</button></div>
 </div></div>
 <div class="card post-card"><div class="card-body">
   <div class="post-header"><div class="avatar" style="background:var(--olive)">SC</div><div class="post-meta"><div class="post-author">Sarah Chen</div><div class="post-time">2 hours ago</div></div></div>
@@ -941,7 +942,7 @@ pages.projects=()=>`
     <div class="page-icon">${I('folder',22,'var(--brown-warm)')}</div>
     <div><div class="page-title">Projects</div><div class="page-subtitle">Community projects with tasks</div></div>
   </div>
-  <div class="header-actions"><button class="btn btn-primary">${I('plus',14,'#edd6b7')} New Project</button></div>
+  <div class="header-actions"><button class="btn btn-primary" onclick="openNewProject()">${I('plus',14,'#edd6b7')} New Project</button></div>
 </div>
 ${[
 {name:'Identity Wallet v2',progress:68,tasks:24,done:16,members:['SC','AR','ML'],status:'active',color:'var(--success)'},
@@ -977,7 +978,7 @@ pages.docs=()=>`
   </div>
   <div class="header-actions">
     <div class="search-box">${I('search',16,'#a89888')}<input placeholder="Search documents…"></div>
-    <button class="btn btn-primary">${I('upload',14,'#edd6b7')} Upload</button>
+    <button class="btn btn-primary" onclick="openUploadDoc()">${I('upload',14,'#edd6b7')} Upload</button>
   </div>
 </div>
 ${tabsHTML(['All Documents','Governance','Technical','Templates'])}
@@ -1013,8 +1014,8 @@ pages.tokens=()=>`
   <div class="token-balance" id="tokenVal">0</div>
   <div class="token-label">TANA Tokens</div>
   <div class="token-actions">
-    <button class="token-btn">Transaction History</button>
-    <button class="token-btn">Redeem</button>
+    <button class="token-btn" onclick="openTokenHistory()">Transaction History</button>
+    <button class="token-btn" onclick="openTokenRedeem()">Redeem</button>
   </div>
 </div>
 <div class="stats-row">
@@ -1046,6 +1047,7 @@ pages.operations=()=>`
     <div class="page-icon">${I('pie',22,'var(--brown-warm)')}</div>
     <div><div class="page-title">Operations</div><div class="page-subtitle">Community resources, products & orders</div></div>
   </div>
+  <div class="header-actions"><button class="btn btn-primary" onclick="openAddResource()">${I('plus',14,'#edd6b7')} Add Resource</button></div>
 </div>
 ${tabsHTML(['Resources','Products','Orders'])}
 <div class="stats-row">
@@ -1081,7 +1083,7 @@ pages.financials=()=>`
     <div class="page-icon">${I('dollar',22,'var(--brown-warm)')}</div>
     <div><div class="page-title">Financials</div><div class="page-subtitle">Expenses, income, reporting & on-chain</div></div>
   </div>
-  <div class="header-actions"><button class="btn">${I('download',14)} Export</button></div>
+  <div class="header-actions"><button class="btn" onclick="openExportReport('financials')">${I('download',14)} Export</button><button class="btn btn-primary" onclick="openAddTransaction()">${I('plus',14,'#edd6b7')} Add Transaction</button></div>
 </div>
 ${tabsHTML(['Overview','Expenses','Income','On-Chain'])}
 <div class="stats-row">
@@ -1137,7 +1139,7 @@ pages.reports=()=>`
     <div class="page-icon">${I('search',22,'var(--brown-warm)')}</div>
     <div><div class="page-title">Reports</div><div class="page-subtitle">AI-powered community insights</div></div>
   </div>
-  <div class="header-actions"><button class="btn">${I('download',14)} Export Report</button></div>
+  <div class="header-actions"><button class="btn" onclick="openExportReport('reports')">${I('download',14)} Export Report</button></div>
 </div>
 ${tabsHTML(['AI Chat','Generated Reports','Metrics'])}
 <div class="chat-container" id="chatContainer">
@@ -1202,7 +1204,7 @@ ${tabsHTML(['Profile','Security','Notifications','Privacy'])}
       <div class="security-item-info"><div class="security-item-name">YubiKey 5C</div><div class="security-item-date">Added Dec 20, 2025</div></div>
       <button class="btn btn-sm btn-ghost" style="color:var(--danger)">Remove</button>
     </div>
-    <button class="btn" style="margin-top:12px;width:100%;justify-content:center">${I('plus',14)} Register New Passkey</button>
+    <button class="btn" style="margin-top:12px;width:100%;justify-content:center" onclick="openRegisterPasskey()">${I('plus',14)} Register New Passkey</button>
   </div></div>
 </div>
 
@@ -1222,7 +1224,7 @@ ${tabsHTML(['Profile','Security','Notifications','Privacy'])}
     <div class="security-item">
       <div class="security-item-icon">${I('key',20,'var(--text-muted)')}</div>
       <div class="security-item-info"><div class="security-item-name">Recovery Codes</div><div class="security-item-date">6 of 10 remaining</div></div>
-      <button class="btn btn-sm">Regenerate</button>
+      <button class="btn btn-sm" onclick="openRegenerateCodes()">Regenerate</button>
     </div>
   </div></div>
 
@@ -1931,6 +1933,555 @@ function openSubmitOpportunity(){
     <button class="btn" onclick="closeModal()">Cancel</button>
     <button class="btn" style="border-color:var(--warning);color:var(--warning)">Save Draft</button>
     <button class="btn btn-primary" onclick="closeModal();navigate('opportunities')">Submit Opportunity</button>
+  </div>
+  `);
+}
+
+// ═══════════════════════════════════════
+// NEW PROJECT
+// ═══════════════════════════════════════
+function openNewProject(){
+  openModal(`
+  <div class="modal-header">
+    <div class="modal-header-left">
+      <div class="page-icon" style="width:38px;height:38px">${I('folder',20,'var(--brown-warm)')}</div>
+      <div><div class="modal-title">New Project</div><div class="modal-subtitle">Create a community project with tasks</div></div>
+    </div>
+    <button class="modal-close" onclick="closeModal()">✕</button>
+  </div>
+  <div class="modal-body">
+    <div class="form-section">
+      <div class="form-section-title">${I('folder',15,'var(--brown-warm)')} Project Details</div>
+      <div class="form-group">
+        <label class="form-label">Project Name <span style="color:var(--danger)">*</span></label>
+        <input class="form-input" placeholder="e.g., Identity Wallet v3">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Description <span style="color:var(--danger)">*</span></label>
+        <textarea class="form-input" placeholder="Describe the project goals, scope, and expected deliverables…" style="min-height:120px"></textarea>
+      </div>
+      <div class="form-row three">
+        <div class="form-group">
+          <label class="form-label">Category</label>
+          <select class="form-select">
+            <option>Development</option><option>Governance</option><option>Infrastructure</option>
+            <option>Community</option><option>Research</option><option>Documentation</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Start Date</label>
+          <input class="form-input" type="date">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Target Completion</label>
+          <input class="form-input" type="date">
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="form-section-title">${I('users',15,'var(--brown-warm)')} Team</div>
+      <div class="form-group">
+        <label class="form-label">Project Lead <span style="color:var(--danger)">*</span></label>
+        <select class="form-select">
+          <option value="">Select lead…</option>
+          <option>Sarah Chen</option><option>Alex Rivera</option><option>Mei Lin</option>
+          <option>James Whitfield</option><option>Mark</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Team Members</label>
+        <div class="form-tag-input" onclick="this.querySelector('input').focus()">
+          <span class="form-tag">Sarah Chen <button onclick="this.parentElement.remove()">×</button></span>
+          <input placeholder="Add members…" onkeydown="if(event.key==='Enter'&&this.value.trim()){const t=document.createElement('span');t.className='form-tag';t.innerHTML=this.value.trim()+' <button onclick=\\'this.parentElement.remove()\\'>×</button>';this.parentElement.insertBefore(t,this);this.value='';event.preventDefault();}">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Working Group</label>
+        <select class="form-select">
+          <option value="">None</option><option>Identity Working Group</option>
+          <option>Governance Council</option><option>Operations</option><option>Development</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="form-section-title">${I('check',15,'var(--brown-warm)')} Initial Tasks</div>
+      <div id="projectTasks">
+        <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px"><input class="form-input" placeholder="Task 1 — e.g., Define project scope" style="margin-bottom:0;flex:1"><select class="form-select" style="width:120px"><option>To Do</option><option>In Progress</option></select></div>
+        <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px"><input class="form-input" placeholder="Task 2" style="margin-bottom:0;flex:1"><select class="form-select" style="width:120px"><option>To Do</option><option>In Progress</option></select></div>
+        <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px"><input class="form-input" placeholder="Task 3" style="margin-bottom:0;flex:1"><select class="form-select" style="width:120px"><option>To Do</option><option>In Progress</option></select></div>
+      </div>
+      <button class="btn btn-sm btn-ghost" onclick="const d=document.getElementById('projectTasks');const n=d.children.length+1;d.insertAdjacentHTML('beforeend','<div style=\\'display:flex;gap:8px;align-items:center;margin-bottom:8px\\'><input class=\\'form-input\\' placeholder=\\'Task '+n+'\\' style=\\'margin-bottom:0;flex:1\\'><select class=\\'form-select\\' style=\\'width:120px\\'><option>To Do</option><option>In Progress</option></select></div>')">${I('plus',14)} Add Another Task</button>
+    </div>
+
+    <div class="form-section" style="margin-bottom:0">
+      <div class="form-section-title">${I('link',15,'var(--brown-warm)')} Tags & Labels</div>
+      <div class="form-group">
+        <label class="form-label">Tags</label>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          ${['Design','Development','Testing','Documentation','Research','Infrastructure'].map(a=>`<button class="btn btn-sm" style="font-size:12px" onclick="this.style.borderColor=this.style.borderColor?'':'var(--brown-warm)';this.style.background=this.style.background==='var(--accent-light)'?'':'var(--accent-light)'">${a}</button>`).join('')}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" onclick="closeModal()">Cancel</button>
+    <button class="btn" style="border-color:var(--warning);color:var(--warning)">Save Draft</button>
+    <button class="btn btn-primary" onclick="closeModal();navigate('projects')">Create Project</button>
+  </div>
+  `,true);
+}
+
+// ═══════════════════════════════════════
+// UPLOAD DOCUMENT
+// ═══════════════════════════════════════
+function openUploadDoc(){
+  openModal(`
+  <div class="modal-header">
+    <div class="modal-header-left">
+      <div class="page-icon" style="width:38px;height:38px">${I('upload',20,'var(--brown-warm)')}</div>
+      <div><div class="modal-title">Upload Document</div><div class="modal-subtitle">Share a document with the community</div></div>
+    </div>
+    <button class="modal-close" onclick="closeModal()">✕</button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label class="form-label">File Upload <span style="color:var(--danger)">*</span></label>
+      <div style="border:2px dashed var(--card-border);border-radius:14px;padding:40px 20px;text-align:center;cursor:pointer;transition:border-color 0.2s ease" onmouseover="this.style.borderColor='var(--brown-warm)'" onmouseout="this.style.borderColor='var(--card-border)'">
+        <div style="margin-bottom:8px">${I('upload',32,'var(--text-muted)')}</div>
+        <div style="font-size:15px;font-weight:500;color:var(--text-primary);margin-bottom:4px">Drag & drop files here</div>
+        <div style="font-size:13px;color:var(--text-secondary)">or <span style="color:var(--brown-warm);font-weight:500;text-decoration:underline">browse your computer</span></div>
+        <div style="font-size:11.5px;color:var(--text-muted);margin-top:8px">PDF, DOCX, XLSX, PPTX, images · Max 25MB per file</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Document Title <span style="color:var(--danger)">*</span></label>
+      <input class="form-input" placeholder="Give this document a descriptive title">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Category <span style="color:var(--danger)">*</span></label>
+        <select class="form-select">
+          <option value="">Select category…</option>
+          <option>Governance</option><option>Technical</option><option>Financial</option>
+          <option>Template</option><option>Policy</option><option>Meeting Notes</option><option>Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Visibility</label>
+        <select class="form-select">
+          <option>All Members</option><option>Council Only</option>
+          <option>Working Group</option><option>Admins Only</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Description</label>
+      <textarea class="form-input" placeholder="Brief description of the document contents…" style="min-height:80px"></textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Tags</label>
+      <div class="form-tag-input" onclick="this.querySelector('input').focus()">
+        <input placeholder="Add tags…" onkeydown="if(event.key==='Enter'&&this.value.trim()){const t=document.createElement('span');t.className='form-tag';t.innerHTML=this.value.trim()+' <button onclick=\\'this.parentElement.remove()\\'>×</button>';this.parentElement.insertBefore(t,this);this.value='';event.preventDefault();}">
+      </div>
+    </div>
+    <div class="form-checkbox-row">
+      <button class="form-checkbox" onclick="this.classList.toggle('checked')">${I('check',13,'#fff',2.5)}</button>
+      <span class="form-checkbox-label" onclick="this.previousElementSibling.classList.toggle('checked')">Notify all community members about this upload</span>
+    </div>
+    <div class="form-checkbox-row">
+      <button class="form-checkbox" onclick="this.classList.toggle('checked')"></button>
+      <span class="form-checkbox-label" onclick="this.previousElementSibling.classList.toggle('checked')">This document replaces a previous version</span>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" onclick="closeModal()">Cancel</button>
+    <button class="btn btn-primary" onclick="closeModal();navigate('docs')">${I('upload',14,'#edd6b7')} Upload Document</button>
+  </div>
+  `);
+}
+
+// ═══════════════════════════════════════
+// TOKEN TRANSACTION HISTORY
+// ═══════════════════════════════════════
+function openTokenHistory(){
+  openModal(`
+  <div class="modal-header">
+    <div class="modal-header-left">
+      <div class="page-icon" style="width:38px;height:38px">${I('token',20,'var(--brown-warm)')}</div>
+      <div><div class="modal-title">Transaction History</div><div class="modal-subtitle">Your TANA token activity</div></div>
+    </div>
+    <button class="modal-close" onclick="closeModal()">✕</button>
+  </div>
+  <div class="modal-body">
+    <div style="display:flex;gap:10px;margin-bottom:20px">
+      <div class="search-box" style="max-width:none;flex:1">${I('search',16,'#a89888')}<input placeholder="Search transactions…"></div>
+      <select class="form-select" style="width:150px"><option>All Types</option><option>Earned</option><option>Redeemed</option><option>Bonus</option></select>
+    </div>
+    <table class="data-table">
+    <thead><tr><th>Date</th><th>Activity</th><th>Category</th><th style="text-align:right">Amount</th></tr></thead>
+    <tbody>
+    ${[
+      {date:'Mar 2, 2026',act:'Voted on DEC-024',cat:'Governance',amt:'+15'},
+      {date:'Mar 1, 2026',act:'Completed PR review',cat:'Development',amt:'+25'},
+      {date:'Feb 28, 2026',act:'Submitted opportunity',cat:'Community',amt:'+10'},
+      {date:'Feb 27, 2026',act:'Attended governance meeting',cat:'Governance',amt:'+20'},
+      {date:'Feb 25, 2026',act:'Documentation update',cat:'Development',amt:'+15'},
+      {date:'Feb 23, 2026',act:'Redeemed for community credits',cat:'Redemption',amt:'-50'},
+      {date:'Feb 20, 2026',act:'Facilitated onboarding session',cat:'Community',amt:'+30'},
+      {date:'Feb 18, 2026',act:'Weekly streak bonus',cat:'Bonus',amt:'+10'},
+      {date:'Feb 15, 2026',act:'Reviewed credential schema',cat:'Development',amt:'+20'},
+      {date:'Feb 12, 2026',act:'Voted on DEC-021',cat:'Governance',amt:'+15'},
+    ].map(t=>`<tr>
+      <td style="font-size:12.5px;color:var(--text-muted)">${t.date}</td>
+      <td style="font-weight:500">${t.act}</td>
+      <td><span class="badge badge-info">${t.cat}</span></td>
+      <td style="text-align:right;font-weight:600;color:${t.amt.startsWith('+')?'var(--success)':'var(--danger)'}">${t.amt}</td>
+    </tr>`).join('')}
+    </tbody></table>
+    <div style="text-align:center;padding:16px 0;font-size:13px;color:var(--text-muted)">Showing 10 most recent · <span style="color:var(--brown-warm);cursor:pointer;font-weight:500">Load more</span></div>
+  </div>
+  `,true);
+}
+
+// ═══════════════════════════════════════
+// TOKEN REDEEM
+// ═══════════════════════════════════════
+function openTokenRedeem(){
+  openModal(`
+  <div class="modal-header">
+    <div class="modal-header-left">
+      <div class="page-icon" style="width:38px;height:38px">${I('token',20,'var(--brown-warm)')}</div>
+      <div><div class="modal-title">Redeem Tokens</div><div class="modal-subtitle">Exchange TANA tokens for rewards</div></div>
+    </div>
+    <button class="modal-close" onclick="closeModal()">✕</button>
+  </div>
+  <div class="modal-body">
+    <div style="text-align:center;padding:16px 0 24px;border-bottom:1px solid var(--card-border);margin-bottom:20px">
+      <div style="font-size:13px;color:var(--text-muted)">Available Balance</div>
+      <div style="font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:var(--text-heading)">1,247</div>
+      <div style="font-size:12px;color:var(--text-muted)">TANA Tokens</div>
+    </div>
+    <div class="form-section-title">${I('check',15,'var(--brown-warm)')} Choose Reward</div>
+    ${[
+      {name:'Community Credits',desc:'Use for governance proposal sponsoring',cost:100,icon:'dollar'},
+      {name:'Premium Support Priority',desc:'Get prioritised support for 30 days',cost:200,icon:'zap'},
+      {name:'Conference Pass Credit',desc:'Discount toward community events',cost:500,icon:'globe'},
+      {name:'Governance Weight Boost',desc:'2x voting weight for one proposal',cost:300,icon:'shield'},
+      {name:'Custom Badge',desc:'Display a custom badge on your profile',cost:150,icon:'heart'},
+    ].map(r=>`
+    <div style="display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:12px;border:1.5px solid var(--card-border);margin-bottom:8px;cursor:pointer;transition:all 0.2s ease" onmouseover="this.style.borderColor='var(--brown-warm)';this.style.background='var(--accent-light)'" onmouseout="this.style.borderColor='';this.style.background=''">
+      <div class="list-item-icon" style="background:var(--accent-light)">${I(r.icon,18,'var(--brown-warm)')}</div>
+      <div style="flex:1"><div style="font-size:14px;font-weight:500;color:var(--text-primary)">${r.name}</div><div style="font-size:12.5px;color:var(--text-muted)">${r.desc}</div></div>
+      <div style="text-align:right"><div style="font-size:15px;font-weight:700;color:var(--text-heading)">${r.cost}</div><div style="font-size:10.5px;color:var(--text-muted)">tokens</div></div>
+    </div>`).join('')}
+  </div>
+  <div class="modal-footer">
+    <button class="btn" onclick="closeModal()">Cancel</button>
+    <button class="btn btn-primary" onclick="closeModal()">Redeem Selected</button>
+  </div>
+  `);
+}
+
+// ═══════════════════════════════════════
+// ADD RESOURCE (OPERATIONS)
+// ═══════════════════════════════════════
+function openAddResource(){
+  openModal(`
+  <div class="modal-header">
+    <div class="modal-header-left">
+      <div class="page-icon" style="width:38px;height:38px">${I('pie',20,'var(--brown-warm)')}</div>
+      <div><div class="modal-title">Add Resource</div><div class="modal-subtitle">Register a new community resource</div></div>
+    </div>
+    <button class="modal-close" onclick="closeModal()">✕</button>
+  </div>
+  <div class="modal-body">
+    <div class="form-section">
+      <div class="form-section-title">${I('file',15,'var(--brown-warm)')} Resource Details</div>
+      <div class="form-group">
+        <label class="form-label">Resource Name <span style="color:var(--danger)">*</span></label>
+        <input class="form-input" placeholder="e.g., AWS EC2 Cluster, API Gateway">
+      </div>
+      <div class="form-row three">
+        <div class="form-group">
+          <label class="form-label">Type <span style="color:var(--danger)">*</span></label>
+          <select class="form-select">
+            <option value="">Select type…</option>
+            <option>Cloud</option><option>Infrastructure</option><option>Service</option>
+            <option>Hardware</option><option>Software License</option><option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Status</label>
+          <select class="form-select">
+            <option>Active</option><option>Provisioning</option><option>Maintenance</option><option>Decommissioned</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Allocation</label>
+          <select class="form-select">
+            <option>Operations</option><option>Development</option><option>Identity WG</option>
+            <option>Blockchain</option><option>Community</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="form-section">
+      <div class="form-section-title">${I('dollar',15,'var(--brown-warm)')} Cost & Capacity</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Monthly Cost</label>
+          <input class="form-input" type="number" placeholder="0.00" style="font-family:'JetBrains Mono',monospace">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Currency</label>
+          <select class="form-select">
+            <option>USD</option><option>AUD</option><option>EUR</option><option>ADA (₳)</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Capacity / Limits</label>
+        <input class="form-input" placeholder="e.g., 4 vCPU, 16GB RAM, 500GB SSD">
+      </div>
+    </div>
+    <div class="form-section" style="margin-bottom:0">
+      <div class="form-section-title">${I('link',15,'var(--brown-warm)')} Access & Notes</div>
+      <div class="form-group">
+        <label class="form-label">Management URL</label>
+        <input class="form-input" placeholder="https://console.aws.amazon.com/…">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Notes</label>
+        <textarea class="form-input" placeholder="Additional details, access instructions, dependencies…" style="min-height:70px"></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" onclick="closeModal()">Cancel</button>
+    <button class="btn btn-primary" onclick="closeModal();navigate('operations')">Add Resource</button>
+  </div>
+  `);
+}
+
+// ═══════════════════════════════════════
+// ADD TRANSACTION (FINANCIALS)
+// ═══════════════════════════════════════
+function openAddTransaction(){
+  openModal(`
+  <div class="modal-header">
+    <div class="modal-header-left">
+      <div class="page-icon" style="width:38px;height:38px">${I('dollar',20,'var(--brown-warm)')}</div>
+      <div><div class="modal-title">Add Transaction</div><div class="modal-subtitle">Record income or expense</div></div>
+    </div>
+    <button class="modal-close" onclick="closeModal()">✕</button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label class="form-label">Transaction Type <span style="color:var(--danger)">*</span></label>
+      <div style="display:flex;gap:10px">
+        <button class="btn" style="flex:1;justify-content:center;border-color:var(--success);background:rgba(107,138,94,0.08);color:var(--success)" id="txIncome" onclick="this.style.borderColor='var(--success)';this.style.background='rgba(107,138,94,0.08)';this.style.color='var(--success)';document.getElementById('txExpense').style.borderColor='';document.getElementById('txExpense').style.background='';document.getElementById('txExpense').style.color=''">${I('plus',14,'var(--success)')} Income</button>
+        <button class="btn" style="flex:1;justify-content:center" id="txExpense" onclick="this.style.borderColor='var(--danger)';this.style.background='rgba(192,96,74,0.08)';this.style.color='var(--danger)';document.getElementById('txIncome').style.borderColor='';document.getElementById('txIncome').style.background='';document.getElementById('txIncome').style.color=''">${I('download',14)} Expense</button>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Description <span style="color:var(--danger)">*</span></label>
+      <input class="form-input" placeholder="e.g., AWS Infrastructure, Member contributions">
+    </div>
+    <div class="form-row three">
+      <div class="form-group">
+        <label class="form-label">Amount <span style="color:var(--danger)">*</span></label>
+        <input class="form-input" type="number" placeholder="0.00" style="font-family:'JetBrains Mono',monospace">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Currency</label>
+        <select class="form-select">
+          <option>USD</option><option>AUD</option><option>EUR</option><option>ADA (₳)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Date <span style="color:var(--danger)">*</span></label>
+        <input class="form-input" type="date">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Category</label>
+        <select class="form-select">
+          <option value="">Select category…</option>
+          <option>Infrastructure</option><option>Hosting</option><option>Development</option>
+          <option>Grants</option><option>Contributions</option><option>Services</option>
+          <option>Staking Rewards</option><option>Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Payment Method</label>
+        <select class="form-select">
+          <option>Bank Transfer</option><option>On-Chain (Cardano)</option><option>On-Chain (Ethereum)</option>
+          <option>Credit Card</option><option>PayPal</option><option>Other</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">On-Chain Tx Hash</label>
+      <input class="form-input" placeholder="0x…" style="font-family:'JetBrains Mono',monospace;font-size:13px">
+      <div class="form-hint">Optional — link this to a blockchain transaction</div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Attachments</label>
+      <div style="border:2px dashed var(--card-border);border-radius:12px;padding:20px;text-align:center;cursor:pointer;transition:border-color 0.2s ease" onmouseover="this.style.borderColor='var(--brown-warm)'" onmouseout="this.style.borderColor='var(--card-border)'">
+        ${I('upload',20,'var(--text-muted)')}
+        <div style="font-size:13px;color:var(--text-secondary);margin-top:4px">Upload receipt or invoice</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Notes</label>
+      <textarea class="form-input" placeholder="Additional details…" style="min-height:60px"></textarea>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" onclick="closeModal()">Cancel</button>
+    <button class="btn btn-primary" onclick="closeModal();navigate('financials')">Save Transaction</button>
+  </div>
+  `);
+}
+
+// ═══════════════════════════════════════
+// EXPORT REPORT
+// ═══════════════════════════════════════
+function openExportReport(source){
+  const title=source==='financials'?'Export Financial Report':'Export Community Report';
+  openModal(`
+  <div class="modal-header">
+    <div class="modal-header-left">
+      <div class="page-icon" style="width:38px;height:38px">${I('download',20,'var(--brown-warm)')}</div>
+      <div><div class="modal-title">${title}</div><div class="modal-subtitle">Generate and download a report</div></div>
+    </div>
+    <button class="modal-close" onclick="closeModal()">✕</button>
+  </div>
+  <div class="modal-body">
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Date Range</label>
+        <select class="form-select">
+          <option>Last 30 days</option><option>Last quarter</option><option>Last 6 months</option>
+          <option>Year to date</option><option>Last year</option><option>Custom range</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Format</label>
+        <select class="form-select">
+          <option>PDF Report</option><option>CSV / Spreadsheet</option><option>JSON Data</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Include Sections</label>
+      ${(source==='financials'?
+        ['Summary Overview','Income Breakdown','Expense Breakdown','On-Chain Transactions','Treasury Balance','Charts & Graphs']:
+        ['Community Activity','Governance Participation','Token Distribution','Project Progress','Member Engagement','AI Insights']
+      ).map(s=>`
+      <div class="form-checkbox-row">
+        <button class="form-checkbox checked" onclick="this.classList.toggle('checked')">${I('check',13,'#fff',2.5)}</button>
+        <span class="form-checkbox-label" onclick="this.previousElementSibling.classList.toggle('checked')">${s}</span>
+      </div>`).join('')}
+    </div>
+    <div class="form-checkbox-row" style="padding-top:12px;border-top:1px solid var(--card-border)">
+      <button class="form-checkbox" onclick="this.classList.toggle('checked')"></button>
+      <span class="form-checkbox-label" onclick="this.previousElementSibling.classList.toggle('checked')">Email a copy to me when ready</span>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" onclick="closeModal()">Cancel</button>
+    <button class="btn btn-primary" onclick="closeModal()">${I('download',14,'#edd6b7')} Generate Report</button>
+  </div>
+  `);
+}
+
+// ═══════════════════════════════════════
+// REGISTER PASSKEY (SETTINGS)
+// ═══════════════════════════════════════
+function openRegisterPasskey(){
+  openModal(`
+  <div class="modal-header">
+    <div class="modal-header-left">
+      <div class="page-icon" style="width:38px;height:38px">${I('key',20,'var(--brown-warm)')}</div>
+      <div><div class="modal-title">Register New Passkey</div><div class="modal-subtitle">Add a passwordless authentication method</div></div>
+    </div>
+    <button class="modal-close" onclick="closeModal()">✕</button>
+  </div>
+  <div class="modal-body">
+    <div style="text-align:center;padding:20px 0 28px">
+      <div style="width:80px;height:80px;border-radius:20px;background:var(--accent-light);display:inline-flex;align-items:center;justify-content:center;margin-bottom:16px">
+        ${I('fingerprint',36,'var(--brown-warm)')}
+      </div>
+      <div style="font-size:16px;font-weight:600;color:var(--text-primary);margin-bottom:6px">Choose your passkey type</div>
+      <div style="font-size:13.5px;color:var(--text-secondary);line-height:1.5;max-width:360px;margin:0 auto">Passkeys provide fast, secure, passwordless authentication using your device's biometric sensor or security key.</div>
+    </div>
+
+    ${[
+      {icon:'fingerprint',name:'Biometric (Touch ID / Face ID)',desc:'Use your device\'s built-in biometric sensor',rec:true},
+      {icon:'key',name:'Hardware Security Key',desc:'Use a YubiKey, Titan, or other FIDO2 key',rec:false},
+      {icon:'smartphone',name:'Mobile Device',desc:'Use your phone as a passkey via QR code',rec:false},
+      {icon:'globe',name:'Browser Passkey',desc:'Store passkey in your browser\'s credential manager',rec:false},
+    ].map(p=>`
+    <div style="display:flex;align-items:center;gap:14px;padding:16px;border-radius:12px;border:1.5px solid var(--card-border);margin-bottom:8px;cursor:pointer;transition:all 0.2s ease" onmouseover="this.style.borderColor='var(--brown-warm)';this.style.background='var(--accent-light)'" onmouseout="this.style.borderColor='';this.style.background=''">
+      <div class="security-item-icon" style="width:44px;height:44px">${I(p.icon,22,'var(--brown-warm)')}</div>
+      <div style="flex:1">
+        <div style="font-size:14px;font-weight:500;color:var(--text-primary)">${p.name} ${p.rec?'<span class="badge badge-open" style="margin-left:6px">Recommended</span>':''}</div>
+        <div style="font-size:12.5px;color:var(--text-muted);margin-top:1px">${p.desc}</div>
+      </div>
+      ${I('chevron',16,'#a89888')}
+    </div>`).join('')}
+
+    <div style="margin-top:20px;padding:14px 16px;border-radius:12px;background:var(--cream-pale);font-size:12.5px;color:var(--text-secondary);line-height:1.5">
+      ${I('shield',14,'var(--brown-warm)')} <strong style="color:var(--text-primary)">Security note:</strong> Passkeys are stored locally on your device and never transmitted to our servers. Each passkey is unique to this service and cannot be used to track you across sites.
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" onclick="closeModal()">Cancel</button>
+  </div>
+  `);
+}
+
+// ═══════════════════════════════════════
+// REGENERATE RECOVERY CODES
+// ═══════════════════════════════════════
+function openRegenerateCodes(){
+  openModal(`
+  <div class="modal-header">
+    <div class="modal-header-left">
+      <div class="page-icon" style="width:38px;height:38px;background:rgba(192,96,74,0.1)">${I('shield',20,'var(--danger)')}</div>
+      <div><div class="modal-title">Regenerate Recovery Codes</div><div class="modal-subtitle">This will invalidate your existing codes</div></div>
+    </div>
+    <button class="modal-close" onclick="closeModal()">✕</button>
+  </div>
+  <div class="modal-body">
+    <div style="padding:16px;border-radius:12px;background:rgba(192,96,74,0.06);border:1px solid rgba(192,96,74,0.15);margin-bottom:20px;display:flex;gap:12px;align-items:flex-start">
+      ${I('shield',20,'var(--danger)')}
+      <div>
+        <div style="font-size:14px;font-weight:600;color:var(--danger);margin-bottom:4px">Warning</div>
+        <div style="font-size:13px;color:var(--text-secondary);line-height:1.5">Regenerating recovery codes will <strong>immediately invalidate</strong> all 10 existing codes. You currently have 6 unused codes remaining. Make sure to save your new codes in a secure location.</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Confirm your password to proceed</label>
+      <input class="form-input" type="password" placeholder="Enter your current password">
+    </div>
+    <div style="padding:16px;border-radius:12px;background:var(--cream-pale);margin-bottom:12px">
+      <div style="font-size:13px;font-weight:600;color:var(--text-heading);margin-bottom:10px">New recovery codes will be:</div>
+      <div style="font-size:13px;color:var(--text-secondary);line-height:1.7">
+        • 10 single-use codes generated<br>
+        • Each code can only be used once<br>
+        • Store them securely (password manager recommended)<br>
+        • Available for download as a text file
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" onclick="closeModal()">Cancel</button>
+    <button class="btn btn-primary" style="background:var(--danger);border-color:var(--danger)" onclick="closeModal()">Regenerate Codes</button>
   </div>
   `);
 }
