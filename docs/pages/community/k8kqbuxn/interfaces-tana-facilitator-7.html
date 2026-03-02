@@ -1,3 +1,8 @@
+---
+layout: null
+permalink: /interfaces/k8kqbuxn/tana/facilitator
+title: TANA Facilitator Interface
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -671,6 +676,7 @@ const NAV=[
   {id:'operations',icon:'pie',label:'Operations'},
   {id:'financials',icon:'dollar',label:'Financials'},
   {id:'reports',icon:'search',label:'Reports'},
+  {id:'accounts',icon:'users',label:'Accounts'},
   {id:'_spacer'},
   {id:'_divider'},
   {id:'settings',icon:'settings',label:'Settings'},
@@ -770,7 +776,7 @@ pages.whatsup=()=>`
   <div style="display:flex;justify-content:flex-end;margin-top:10px"><button class="btn btn-primary btn-sm" onclick="openNewPost()">Post Update</button></div>
 </div></div>
 <div class="card post-card" style="cursor:pointer" onclick="openViewPost(1)"><div class="card-body">
-  <div class="post-header"><div class="avatar" style="background:var(--olive)">SC</div><div class="post-meta"><div class="post-author">Lucy Hartwell</div><div class="post-time">2 hours ago</div></div></div>
+  <div class="post-header"><div class="avatar" style="background:var(--olive)">LH</div><div class="post-meta"><div class="post-author">Lucy Hartwell</div><div class="post-time">2 hours ago</div></div></div>
   <div class="post-body">Just finished hand-dyeing a batch of merino in indigo and walnut. The colours came out beautifully — swatches will be at the studio this weekend! 🧶</div>
   <div class="post-actions"><button class="post-action">${I('thumbsUp',14)} 12</button><button class="post-action">${I('msgCircle',14)} 4 Comments</button></div>
 </div></div>
@@ -1107,6 +1113,65 @@ ${[{month:'Mar 2026',votes:48,posts:23,tasks:67},{month:'Feb 2026',votes:42,post
 </div></div>
 </div>
 ${tpc}`;
+
+// ─── ACCOUNTS ───
+pages.accounts=()=>{
+const users=[
+{id:1,name:'Mark',email:'mark@makershub.com.au',role:'Facilitator',status:'active',avatar:'MC',color:'var(--brown-warm)',joined:'Jun 2024',lastLogin:'Today',teams:['Market Committee'],tier:'Studio Pass',tokens:240,did:'did:keri:EBf7...x4a9'},
+{id:2,name:'Lucy Hartwell',email:'lucy@makershub.com.au',role:'Team Lead',status:'active',avatar:'LH',color:'var(--olive)',joined:'Aug 2024',lastLogin:'Today',teams:['Textile Arts Guild'],tier:'Studio Pass',tokens:385,did:'did:keri:ECh2...b7f2'},
+{id:3,name:'Tom Pearson',email:'tom@makershub.com.au',role:'Team Lead',status:'active',avatar:'TP',color:'var(--info)',joined:'Sep 2024',lastLogin:'Yesterday',teams:['Ceramics Circle'],tier:'Studio Pass',tokens:310,did:'did:keri:EAr4...c3d8'},
+{id:4,name:'Rosa Delgado',email:'rosa@makershub.com.au',role:'Instructor',status:'active',avatar:'RD',color:'var(--brown-warm)',joined:'Oct 2024',lastLogin:'2 days ago',teams:['Fibre Arts Studio'],tier:'Studio Pass',tokens:220,did:'did:keri:EDr9...f4a1'},
+{id:5,name:'Nina Chang',email:'nina@makershub.com.au',role:'Member',status:'active',avatar:'NC',color:'var(--success)',joined:'Nov 2024',lastLogin:'Today',teams:['Textile Arts Guild'],tier:'Studio Pass',tokens:195,did:'did:keri:ENc3...a8b2'},
+{id:6,name:'Ellen Morris',email:'ellen@makershub.com.au',role:'Treasurer',status:'active',avatar:'EM',color:'var(--brown-deep)',joined:'Jun 2024',lastLogin:'Today',teams:['Natural Dye Lab','Market Committee'],tier:'Studio Pass',tokens:420,did:'did:keri:EEm5...d2c7'},
+{id:7,name:'Jake Turner',email:'jake@makershub.com.au',role:'Member',status:'pending',avatar:'JT',color:'#7a6a8a',joined:'Feb 2026',lastLogin:'3 days ago',teams:['Fibre Arts Studio'],tier:'Basic',tokens:45,did:''},
+{id:8,name:'Sophie Wallace',email:'sophie.w@email.com',role:'Member',status:'active',avatar:'SW',color:'var(--info)',joined:'Jan 2026',lastLogin:'1 week ago',teams:[],tier:'Basic',tokens:80,did:''},
+{id:9,name:'Daniel Okafor',email:'d.okafor@email.com',role:'Member',status:'active',avatar:'DO',color:'var(--olive)',joined:'Dec 2025',lastLogin:'Today',teams:['Ceramics Circle'],tier:'Studio Pass',tokens:155,did:'did:keri:EDo8...e5f3'},
+{id:10,name:'Priya Mehta',email:'priya.m@email.com',role:'Guest',status:'invited',avatar:'PM',color:'var(--text-muted)',joined:'—',lastLogin:'—',teams:[],tier:'—',tokens:0,did:''},
+{id:11,name:'Oliver Fry',email:'oliver.fry@email.com',role:'Member',status:'suspended',avatar:'OF',color:'var(--danger)',joined:'Jul 2025',lastLogin:'Jan 10, 2026',teams:[],tier:'Basic',tokens:0,did:''},
+];
+const active=users.filter(u=>u.status==='active'),pending=users.filter(u=>u.status==='pending'),invited=users.filter(u=>u.status==='invited'),suspended=users.filter(u=>u.status==='suspended');
+const roleCounts={};users.forEach(u=>{roleCounts[u.role]=(roleCounts[u.role]||0)+1;});
+const renderTable=(list)=>`<div class="card"><div class="card-body" style="padding:0"><table class="data-table">
+<thead><tr><th>User</th><th>Email</th><th>Role</th><th>Tier</th><th>Last Login</th><th>Status</th></tr></thead><tbody>
+${list.map(u=>`<tr style="cursor:pointer" onclick="openViewUser(${u.id})">
+<td><div style="display:flex;align-items:center;gap:10px"><div class="avatar" style="background:${u.color};width:32px;height:32px;font-size:11px;border-radius:8px">${u.avatar}</div><span style="font-weight:500">${u.name}</span></div></td>
+<td style="font-size:13px;color:var(--text-muted)">${u.email}</td>
+<td><span class="badge badge-info">${u.role}</span></td>
+<td style="font-size:13px">${u.tier}</td>
+<td style="font-size:13px;color:var(--text-muted)">${u.lastLogin}</td>
+<td><span class="badge badge-${u.status==='active'?'open':u.status==='pending'?'pending':u.status==='invited'?'info':'closed'}">${u.status.charAt(0).toUpperCase()+u.status.slice(1)}</span></td>
+</tr>`).join('')}</tbody></table></div></div>`;
+return `
+<div class="page-header"><div class="page-header-left"><div class="page-icon">${I('users',22,'var(--brown-warm)')}</div><div><div class="page-title">User Accounts</div><div class="page-subtitle">Manage community members & access</div></div></div>
+<div class="header-actions"><div class="search-box">${I('search',16,'#a89888')}<input placeholder="Search users\u2026"></div><button class="btn btn-primary" onclick="openAddUser()">${I('plus',14,'#edd6b7')} Add User</button></div></div>
+
+<div class="stats-row">
+<div class="stat-card"><div class="stat-label">Total Users</div><div class="stat-value">${users.length}</div></div>
+<div class="stat-card"><div class="stat-label">Active</div><div class="stat-value" style="color:var(--success)">${active.length}</div></div>
+<div class="stat-card"><div class="stat-label">Pending</div><div class="stat-value" style="color:var(--warning)">${pending.length}</div></div>
+<div class="stat-card"><div class="stat-label">SSI Linked</div><div class="stat-value">${users.filter(u=>u.did).length}</div></div>
+</div>
+
+${tabsHTML(['All Users ('+users.length+')','Active ('+active.length+')','Pending ('+pending.length+')','Invited ('+invited.length+')','Suspended ('+suspended.length+')'],0,'accTabs')}
+${tp('accTabs',0)}${renderTable(users)}${tpc}
+${tp('accTabs',1)}${renderTable(active)}${tpc}
+${tp('accTabs',2)}${renderTable(pending)}${tpc}
+${tp('accTabs',3)}${renderTable(invited)}${tpc}
+${tp('accTabs',4)}${renderTable(suspended)}${tpc}
+
+<div class="two-col" style="margin-top:20px">
+<div class="card section-card"><div class="card-body">
+  <h3>${I('pie',16,'var(--brown-warm)')} Roles Breakdown</h3>
+  ${Object.entries(roleCounts).map(([role,ct])=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--card-border)"><span style="font-size:14px">${role}</span><span class="badge badge-info">${ct}</span></div>`).join('')}
+</div></div>
+<div class="card section-card"><div class="card-body">
+  <h3>${I('shield',16,'var(--brown-warm)')} Quick Actions</h3>
+  <button class="btn" style="width:100%;justify-content:center;margin-bottom:8px" onclick="openAddUser()">${I('plus',14)} Invite New Member</button>
+  <button class="btn" style="width:100%;justify-content:center;margin-bottom:8px">${I('download',14)} Export User List</button>
+  <button class="btn" style="width:100%;justify-content:center">${I('mail',14)} Bulk Email Members</button>
+</div></div>
+</div>`;
+};
 
 // ─── SETTINGS ───
 pages.settings=()=>`
@@ -2935,6 +3000,150 @@ ${o.history.map((h,i)=>`<div style="display:flex;gap:12px;padding:10px 0;${i<o.h
 </div>`).join('')}
 </div>
 <div class="modal-footer"><button class="btn" onclick="closeModal()">Close</button>${isPending?`<button class="btn" style="color:var(--danger)">Cancel Order</button><button class="btn btn-primary">${I('check',14,'#edd6b7')} Approve</button>`:''}</div>
+`,true);
+}
+
+// ═══════════════════════════════════════
+// VIEW USER ACCOUNT
+// ═══════════════════════════════════════
+function openViewUser(id){
+const users={
+1:{name:'Mark',email:'mark@makershub.com.au',role:'Facilitator',status:'Active',avatar:'MC',color:'var(--brown-warm)',joined:'Jun 15, 2024',lastLogin:'Today, 9:14am',teams:['Market Committee'],tier:'Studio Pass',tokens:240,did:'did:keri:EBf7a8c2d9e1f3b5a7c4d6e8f0a2b4c6d8e0f1a3',loc:'Sydney, AU',craft:'Mixed / Multi-discipline',bio:'Maker, builder, and community facilitator. Focused on digital identity, governance, and community self-actuation.', creds:['Membership','Kiln Certified','Dye Kitchen Trained','Committee Member — Market'],activity:[{act:'Logged in',date:'Today, 9:14am'},{act:'Voted on DEC-012',date:'Yesterday'},{act:'Earned +15 tokens (workshop attendance)',date:'Mar 1, 2026'},{act:'Updated profile',date:'Feb 28, 2026'}]},
+2:{name:'Lucy Hartwell',email:'lucy@makershub.com.au',role:'Team Lead',status:'Active',avatar:'LH',color:'var(--olive)',joined:'Aug 3, 2024',lastLogin:'Today, 8:30am',teams:['Textile Arts Guild'],tier:'Studio Pass',tokens:385,did:'did:keri:ECh2b4d6f8a0c2e4g6i8k0m2o4q6s8u0w2y4a6b7f2',loc:'Sydney, AU',craft:'Textiles & Quilting',bio:'Experienced quilter, hand-dyer, and textile artist. Leads the Textile Arts Guild and organises community retreats.', creds:['Membership','Kiln Certified','Dye Kitchen Trained','Team Lead — Textile Arts Guild'],activity:[{act:'Logged in',date:'Today, 8:30am'},{act:'Posted: Spring Quilting Retreat registration',date:'Today, 7:45am'},{act:'Created project: Spring Quilting Retreat',date:'Feb 25, 2026'},{act:'Earned +30 tokens (facilitated workshop)',date:'Feb 22, 2026'}]},
+3:{name:'Tom Pearson',email:'tom@makershub.com.au',role:'Team Lead',status:'Active',avatar:'TP',color:'var(--info)',joined:'Sep 12, 2024',lastLogin:'Yesterday, 4:15pm',teams:['Ceramics Circle'],tier:'Studio Pass',tokens:310,did:'did:keri:EAr4c6e8g0i2k4m6o8q0s2u4w6y8a0c2e4g6i8c3d8',loc:'Blue Mountains, AU',craft:'Ceramics',bio:'Studio potter specialising in raku, stoneware, and hand-building. Manages the ceramics studio and kiln schedule.', creds:['Membership','Kiln Certified','Team Lead — Ceramics Circle'],activity:[{act:'Logged in',date:'Yesterday, 4:15pm'},{act:'Submitted order ORD-041 (Stoneware Clay)',date:'Feb 28, 2026'},{act:'Posted: Raku Firing Weekend',date:'Feb 27, 2026'},{act:'Earned +20 tokens (project contribution)',date:'Feb 25, 2026'}]},
+7:{name:'Jake Turner',email:'jake@makershub.com.au',role:'Member',status:'Pending',avatar:'JT',color:'#7a6a8a',joined:'Feb 8, 2026',lastLogin:'3 days ago',teams:['Fibre Arts Studio'],tier:'Basic',tokens:45,did:'',loc:'Newcastle, AU',craft:'Spinning & Fibre',bio:'Spinner and fibre artist learning the craft. Interested in handspun art yarns and natural fibre preparation.', creds:['Membership'],activity:[{act:'Logged in',date:'Feb 28, 2026'},{act:'Joined team: Fibre Arts Studio',date:'Feb 15, 2026'},{act:'Account created',date:'Feb 8, 2026'}]},
+10:{name:'Priya Mehta',email:'priya.m@email.com',role:'Guest',status:'Invited',avatar:'PM',color:'var(--text-muted)',joined:'—',lastLogin:'—',teams:[],tier:'—',tokens:0,did:'',loc:'Melbourne, AU',craft:'—',bio:'Invited guest — pending registration.', creds:[],activity:[{act:'Invitation sent',date:'Mar 1, 2026'}]},
+11:{name:'Oliver Fry',email:'oliver.fry@email.com',role:'Member',status:'Suspended',avatar:'OF',color:'var(--danger)',joined:'Jul 20, 2025',lastLogin:'Jan 10, 2026',teams:[],tier:'Basic',tokens:0,did:'',loc:'Sydney, AU',craft:'Woodwork',bio:'Account suspended — repeated studio policy violations.', creds:['Membership (suspended)'],activity:[{act:'Account suspended by Facilitator',date:'Jan 15, 2026'},{act:'Warning issued — safety violation #3',date:'Jan 10, 2026'},{act:'Warning issued — safety violation #2',date:'Dec 18, 2025'},{act:'Warning issued — safety violation #1',date:'Nov 22, 2025'}]},
+};
+const u=users[id]||users[1];
+const isSuspended=u.status==='Suspended';
+const isInvited=u.status==='Invited';
+const isPending=u.status==='Pending';
+openModal(`
+<div class="modal-header"><div class="modal-header-left"><div class="avatar" style="background:${u.color};width:42px;height:42px;font-size:14px">${u.avatar}</div><div><div class="modal-title">${u.name}</div><div class="modal-subtitle">${u.email}</div></div></div><button class="modal-close" onclick="closeModal()">✕</button></div>
+<div class="modal-body">
+<div style="display:flex;gap:10px;margin-bottom:20px">
+  <span class="badge badge-${u.status==='Active'?'open':u.status==='Pending'?'pending':u.status==='Invited'?'info':'closed'}">${u.status}</span>
+  <span class="badge badge-info">${u.role}</span>
+  ${u.tier&&u.tier!=='—'?'<span class="badge badge-info">'+u.tier+'</span>':''}
+  ${u.did?'<span class="badge badge-open">SSI Linked</span>':'<span class="badge badge-pending">No SSI</span>'}
+</div>
+
+<div style="display:flex;gap:16px;padding:16px;border-radius:12px;background:var(--cream-pale);margin-bottom:20px">
+  <div style="text-align:center;flex:1"><div style="font-size:20px;font-weight:700;color:var(--brown-warm)">${u.tokens}</div><div style="font-size:12px;color:var(--text-muted)">Tokens</div></div>
+  <div style="text-align:center;flex:1"><div style="font-size:14px;font-weight:600;color:var(--text-heading)">${u.teams.length||'—'}</div><div style="font-size:12px;color:var(--text-muted)">Teams</div></div>
+  <div style="text-align:center;flex:1"><div style="font-size:14px;font-weight:600;color:var(--text-heading)">${u.creds.length}</div><div style="font-size:12px;color:var(--text-muted)">Credentials</div></div>
+  <div style="text-align:center;flex:1"><div style="font-size:14px;font-weight:600;color:var(--text-heading)">${u.joined}</div><div style="font-size:12px;color:var(--text-muted)">Joined</div></div>
+</div>
+
+<div class="detail-section">
+  <div class="form-section-title">${I('user',15,'var(--brown-warm)')} Profile</div>
+  <p style="font-size:14px;color:var(--text-secondary);line-height:1.6;margin-bottom:14px">${u.bio}</p>
+  <div class="form-row"><div class="form-group"><label class="form-label">Location</label><div style="font-size:14px">${u.loc}</div></div><div class="form-group"><label class="form-label">Craft Discipline</label><div style="font-size:14px">${u.craft}</div></div></div>
+  <div class="form-row"><div class="form-group"><label class="form-label">Last Login</label><div style="font-size:14px">${u.lastLogin}</div></div><div class="form-group"><label class="form-label">Teams</label><div style="font-size:14px">${u.teams.length?u.teams.join(', '):'None'}</div></div></div>
+</div>
+
+${u.did?`<div class="detail-section">
+  <div class="form-section-title">${I('fingerprint',15,'var(--brown-warm)')} SSI / KERI Identity</div>
+  <div style="font-family:monospace;font-size:12px;background:var(--cream-pale);padding:10px 14px;border-radius:8px;word-break:break-all;margin-bottom:10px">${u.did}</div>
+  <div style="display:flex;flex-wrap:wrap;gap:6px">${u.creds.map(c=>'<span class="badge badge-open">'+c+'</span>').join('')}</div>
+</div>`:`<div class="detail-section">
+  <div class="form-section-title">${I('fingerprint',15,'var(--brown-warm)')} SSI / KERI Identity</div>
+  <div style="padding:16px;text-align:center;border:2px dashed var(--card-border);border-radius:12px;color:var(--text-muted)">
+    <div style="margin-bottom:6px">${I('fingerprint',24,'var(--text-muted)')}</div>
+    <div style="font-size:13.5px">No KERI identifier linked</div>
+    <div style="font-size:12px;margin-top:4px">User has not set up self-sovereign identity</div>
+  </div>
+</div>`}
+
+<div class="detail-section" style="border-bottom:none">
+  <div class="form-section-title">${I('clock',15,'var(--brown-warm)')} Recent Activity</div>
+  ${u.activity.map((a,i)=>`<div class="timeline-item"><div class="timeline-dot" style="background:${i===0?'rgba(107,138,94,0.15)':'var(--cream-pale)'}">${I(i===0?'check':'clock',14,i===0?'var(--success)':'var(--text-muted)')}</div><div class="timeline-content"><div class="timeline-text">${a.act}</div><div class="timeline-date">${a.date}</div></div></div>`).join('')}
+</div>
+
+<div class="form-section" style="margin-bottom:0;padding-top:16px;border-top:1px solid var(--card-border)">
+  <div class="form-section-title">${I('settings',15,'var(--brown-warm)')} Admin Actions</div>
+  <div class="form-row">
+    <div class="form-group"><label class="form-label">Change Role</label>
+      <select class="form-select"><option ${u.role==='Facilitator'?'selected':''}>Facilitator</option><option ${u.role==='Team Lead'?'selected':''}>Team Lead</option><option ${u.role==='Treasurer'?'selected':''}>Treasurer</option><option ${u.role==='Instructor'?'selected':''}>Instructor</option><option ${u.role==='Member'?'selected':''}>Member</option><option ${u.role==='Guest'?'selected':''}>Guest</option></select>
+    </div>
+    <div class="form-group"><label class="form-label">Change Tier</label>
+      <select class="form-select"><option ${u.tier==='Studio Pass'?'selected':''}>Studio Pass</option><option ${u.tier==='Basic'?'selected':''}>Basic</option><option>Workshop Only</option><option>Guest</option></select>
+    </div>
+  </div>
+  <div class="form-group"><label class="form-label">Adjust Token Balance</label>
+    <div style="display:flex;gap:8px"><input class="form-input" type="number" placeholder="±0" style="width:100px"><input class="form-input" placeholder="Reason (e.g., manual adjustment)" style="flex:1"><button class="btn btn-sm">Apply</button></div>
+  </div>
+</div>
+</div>
+<div class="modal-footer">
+  <div style="display:flex;gap:8px;flex:1">
+    ${isSuspended?'<button class="btn" style="color:var(--success);border-color:rgba(107,138,94,0.3)">${I("check",14)} Reactivate</button>':''}
+    ${isPending?'<button class="btn btn-primary">${I("check",14,"#edd6b7")} Approve</button><button class="btn" style="color:var(--danger);border-color:rgba(192,96,74,0.3)">Decline</button>':''}
+    ${isInvited?'<button class="btn">${I("mail",14)} Resend Invite</button>':''}
+    ${!isSuspended&&!isInvited&&!isPending?'<button class="btn" style="color:var(--danger);border-color:rgba(192,96,74,0.3)">Suspend User</button>':''}
+  </div>
+  <button class="btn" onclick="closeModal()">Close</button>
+  ${!isInvited?'<button class="btn btn-primary">${I("check",14,"#edd6b7")} Save Changes</button>':''}
+</div>
+`,true);
+}
+
+// ═══════════════════════════════════════
+// ADD / INVITE USER
+// ═══════════════════════════════════════
+function openAddUser(){
+openModal(`
+<div class="modal-header"><div class="modal-header-left"><div class="page-icon" style="width:38px;height:38px">${I('users',20,'var(--brown-warm)')}</div><div><div class="modal-title">Add User</div><div class="modal-subtitle">Invite or create a new account</div></div></div><button class="modal-close" onclick="closeModal()">✕</button></div>
+<div class="modal-body">
+  <div class="form-section">
+    <div class="form-section-title">${I('user',15,'var(--brown-warm)')} Basic Information</div>
+    <div class="form-row"><div class="form-group"><label class="form-label">Full Name <span style="color:var(--danger)">*</span></label><input class="form-input" placeholder="e.g., Sarah Mitchell"></div><div class="form-group"><label class="form-label">Email <span style="color:var(--danger)">*</span></label><input class="form-input" type="email" placeholder="e.g., sarah@email.com"></div></div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Role</label>
+        <select class="form-select"><option>Member</option><option>Instructor</option><option>Team Lead</option><option>Treasurer</option><option>Facilitator</option><option>Guest</option></select>
+      </div>
+      <div class="form-group"><label class="form-label">Membership Tier</label>
+        <select class="form-select"><option>Basic</option><option>Studio Pass</option><option>Workshop Only</option><option>Guest</option></select>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <div class="form-section-title">${I('smile',15,'var(--brown-warm)')} Profile</div>
+    <div class="form-row"><div class="form-group"><label class="form-label">Location</label><input class="form-input" placeholder="e.g., Sydney, AU"></div><div class="form-group"><label class="form-label">Primary Craft</label><select class="form-select"><option value="">Select…</option><option>Textiles & Quilting</option><option>Ceramics</option><option>Weaving</option><option>Natural Dyeing</option><option>Spinning & Fibre</option><option>Embroidery</option><option>Woodwork</option><option>Mixed / Multi-discipline</option></select></div></div>
+    <div class="form-group"><label class="form-label">Team Assignment</label>
+      <div class="form-tag-input" onclick="this.querySelector('input').focus()">
+        <input placeholder="Add to teams…" onkeydown="if(event.key==='Enter'&&this.value.trim()){const t=document.createElement('span');t.className='form-tag';t.innerHTML=this.value.trim()+' <button onclick=\\'this.parentElement.remove()\\'>×</button>';this.parentElement.insertBefore(t,this);this.value='';event.preventDefault();}">
+      </div>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <div class="form-section-title">${I('mail',15,'var(--brown-warm)')} Invitation</div>
+    <div class="toggle-row">
+      <div class="toggle-info"><div class="toggle-title">Send Invitation Email</div><div class="toggle-desc">User will receive a welcome email with login instructions</div></div>
+      <button class="toggle-switch on" onclick="this.classList.toggle('on')"></button>
+    </div>
+    <div class="form-group"><label class="form-label">Personal Message (optional)</label><textarea class="form-input" placeholder="Add a personal welcome note to include in the invitation email…" style="min-height:60px"></textarea></div>
+  </div>
+
+  <div class="form-section" style="margin-bottom:0">
+    <div class="form-section-title">${I('fingerprint',15,'var(--brown-warm)')} SSI / KERI Credential</div>
+    <div class="toggle-row">
+      <div class="toggle-info"><div class="toggle-title">Require SSI Setup</div><div class="toggle-desc">Prompt user to create a KERI identifier during onboarding</div></div>
+      <button class="toggle-switch" onclick="this.classList.toggle('on')"></button>
+    </div>
+    <div class="toggle-row">
+      <div class="toggle-info"><div class="toggle-title">Issue Membership Credential</div><div class="toggle-desc">Automatically issue a verifiable membership credential once account is active</div></div>
+      <button class="toggle-switch on" onclick="this.classList.toggle('on')"></button>
+    </div>
+    <div class="form-group"><label class="form-label">Starting Token Balance</label>
+      <div style="display:flex;gap:8px;align-items:center"><input class="form-input" type="number" value="50" style="width:100px"><span style="font-size:13px;color:var(--text-muted)">Welcome bonus tokens</span></div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn btn-primary">${I('mail',14,'#edd6b7')} Send Invitation</button></div>
 `,true);
 }
 
