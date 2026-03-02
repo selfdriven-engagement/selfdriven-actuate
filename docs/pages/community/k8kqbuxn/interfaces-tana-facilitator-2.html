@@ -715,9 +715,15 @@ function render(){
 }
 
 // ═══ HELPER: TABS ═══
-function tabsHTML(tabs,active=0){
-  return `<div class="tabs">${tabs.map((t,i)=>`<button class="tab-btn${i===active?' active':''}" onclick="this.parentElement.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));this.classList.add('active')">${t}</button>`).join('')}</div>`;
+function tabsHTML(tabs,active=0,id='tabs'){
+  return `<div class="tabs" id="${id}">${tabs.map((t,i)=>`<button class="tab-btn${i===active?' active':''}" data-tab="${id}-${i}" onclick="switchTab('${id}',${i})">${t}</button>`).join('')}</div>`;
 }
+function switchTab(id,idx){
+  document.querySelectorAll('#'+id+' .tab-btn').forEach((b,i)=>b.classList.toggle('active',i===idx));
+  document.querySelectorAll('.tp-'+id).forEach((p,i)=>{p.style.display=i===idx?'block':'none';});
+}
+function tp(id,idx){return `<div class="tp-${id}" style="display:${idx===0?'block':'none'}">`;}
+const tpc='</div>';
 
 // ═══════════════════════════════════════
 // PAGE CONTENT GENERATORS
@@ -780,226 +786,178 @@ pages.whatsup=()=>`
 </div></div>`;
 
 // ─── DECISIONS ───
-pages.decisions=()=>`
-<div class="page-header">
-  <div class="page-header-left">
-    <div class="page-icon">${I('git',22,'var(--brown-warm)')}</div>
-    <div><div class="page-title">Decisions</div><div class="page-subtitle">Community governance decisions</div></div>
-  </div>
-  <div class="header-actions"><button class="btn btn-primary" onclick="openNewProposal()">${I('plus',14,'#edd6b7')} New Proposal</button></div>
-</div>
-${tabsHTML(['Active (3)','Passed (12)','Rejected (2)','Draft (1)'])}
-<div class="card section-card" style="margin-bottom:16px"><div class="card-body" style="cursor:pointer" onclick="openViewProposal('DEC-024')">
-  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
-    <div>
-      <h3 style="margin-bottom:4px">DEC-024: Adopt SSI Credential Schema v2</h3>
-      <div style="font-size:12.5px;color:var(--text-muted)">Proposed by Sarah Chen · Mar 1, 2026 · Closes Mar 15</div>
-    </div>
-    <span class="badge badge-open">Active</span>
-  </div>
-  <p style="font-size:13.5px;color:var(--text-secondary);line-height:1.6;margin-bottom:12px">Proposal to upgrade the community's SSI credential schema to v2 to support KERI delegation, multi-sig attestations, and cross-chain anchoring.</p>
-  <div style="display:flex;gap:24px;margin-bottom:10px">
-    <div><span style="font-size:24px;font-weight:700;color:var(--success)">18</span><span style="font-size:12px;color:var(--text-muted)"> For</span></div>
-    <div><span style="font-size:24px;font-weight:700;color:var(--danger)">3</span><span style="font-size:12px;color:var(--text-muted)"> Against</span></div>
-    <div><span style="font-size:24px;font-weight:700;color:var(--text-muted)">4</span><span style="font-size:12px;color:var(--text-muted)"> Abstain</span></div>
-  </div>
-  <div class="progress-bar" style="margin-bottom:10px"><div class="progress-fill" style="width:72%;background:var(--success)"></div></div>
-  <div class="vote-bar">
-    <button class="vote-btn voted">${I('check',14,'var(--success)',2)} Voted For</button>
-    <span class="vote-count">25 of 32 members voted · Quorum reached</span>
-  </div>
-</div></div>
-<div class="card section-card" style="margin-bottom:16px"><div class="card-body" style="cursor:pointer" onclick="openViewProposal('DEC-023')">
-  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
-    <div><h3 style="margin-bottom:4px">DEC-023: Community Treasury Allocation Q2</h3><div style="font-size:12.5px;color:var(--text-muted)">Proposed by Governance Council · Feb 28 · Closes Mar 12</div></div>
-    <span class="badge badge-open">Active</span>
-  </div>
-  <p style="font-size:13.5px;color:var(--text-secondary);line-height:1.6;margin-bottom:12px">Allocate 15% of community treasury to infrastructure development, 10% to education, and 5% to outreach programs for Q2 2026.</p>
-  <div class="progress-bar" style="margin-bottom:10px"><div class="progress-fill" style="width:45%;background:var(--warning)"></div></div>
-  <div class="vote-bar">
-    <button class="vote-btn">${I('thumbsUp',14)} Vote For</button>
-    <button class="vote-btn">Against</button>
-    <button class="vote-btn">Abstain</button>
-    <span class="vote-count">14 of 32 voted</span>
-  </div>
-</div></div>
-<div class="card section-card"><div class="card-body" style="cursor:pointer" onclick="openViewProposal('DEC-022')">
-  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
-    <div><h3 style="margin-bottom:4px">DEC-022: Add Constitutional Committee Role</h3><div style="font-size:12.5px;color:var(--text-muted)">Proposed by Mark · Feb 20 · Closes Mar 5</div></div>
-    <span class="badge badge-pending">Pending Quorum</span>
-  </div>
-  <p style="font-size:13.5px;color:var(--text-secondary);line-height:1.6;margin-bottom:12px">Establish a Constitutional Committee to oversee governance protocol compliance and arbitration processes.</p>
-  <div class="progress-bar" style="margin-bottom:10px"><div class="progress-fill" style="width:28%;background:var(--warning)"></div></div>
-  <div class="vote-bar"><button class="vote-btn">${I('thumbsUp',14)} Vote For</button><button class="vote-btn">Against</button><span class="vote-count">9 of 32 voted · Need 16 for quorum</span></div>
-</div></div>`;
+pages.decisions=()=>{
+const proposals=[
+{id:'DEC-024',title:'Adopt SSI Credential Schema v2',author:'Sarah Chen',date:'Mar 1, 2026',closes:'Mar 15',desc:'Upgrade SSI credential schema to v2 to support KERI delegation, multi-sig attestations, and cross-chain anchoring.',vFor:18,vAgainst:3,vAbstain:4,total:32,status:'active',cat:'Technical',myVote:'For'},
+{id:'DEC-023',title:'Community Treasury Allocation Q2',author:'Governance Council',date:'Feb 28',closes:'Mar 12',desc:'Allocate 15% of community treasury to infrastructure, 10% to education, and 5% to outreach for Q2 2026.',vFor:10,vAgainst:2,vAbstain:2,total:32,status:'active',cat:'Treasury',myVote:null},
+{id:'DEC-022',title:'Add Constitutional Committee Role',author:'Mark',date:'Feb 20',closes:'Mar 5',desc:'Establish a Constitutional Committee to oversee governance protocol compliance and arbitration.',vFor:6,vAgainst:1,vAbstain:2,total:32,status:'active',cat:'Governance',myVote:null},
+{id:'DEC-021',title:'KERI Delegation Protocol Adoption',author:'Sarah Chen',date:'Feb 5',closes:'Feb 20',desc:'Adopt KERI delegation protocol as the standard for multi-level credential issuance within the community.',vFor:24,vAgainst:4,vAbstain:2,total:32,status:'passed',cat:'Technical',myVote:'For'},
+{id:'DEC-020',title:'Increase Staking Rewards by 10%',author:'Alex Rivera',date:'Jan 28',closes:'Feb 10',desc:'Proposal to increase staking reward rate by 10% to incentivise long-term token holders.',vFor:22,vAgainst:5,vAbstain:3,total:32,status:'passed',cat:'Treasury',myVote:'For'},
+{id:'DEC-019',title:'Community Brand Refresh',author:'Mei Lin',date:'Jan 20',closes:'Feb 3',desc:'Modernise TANA branding with updated logo, colour palette, and typography across all platforms.',vFor:20,vAgainst:6,vAbstain:4,total:32,status:'passed',cat:'Community',myVote:'Against'},
+{id:'DEC-018',title:'Mandatory KYC for All Members',author:'James Whitfield',date:'Jan 15',closes:'Jan 28',desc:'Require full KYC for all new and existing members.',vFor:8,vAgainst:20,vAbstain:4,total:32,status:'rejected',cat:'Policy',myVote:'Against'},
+{id:'DEC-017',title:'Remove Anonymous Voting Option',author:'External Contributor',date:'Jan 10',closes:'Jan 23',desc:'Remove anonymous voting to increase transparency in governance.',vFor:10,vAgainst:18,vAbstain:2,total:32,status:'rejected',cat:'Governance',myVote:'Against'},
+{id:'DEC-025',title:'Mobile Wallet Push Notifications',author:'James Whitfield',date:'Mar 2',closes:'',desc:'Add push notification support to the identity wallet for credential requests, governance votes, and updates.',vFor:0,vAgainst:0,vAbstain:0,total:32,status:'draft',cat:'Technical',myVote:null},
+];
+const renderProposal=(p)=>{
+const voted=p.vFor+p.vAgainst+p.vAbstain;const pct=voted>0?Math.round(p.vFor/voted*100):0;
+const statusBadge=p.status==='active'?'open':p.status==='passed'?'active':p.status==='rejected'?'closed':'pending';
+const statusText=p.status==='active'?'Active':p.status==='passed'?'Passed':p.status==='rejected'?'Rejected':'Draft';
+return `<div class="card section-card" style="margin-bottom:16px"><div class="card-body" style="cursor:pointer" onclick="openViewProposal('${p.id}')">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px"><div><h3 style="margin-bottom:4px">${p.id}: ${p.title}</h3><div style="font-size:12.5px;color:var(--text-muted)">Proposed by ${p.author} · ${p.date}${p.closes?' · Closes '+p.closes:''}</div></div><div><span class="badge badge-${statusBadge}">${statusText}</span> <span class="badge badge-info">${p.cat}</span></div></div>
+<p style="font-size:13.5px;color:var(--text-secondary);line-height:1.6;margin-bottom:12px">${p.desc}</p>
+${p.status!=='draft'?`<div style="display:flex;gap:24px;margin-bottom:10px"><div><span style="font-size:22px;font-weight:700;color:var(--success)">${p.vFor}</span><span style="font-size:12px;color:var(--text-muted)"> For</span></div><div><span style="font-size:22px;font-weight:700;color:var(--danger)">${p.vAgainst}</span><span style="font-size:12px;color:var(--text-muted)"> Against</span></div><div><span style="font-size:22px;font-weight:700;color:var(--text-muted)">${p.vAbstain}</span><span style="font-size:12px;color:var(--text-muted)"> Abstain</span></div></div>
+<div class="progress-bar" style="margin-bottom:10px"><div class="progress-fill" style="width:${pct}%;background:${pct>=60?'var(--success)':'var(--warning)'}"></div></div>
+<div class="vote-bar">${p.myVote?`<button class="vote-btn voted">${I('check',14,'var(--success)',2)} Voted ${p.myVote}</button>`:`<button class="vote-btn">${I('thumbsUp',14)} Vote For</button><button class="vote-btn">Against</button><button class="vote-btn">Abstain</button>`}<span class="vote-count">${voted} of ${p.total} voted</span></div>`:'<div class="vote-bar"><span class="vote-count" style="font-style:italic">Draft — not yet open for voting</span></div>'}
+</div></div>`;};
+const active=proposals.filter(p=>p.status==='active'),passed=proposals.filter(p=>p.status==='passed'),rejected=proposals.filter(p=>p.status==='rejected'),draft=proposals.filter(p=>p.status==='draft');
+return `<div class="page-header"><div class="page-header-left"><div class="page-icon">${I('git',22,'var(--brown-warm)')}</div><div><div class="page-title">Decisions</div><div class="page-subtitle">Community governance decisions</div></div></div><div class="header-actions"><button class="btn btn-primary" onclick="openNewProposal()">${I('plus',14,'#edd6b7')} New Proposal</button></div></div>
+${tabsHTML(['Active ('+active.length+')','Passed ('+passed.length+')','Rejected ('+rejected.length+')','Draft ('+draft.length+')'],0,'decTabs')}
+${tp('decTabs',0)}${active.map(renderProposal).join('')}${tpc}
+${tp('decTabs',1)}${passed.map(renderProposal).join('')}${tpc}
+${tp('decTabs',2)}${rejected.map(renderProposal).join('')}${tpc}
+${tp('decTabs',3)}${draft.map(renderProposal).join('')}${tpc}`;
+};
 
 // ─── CONVERSATIONS ───
-pages.conversations=()=>`
+pages.conversations=()=>{
+const posts=[
+{id:1,author:'Governance Council',avatar:'GC',color:'var(--brown-deep)',time:'2 hours ago',title:'📢 Q2 Budget Vote Now Open',body:'The Q2 community treasury allocation proposal is now live. All members are encouraged to review the proposal in Decisions and cast their vote before March 12.',likes:14,comments:7,badge:'Announcement'},
+{id:2,author:'Sarah Chen',avatar:'SC',color:'var(--olive)',time:'5 hours ago',title:'KERI Delegation Module — Testing Help Needed',body:'The delegation module PR has been merged! We need volunteers for integration testing with the identity wallet.',likes:8,comments:3,badge:'Discussion'},
+{id:3,author:'Alex Rivera',avatar:'AR',color:'var(--info)',time:'Yesterday',title:'How do we handle cross-chain credential verification?',body:"I've been thinking about how credentials issued on one chain can be verified on another. Has anyone explored LayerZero or similar bridging?",likes:6,comments:11,badge:'Question'},
+{id:4,author:'Mark',avatar:'MC',color:'var(--brown-warm)',time:'2 days ago',title:'📢 New SSI Wallet Release v2.3',body:'The latest wallet release includes IndexedDB storage, KERI delegation events, and improved key management via Web Crypto API.',likes:19,comments:5,badge:'Announcement'},
+{id:5,author:'James Whitfield',avatar:'JW',color:'#7a6a8a',time:'3 days ago',title:'Community meetup format — thoughts?',body:'Should we switch from monthly to bi-weekly meetups? The governance workload is increasing and more frequent sync would help.',likes:4,comments:8,badge:'Discussion'},
+{id:6,author:'Mei Lin',avatar:'ML',color:'var(--success)',time:'4 days ago',title:'What DID method should we standardize on?',body:'We currently support did:keri and did:web. Should we commit to one, or maintain both? Curious about interop considerations.',likes:7,comments:14,badge:'Question'},
+];
+const renderPost=(p)=>`<div class="card post-card"><div class="card-body" style="cursor:pointer" onclick="openViewPost(${p.id})">
+<div class="post-header"><div class="avatar" style="background:${p.color}">${p.avatar}</div><div class="post-meta"><div class="post-author">${p.author} <span class="badge badge-info" style="margin-left:6px">${p.badge}</span></div><div class="post-time">${p.time}</div></div></div>
+<div style="font-size:15px;font-weight:600;color:var(--text-primary);margin-bottom:6px">${p.title}</div>
+<div class="post-body">${p.body}</div>
+<div class="post-actions"><button class="post-action">${I('thumbsUp',14)} ${p.likes}</button><button class="post-action">${I('msgCircle',14)} ${p.comments} Comments</button><button class="post-action">${I('link',14)} Share</button></div>
+</div></div>`;
+return `
 <div class="page-header">
-  <div class="page-header-left">
-    <div class="page-icon">${I('chat',22,'var(--brown-warm)')}</div>
-    <div><div class="page-title">Conversations</div><div class="page-subtitle">Posts & comments</div></div>
-  </div>
+  <div class="page-header-left"><div class="page-icon">${I('chat',22,'var(--brown-warm)')}</div><div><div class="page-title">Conversations</div><div class="page-subtitle">Posts & comments</div></div></div>
   <div class="header-actions"><button class="btn btn-primary" onclick="openNewPost()">${I('plus',14,'#edd6b7')} New Post</button></div>
 </div>
-${tabsHTML(['All Posts','Announcements','Discussion','Questions'])}
-<div class="card" style="margin-bottom:16px"><div class="card-body">
-  <textarea class="form-input" placeholder="Start a conversation…" style="min-height:70px;margin-bottom:10px"></textarea>
-  <div style="display:flex;justify-content:space-between;align-items:center">
-    <div style="display:flex;gap:8px"><button class="btn btn-sm btn-ghost">${I('file',14)} Attach</button><button class="btn btn-sm btn-ghost">${I('link',14)} Link</button></div>
-    <button class="btn btn-primary btn-sm">${I('send',14,'#edd6b7')} Post</button>
-  </div>
-</div></div>
-${[
-{author:'Governance Council',avatar:'GC',color:'var(--brown-deep)',time:'2 hours ago',title:'📢 Q2 Budget Vote Now Open',body:'The Q2 community treasury allocation proposal is now live. All members are encouraged to review the proposal in Decisions and cast their vote before March 12. This allocation covers infrastructure, education, and outreach.',likes:14,comments:7,badge:'Announcement'},
-{author:'Sarah Chen',avatar:'SC',color:'var(--olive)',time:'5 hours ago',title:'KERI Delegation Module — Testing Help Needed',body:'The delegation module PR has been merged! We need volunteers for integration testing with the identity wallet. If you have experience with KERI protocols or want to learn, please comment below.',likes:8,comments:3,badge:'Discussion'},
-{author:'Alex Rivera',avatar:'AR',color:'var(--info)',time:'Yesterday',title:'How do we handle cross-chain credential verification?',body:"I've been thinking about how credentials issued on one chain can be verified on another. Has anyone explored LayerZero or similar bridging solutions for identity resolution?",likes:6,comments:11,badge:'Question'},
-].map(p=>`
-<div class="card post-card"><div class="card-body">
-  <div class="post-header">
-    <div class="avatar" style="background:${p.color}">${p.avatar}</div>
-    <div class="post-meta"><div class="post-author">${p.author} <span class="badge badge-info" style="margin-left:6px">${p.badge}</span></div><div class="post-time">${p.time}</div></div>
-  </div>
-  <div style="font-size:15px;font-weight:600;color:var(--text-primary);margin-bottom:6px">${p.title}</div>
-  <div class="post-body">${p.body}</div>
-  <div class="post-actions">
-    <button class="post-action">${I('thumbsUp',14)} ${p.likes}</button>
-    <button class="post-action">${I('msgCircle',14)} ${p.comments} Comments</button>
-    <button class="post-action">${I('link',14)} Share</button>
-  </div>
-</div></div>`).join('')}`;
+${tabsHTML(['All Posts ('+posts.length+')','Announcements ('+posts.filter(p=>p.badge==='Announcement').length+')','Discussion ('+posts.filter(p=>p.badge==='Discussion').length+')','Questions ('+posts.filter(p=>p.badge==='Question').length+')'],0,'convTabs')}
+${tp('convTabs',0)}${posts.map(renderPost).join('')}${tpc}
+${tp('convTabs',1)}${posts.filter(p=>p.badge==='Announcement').map(renderPost).join('')}${tpc}
+${tp('convTabs',2)}${posts.filter(p=>p.badge==='Discussion').map(renderPost).join('')}${tpc}
+${tp('convTabs',3)}${posts.filter(p=>p.badge==='Question').map(renderPost).join('')}${tpc}`;
+};
 
 // ─── CONTACTS ───
-pages.contacts=()=>`
-<div class="page-header">
-  <div class="page-header-left">
-    <div class="page-icon">${I('users',22,'var(--brown-warm)')}</div>
-    <div><div class="page-title">Contacts</div><div class="page-subtitle">Organisations & individuals</div></div>
-  </div>
-  <div class="header-actions">
-    <div class="search-box">${I('search',16,'#a89888')}<input placeholder="Search contacts…"></div>
-    <button class="btn btn-primary" onclick="openAddContact()">${I('plus',14,'#edd6b7')} Add Contact</button>
-  </div>
-</div>
-${tabsHTML(['All','Organisations','Individuals','Teams'])}
-<div class="card"><div class="card-body" style="padding:0">
-<table class="data-table">
-<thead><tr><th>Name</th><th>Type</th><th>Role</th><th>Location</th><th>Status</th></tr></thead>
-<tbody>
-${[
-{name:'selfdriven Foundation',type:'Organisation',role:'Governance Body',loc:'Global',status:'active',avatar:'SF',color:'var(--brown-deep)'},
-{name:'Sarah Chen',type:'Individual',role:'Identity Lead',loc:'Singapore',status:'active',avatar:'SC',color:'var(--olive)'},
-{name:'Alex Rivera',type:'Individual',role:'Developer',loc:'Austin, TX',status:'active',avatar:'AR',color:'var(--info)'},
-{name:'Cardano Foundation',type:'Organisation',role:'Partner',loc:'Zug, Switzerland',status:'active',avatar:'CF',color:'#2a4b7c'},
-{name:'TANA Insurance Co.',type:'Organisation',role:'Member Org',loc:'Sydney, AU',status:'active',avatar:'TI',color:'var(--brown-warm)'},
-{name:'James Whitfield',type:'Individual',role:'Facilitator',loc:'London, UK',status:'pending',avatar:'JW',color:'#7a6a8a'},
-{name:'Mei Lin',type:'Individual',role:'Contributor',loc:'Taipei',status:'active',avatar:'ML',color:'var(--success)'},
-].map(c=>`<tr>
+pages.contacts=()=>{
+const contacts=[
+{name:'selfdriven Foundation',type:'Organisation',role:'Governance Body',loc:'Global',status:'active',avatar:'SF',color:'var(--brown-deep)',team:'Governance Council'},
+{name:'Sarah Chen',type:'Individual',role:'Identity Lead',loc:'Singapore',status:'active',avatar:'SC',color:'var(--olive)',team:'Identity Working Group'},
+{name:'Alex Rivera',type:'Individual',role:'Developer',loc:'Austin, TX',status:'active',avatar:'AR',color:'var(--info)',team:'Development'},
+{name:'Cardano Foundation',type:'Organisation',role:'Partner',loc:'Zug, Switzerland',status:'active',avatar:'CF',color:'#2a4b7c',team:''},
+{name:'TANA Insurance Co.',type:'Organisation',role:'Member Org',loc:'Sydney, AU',status:'active',avatar:'TI',color:'var(--brown-warm)',team:'Operations'},
+{name:'James Whitfield',type:'Individual',role:'Facilitator',loc:'London, UK',status:'pending',avatar:'JW',color:'#7a6a8a',team:'Governance Council'},
+{name:'Mei Lin',type:'Individual',role:'Contributor',loc:'Taipei',status:'active',avatar:'ML',color:'var(--success)',team:'Development'},
+{name:'David Park',type:'Individual',role:'Security Analyst',loc:'Seoul',status:'active',avatar:'DP',color:'#5a7a6a',team:'Identity Working Group'},
+];
+const renderTable=(list)=>`<div class="card"><div class="card-body" style="padding:0"><table class="data-table">
+<thead><tr><th>Name</th><th>Type</th><th>Role</th><th>Location</th><th>Status</th></tr></thead><tbody>
+${list.map(c=>`<tr style="cursor:pointer" onclick="openViewContact('${c.name.replace(/'/g,"\\'")}')">
 <td><div style="display:flex;align-items:center;gap:10px"><div class="avatar" style="background:${c.color};width:32px;height:32px;font-size:11px;border-radius:8px">${c.avatar}</div><span style="font-weight:500">${c.name}</span></div></td>
 <td><span style="display:flex;align-items:center;gap:5px">${I(c.type==='Organisation'?'building':'user',14,'#a89888')} ${c.type}</span></td>
 <td>${c.role}</td><td>${c.loc}</td>
 <td><span class="badge badge-${c.status==='active'?'open':'pending'}">${c.status==='active'?'Active':'Pending'}</span></td>
-</tr>`).join('')}
-</tbody></table>
-</div></div>`;
+</tr>`).join('')}</tbody></table></div></div>`;
+const teams=[{name:'Identity Working Group',members:2,lead:'Sarah Chen'},{name:'Governance Council',members:2,lead:'James Whitfield'},{name:'Development',members:2,lead:'Alex Rivera'},{name:'Operations',members:1,lead:'TANA Insurance Co.'}];
+return `
+<div class="page-header"><div class="page-header-left"><div class="page-icon">${I('users',22,'var(--brown-warm)')}</div><div><div class="page-title">Contacts</div><div class="page-subtitle">Organisations & individuals</div></div></div>
+<div class="header-actions"><div class="search-box">${I('search',16,'#a89888')}<input placeholder="Search contacts…"></div><button class="btn btn-primary" onclick="openAddContact()">${I('plus',14,'#edd6b7')} Add Contact</button></div></div>
+${tabsHTML(['All ('+contacts.length+')','Organisations ('+contacts.filter(c=>c.type==='Organisation').length+')','Individuals ('+contacts.filter(c=>c.type==='Individual').length+')','Teams ('+teams.length+')'],0,'ctTabs')}
+${tp('ctTabs',0)}${renderTable(contacts)}${tpc}
+${tp('ctTabs',1)}${renderTable(contacts.filter(c=>c.type==='Organisation'))}${tpc}
+${tp('ctTabs',2)}${renderTable(contacts.filter(c=>c.type==='Individual'))}${tpc}
+${tp('ctTabs',3)}
+${teams.map(t=>`<div class="card section-card"><div class="card-body"><div style="display:flex;justify-content:space-between;align-items:center">
+<div><h3 style="margin-bottom:4px">${t.name}</h3><div style="font-size:12.5px;color:var(--text-muted)">Lead: ${t.lead} · ${t.members} members</div></div>
+<button class="btn btn-sm">View Team</button></div></div></div>`).join('')}
+${tpc}`;
+};
 
 // ─── OPPORTUNITIES ───
-pages.opportunities=()=>`
-<div class="page-header">
-  <div class="page-header-left">
-    <div class="page-icon">${I('smile',22,'var(--brown-warm)')}</div>
-    <div><div class="page-title">Opportunities</div><div class="page-subtitle">Community improvements for consideration</div></div>
-  </div>
-  <div class="header-actions"><button class="btn btn-primary" onclick="openSubmitOpportunity()">${I('plus',14,'#edd6b7')} Submit Opportunity</button></div>
-</div>
-${tabsHTML(['Open (5)','Under Review (2)','Approved (8)','Archived'])}
-<div class="stats-row">
-  <div class="stat-card"><div class="stat-label">Open</div><div class="stat-value">5</div></div>
-  <div class="stat-card"><div class="stat-label">Under Review</div><div class="stat-value" style="color:var(--warning)">2</div></div>
-  <div class="stat-card"><div class="stat-label">Approved</div><div class="stat-value" style="color:var(--success)">8</div></div>
-  <div class="stat-card"><div class="stat-label">Impact Score</div><div class="stat-value">87</div></div>
-</div>
-${[
-{title:'Cross-Chain Identity Resolution',desc:'Implement LayerZero integration for cross-chain SSI credential verification between Cardano and Ethereum ecosystems.',impact:'High',votes:14,status:'open',author:'Alex Rivera'},
-{title:'Community Onboarding Portal',desc:'Create an interactive onboarding experience for new community members with guided setup of their SSI wallet and credential issuance.',impact:'Medium',votes:9,status:'review',author:'Mei Lin'},
-{title:'AI-Assisted Governance Summaries',desc:'Use AI to generate plain-language summaries of governance proposals to improve participation rates among non-technical members.',impact:'High',votes:22,status:'open',author:'Sarah Chen'},
-{title:'Mobile Wallet Push Notifications',desc:'Add push notification support to the identity wallet for credential requests, governance votes, and community updates.',impact:'Medium',votes:7,status:'open',author:'James Whitfield'},
-].map(o=>`
-<div class="card section-card"><div class="card-body">
-  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
-    <h3 style="margin-bottom:0">${o.title}</h3>
-    <span class="badge badge-${o.status==='open'?'open':'pending'}">${o.status==='open'?'Open':'Under Review'}</span>
-  </div>
-  <div style="font-size:12.5px;color:var(--text-muted);margin-bottom:8px">Submitted by ${o.author} · Impact: <strong style="color:${o.impact==='High'?'var(--danger)':'var(--warning)'}"> ${o.impact}</strong></div>
-  <p style="font-size:13.5px;color:var(--text-secondary);line-height:1.6;margin-bottom:12px">${o.desc}</p>
-  <div class="vote-bar"><button class="vote-btn">${I('thumbsUp',14)} ${o.votes} Upvotes</button><button class="vote-btn">${I('msgCircle',14)} Discuss</button></div>
-</div></div>`).join('')}`;
+pages.opportunities=()=>{
+const opps=[
+{id:1,title:'Cross-Chain Identity Resolution',desc:'Implement LayerZero integration for cross-chain SSI credential verification between Cardano and Ethereum.',impact:'High',votes:14,status:'open',author:'Alex Rivera',area:'Infrastructure',effort:'Large'},
+{id:2,title:'Community Onboarding Portal',desc:'Create an interactive onboarding experience for new members with guided SSI wallet setup and credential issuance.',impact:'Medium',votes:9,status:'review',author:'Mei Lin',area:'Community',effort:'Medium'},
+{id:3,title:'AI-Assisted Governance Summaries',desc:'Use AI to generate plain-language summaries of governance proposals to improve participation.',impact:'High',votes:22,status:'open',author:'Sarah Chen',area:'Governance',effort:'Medium'},
+{id:4,title:'Mobile Wallet Push Notifications',desc:'Add push notification support to the identity wallet for credential requests and governance votes.',impact:'Medium',votes:7,status:'open',author:'James Whitfield',area:'Infrastructure',effort:'Small'},
+{id:5,title:'Multi-Sig Treasury Management',desc:'Implement multi-signature approval workflow for treasury transactions above $5,000.',impact:'High',votes:18,status:'review',author:'Mark',area:'Security',effort:'Large'},
+{id:6,title:'SSI Credential Revocation Registry',desc:'Build an on-chain credential revocation registry for KERI-based credentials.',impact:'High',votes:25,status:'approved',author:'Sarah Chen',area:'Identity',effort:'Large'},
+{id:7,title:'Governance Dashboard Analytics',desc:'Real-time analytics dashboard showing voting patterns, participation trends, and quorum tracking.',impact:'Medium',votes:16,status:'approved',author:'Alex Rivera',area:'Governance',effort:'Medium'},
+{id:8,title:'Community Skills Directory',desc:'Searchable directory mapping member skills to project needs for better resource allocation.',impact:'Medium',votes:12,status:'approved',author:'Mei Lin',area:'Community',effort:'Small'},
+{id:9,title:'KERI Witness Network Expansion',desc:'Deploy additional KERI witness nodes across 3 geographic regions for redundancy.',impact:'High',votes:20,status:'approved',author:'Mark',area:'Infrastructure',effort:'Large'},
+{id:10,title:'Token Staking Rewards v2',desc:'Updated staking model with tiered rewards based on governance participation.',impact:'High',votes:28,status:'approved',author:'Governance Council',area:'Treasury',effort:'Large'},
+{id:11,title:'Automated Meeting Minutes',desc:'AI transcription and summary generation for governance meetings.',impact:'Medium',votes:14,status:'approved',author:'James Whitfield',area:'Governance',effort:'Small'},
+{id:12,title:'Developer API Documentation',desc:'Comprehensive API documentation portal with interactive examples.',impact:'Medium',votes:11,status:'approved',author:'Alex Rivera',area:'Documentation',effort:'Medium'},
+{id:13,title:'Member Referral Programme',desc:'Token-incentivised referral programme for community growth.',impact:'Medium',votes:9,status:'approved',author:'Mei Lin',area:'Community',effort:'Small'},
+{id:14,title:'Legacy System Migration Tool',desc:'Tool to migrate data from legacy identity systems to KERI-based credentials.',impact:'Low',votes:3,status:'archived',author:'External Contributor',area:'Infrastructure',effort:'Extra Large'},
+{id:15,title:'Physical Meetup Fund',desc:'Dedicated fund for in-person community meetups and workshops.',impact:'Low',votes:5,status:'archived',author:'James Whitfield',area:'Community',effort:'Small'},
+];
+const renderOpp=(o)=>`<div class="card section-card" style="cursor:pointer" onclick="openViewOpportunity(${o.id})"><div class="card-body">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px"><h3 style="margin-bottom:0">${o.title}</h3><div><span class="badge badge-${o.status==='open'?'open':o.status==='review'?'pending':o.status==='approved'?'active':'closed'}">${o.status==='open'?'Open':o.status==='review'?'Under Review':o.status==='approved'?'Approved':'Archived'}</span></div></div>
+<div style="font-size:12.5px;color:var(--text-muted);margin-bottom:8px">Submitted by ${o.author} · Impact: <strong style="color:${o.impact==='High'?'var(--danger)':o.impact==='Medium'?'var(--warning)':'var(--text-muted)'}">${o.impact}</strong> · Area: ${o.area} · Effort: ${o.effort}</div>
+<p style="font-size:13.5px;color:var(--text-secondary);line-height:1.6;margin-bottom:12px">${o.desc}</p>
+<div class="vote-bar"><button class="vote-btn">${I('thumbsUp',14)} ${o.votes} Upvotes</button><button class="vote-btn">${I('msgCircle',14)} Discuss</button></div>
+</div></div>`;
+const open=opps.filter(o=>o.status==='open'),review=opps.filter(o=>o.status==='review'),approved=opps.filter(o=>o.status==='approved'),archived=opps.filter(o=>o.status==='archived');
+return `<div class="page-header"><div class="page-header-left"><div class="page-icon">${I('smile',22,'var(--brown-warm)')}</div><div><div class="page-title">Opportunities</div><div class="page-subtitle">Community improvements for consideration</div></div></div><div class="header-actions"><button class="btn btn-primary" onclick="openSubmitOpportunity()">${I('plus',14,'#edd6b7')} Submit Opportunity</button></div></div>
+<div class="stats-row"><div class="stat-card"><div class="stat-label">Open</div><div class="stat-value">${open.length}</div></div><div class="stat-card"><div class="stat-label">Under Review</div><div class="stat-value" style="color:var(--warning)">${review.length}</div></div><div class="stat-card"><div class="stat-label">Approved</div><div class="stat-value" style="color:var(--success)">${approved.length}</div></div><div class="stat-card"><div class="stat-label">Impact Score</div><div class="stat-value">87</div></div></div>
+${tabsHTML(['Open ('+open.length+')','Under Review ('+review.length+')','Approved ('+approved.length+')','Archived ('+archived.length+')'],0,'oppTabs')}
+${tp('oppTabs',0)}${open.map(renderOpp).join('')}${tpc}
+${tp('oppTabs',1)}${review.map(renderOpp).join('')}${tpc}
+${tp('oppTabs',2)}${approved.map(renderOpp).join('')}${tpc}
+${tp('oppTabs',3)}${archived.map(renderOpp).join('')}${tpc}`;
+};
 
 // ─── PROJECTS ───
 pages.projects=()=>`
-<div class="page-header">
-  <div class="page-header-left">
-    <div class="page-icon">${I('folder',22,'var(--brown-warm)')}</div>
-    <div><div class="page-title">Projects</div><div class="page-subtitle">Community projects with tasks</div></div>
-  </div>
-  <div class="header-actions"><button class="btn btn-primary" onclick="openNewProject()">${I('plus',14,'#edd6b7')} New Project</button></div>
-</div>
+<div class="page-header"><div class="page-header-left"><div class="page-icon">${I('folder',22,'var(--brown-warm)')}</div><div><div class="page-title">Projects</div><div class="page-subtitle">Community projects with tasks</div></div></div><div class="header-actions"><button class="btn btn-primary" onclick="openNewProject()">${I('plus',14,'#edd6b7')} New Project</button></div></div>
 ${[
-{name:'Identity Wallet v2',progress:68,tasks:24,done:16,members:['SC','AR','ML'],status:'active',color:'var(--success)'},
-{name:'Governance Framework',progress:45,tasks:18,done:8,members:['GC','JW'],status:'active',color:'var(--warning)'},
-{name:'Community Portal Redesign',progress:12,tasks:30,done:4,members:['AR','ML','SC'],status:'active',color:'var(--danger)'},
-{name:'KERI Delegation Module',progress:92,tasks:15,done:14,members:['SC','MC'],status:'active',color:'var(--success)'},
+{id:1,name:'Identity Wallet v2',progress:68,tasks:24,done:16,members:['SC','AR','ML'],color:'var(--success)',lead:'Sarah Chen',cat:'Development',desc:'Next-generation SSI wallet with KERI delegation, IndexedDB storage, and Web Crypto API integration.'},
+{id:2,name:'Governance Framework',progress:45,tasks:18,done:8,members:['GC','JW'],color:'var(--warning)',lead:'James Whitfield',cat:'Governance',desc:'Comprehensive governance framework defining roles, voting processes, and dispute resolution.'},
+{id:3,name:'Community Portal Redesign',progress:12,tasks:30,done:4,members:['AR','ML','SC'],color:'var(--danger)',lead:'Alex Rivera',cat:'Design',desc:'Complete redesign of the community portal with improved UX, accessibility, and mobile responsiveness.'},
+{id:4,name:'KERI Delegation Module',progress:92,tasks:15,done:14,members:['SC','MC'],color:'var(--success)',lead:'Sarah Chen',cat:'Development',desc:'KERI delegation event handling module for multi-level credential issuance and verification.'},
 ].map(p=>`
-<div class="card section-card"><div class="card-body">
+<div class="card section-card" style="cursor:pointer" onclick="openViewProject(${p.id})"><div class="card-body">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-    <div>
-      <h3 style="margin-bottom:4px">${p.name}</h3>
-      <div style="font-size:12.5px;color:var(--text-muted)">${p.done} of ${p.tasks} tasks complete</div>
-    </div>
-    <div style="display:flex;align-items:center;gap:8px">
-      <div style="display:flex">
-        ${p.members.map((m,i)=>`<div class="avatar" style="background:var(--brown-warm);width:28px;height:28px;font-size:10px;border-radius:7px;margin-left:${i>0?'-6':'0'}px;border:2px solid #fff">${m}</div>`).join('')}
-      </div>
-      <span class="badge badge-active">${p.progress}%</span>
-    </div>
+    <div><h3 style="margin-bottom:4px">${p.name}</h3><div style="font-size:12.5px;color:var(--text-muted)">${p.done} of ${p.tasks} tasks complete · Lead: ${p.lead}</div></div>
+    <div style="display:flex;align-items:center;gap:8px"><div style="display:flex">${p.members.map((m,i)=>`<div class="avatar" style="background:var(--brown-warm);width:28px;height:28px;font-size:10px;border-radius:7px;margin-left:${i>0?'-6':'0'}px;border:2px solid #fff">${m}</div>`).join('')}</div><span class="badge badge-active">${p.progress}%</span></div>
   </div>
   <div class="progress-bar"><div class="progress-fill" style="width:${p.progress}%;background:${p.color}"></div></div>
-  <div style="margin-top:14px;display:flex;flex-wrap:wrap;gap:6px">
-    ${['Design','Development','Testing','Documentation'].slice(0,Math.floor(Math.random()*3)+2).map(t=>`<span style="padding:3px 10px;border-radius:6px;font-size:11.5px;background:var(--accent-light);color:var(--olive)">${t}</span>`).join('')}
-  </div>
+  <div style="margin-top:12px;display:flex;gap:6px"><span class="badge badge-info">${p.cat}</span></div>
 </div></div>`).join('')}`;
 
 // ─── DOCS ───
-pages.docs=()=>`
-<div class="page-header">
-  <div class="page-header-left">
-    <div class="page-icon">${I('docs',22,'var(--brown-warm)')}</div>
-    <div><div class="page-title">Docs</div><div class="page-subtitle">Share community documents</div></div>
-  </div>
-  <div class="header-actions">
-    <div class="search-box">${I('search',16,'#a89888')}<input placeholder="Search documents…"></div>
-    <button class="btn btn-primary" onclick="openUploadDoc()">${I('upload',14,'#edd6b7')} Upload</button>
-  </div>
-</div>
-${tabsHTML(['All Documents','Governance','Technical','Templates'])}
-<div class="card"><div class="card-body" style="padding:0">
-<table class="data-table">
-<thead><tr><th>Document</th><th>Category</th><th>Author</th><th>Modified</th><th>Size</th></tr></thead>
-<tbody>
-${[
-{name:'Community Constitution v3.2',cat:'Governance',author:'Governance Council',date:'Mar 1, 2026',size:'245 KB',icon:'file'},
-{name:'SSI Credential Schema v2 Spec',cat:'Technical',author:'Sarah Chen',date:'Feb 28, 2026',size:'1.2 MB',icon:'file'},
-{name:'KERI Delegation Architecture',cat:'Technical',author:'Mark',date:'Feb 25, 2026',size:'890 KB',icon:'file'},
-{name:'Q1 2026 Treasury Report',cat:'Financial',author:'Operations',date:'Feb 20, 2026',size:'340 KB',icon:'file'},
-{name:'New Member Onboarding Guide',cat:'Template',author:'Alex Rivera',date:'Feb 15, 2026',size:'156 KB',icon:'file'},
-{name:'Governance Proposal Template',cat:'Template',author:'Governance Council',date:'Feb 10, 2026',size:'42 KB',icon:'file'},
-].map(d=>`<tr>
-<td><div style="display:flex;align-items:center;gap:10px">${I('file',18,'var(--brown-warm)')}<span style="font-weight:500">${d.name}</span></div></td>
-<td><span class="badge badge-info">${d.cat}</span></td>
-<td>${d.author}</td><td>${d.date}</td><td>${d.size}</td>
-</tr>`).join('')}
-</tbody></table>
-</div></div>`;
+pages.docs=()=>{
+const docs=[
+{id:1,name:'Community Constitution v3.2',cat:'Governance',author:'Governance Council',date:'Mar 1, 2026',size:'245 KB',desc:'The foundational document defining the community structure, rights, and governance processes.'},
+{id:2,name:'SSI Credential Schema v2 Spec',cat:'Technical',author:'Sarah Chen',date:'Feb 28, 2026',size:'1.2 MB',desc:'Technical specification for the v2 credential schema supporting KERI delegation and cross-chain anchoring.'},
+{id:3,name:'KERI Delegation Architecture',cat:'Technical',author:'Mark',date:'Feb 25, 2026',size:'890 KB',desc:'Architecture document for multi-level delegation events, witness configuration, and key rotation.'},
+{id:4,name:'Q1 2026 Treasury Report',cat:'Governance',author:'Operations',date:'Feb 20, 2026',size:'340 KB',desc:'Quarterly financial report covering income, expenditure, staking rewards, and on-chain transactions.'},
+{id:5,name:'New Member Onboarding Guide',cat:'Template',author:'Alex Rivera',date:'Feb 15, 2026',size:'156 KB',desc:'Step-by-step template for onboarding new community members including wallet setup and credential issuance.'},
+{id:6,name:'Governance Proposal Template',cat:'Template',author:'Governance Council',date:'Feb 10, 2026',size:'42 KB',desc:'Standard template for submitting governance proposals with required sections and voting parameters.'},
+{id:7,name:'Identity Wallet API Reference',cat:'Technical',author:'Alex Rivera',date:'Feb 5, 2026',size:'2.1 MB',desc:'Full API reference for the identity wallet including endpoints, authentication, and example requests.'},
+{id:8,name:'Voting Process Guide',cat:'Governance',author:'James Whitfield',date:'Jan 28, 2026',size:'120 KB',desc:'Detailed guide explaining the community voting process, quorum rules, and delegation procedures.'},
+{id:9,name:'Project Brief Template',cat:'Template',author:'Mei Lin',date:'Jan 20, 2026',size:'38 KB',desc:'Template for drafting project briefs with scope, timeline, resource requirements, and success criteria.'},
+];
+const renderTable=(list)=>`<div class="card"><div class="card-body" style="padding:0"><table class="data-table"><thead><tr><th>Document</th><th>Category</th><th>Author</th><th>Modified</th><th>Size</th></tr></thead><tbody>
+${list.map(d=>`<tr style="cursor:pointer" onclick="openViewDoc(${d.id})"><td><div style="display:flex;align-items:center;gap:10px">${I('file',18,'var(--brown-warm)')}<span style="font-weight:500">${d.name}</span></div></td><td><span class="badge badge-info">${d.cat}</span></td><td>${d.author}</td><td>${d.date}</td><td>${d.size}</td></tr>`).join('')}
+</tbody></table></div></div>`;
+const gov=docs.filter(d=>d.cat==='Governance'),tech=docs.filter(d=>d.cat==='Technical'),tmpl=docs.filter(d=>d.cat==='Template');
+return `<div class="page-header"><div class="page-header-left"><div class="page-icon">${I('docs',22,'var(--brown-warm)')}</div><div><div class="page-title">Docs</div><div class="page-subtitle">Share community documents</div></div></div><div class="header-actions"><div class="search-box">${I('search',16,'#a89888')}<input placeholder="Search documents…"></div><button class="btn btn-primary" onclick="openUploadDoc()">${I('upload',14,'#edd6b7')} Upload</button></div></div>
+${tabsHTML(['All ('+docs.length+')','Governance ('+gov.length+')','Technical ('+tech.length+')','Templates ('+tmpl.length+')'],0,'docTabs')}
+${tp('docTabs',0)}${renderTable(docs)}${tpc}
+${tp('docTabs',1)}${renderTable(gov)}${tpc}
+${tp('docTabs',2)}${renderTable(tech)}${tpc}
+${tp('docTabs',3)}${renderTable(tmpl)}${tpc}`;
+};
 
 // ─── TOKENS ───
 pages.tokens=()=>`
@@ -1042,118 +1000,114 @@ ${[
 
 // ─── OPERATIONS ───
 pages.operations=()=>`
-<div class="page-header">
-  <div class="page-header-left">
-    <div class="page-icon">${I('pie',22,'var(--brown-warm)')}</div>
-    <div><div class="page-title">Operations</div><div class="page-subtitle">Community resources, products & orders</div></div>
-  </div>
-  <div class="header-actions"><button class="btn btn-primary" onclick="openAddResource()">${I('plus',14,'#edd6b7')} Add Resource</button></div>
-</div>
-${tabsHTML(['Resources','Products','Orders'])}
-<div class="stats-row">
-  <div class="stat-card"><div class="stat-label">Active Resources</div><div class="stat-value">18</div></div>
-  <div class="stat-card"><div class="stat-label">Products</div><div class="stat-value">6</div></div>
-  <div class="stat-card"><div class="stat-label">Pending Orders</div><div class="stat-value" style="color:var(--warning)">3</div></div>
-  <div class="stat-card"><div class="stat-label">Utilisation</div><div class="stat-value">78%</div></div>
-</div>
-<div class="card"><div class="card-body" style="padding:0">
-<table class="data-table">
-<thead><tr><th>Resource</th><th>Type</th><th>Status</th><th>Allocation</th><th>Utilisation</th></tr></thead>
-<tbody>
+<div class="page-header"><div class="page-header-left"><div class="page-icon">${I('pie',22,'var(--brown-warm)')}</div><div><div class="page-title">Operations</div><div class="page-subtitle">Community resources, products & orders</div></div></div><div class="header-actions"><button class="btn btn-primary" onclick="openAddResource()">${I('plus',14,'#edd6b7')} Add Resource</button></div></div>
+<div class="stats-row"><div class="stat-card"><div class="stat-label">Active Resources</div><div class="stat-value">18</div></div><div class="stat-card"><div class="stat-label">Products</div><div class="stat-value">6</div></div><div class="stat-card"><div class="stat-label">Pending Orders</div><div class="stat-value" style="color:var(--warning)">3</div></div><div class="stat-card"><div class="stat-label">Utilisation</div><div class="stat-value">78%</div></div></div>
+${tabsHTML(['Resources (5)','Products (6)','Orders (3)'],0,'opsTabs')}
+${tp('opsTabs',0)}
+<div class="card"><div class="card-body" style="padding:0"><table class="data-table"><thead><tr><th>Resource</th><th>Type</th><th>Status</th><th>Allocation</th><th>Utilisation</th></tr></thead><tbody>
 ${[
 {name:'AWS Infrastructure',type:'Cloud',status:'active',alloc:'Operations',util:82},
 {name:'Identity Wallet API',type:'Service',status:'active',alloc:'Development',util:64},
 {name:'KERI Node Cluster',type:'Infrastructure',status:'active',alloc:'Identity WG',util:91},
 {name:'Community Portal Hosting',type:'Cloud',status:'active',alloc:'Operations',util:45},
 {name:'Cardano Node',type:'Infrastructure',status:'maintenance',alloc:'Blockchain',util:0},
-].map(r=>`<tr>
-<td style="font-weight:500">${r.name}</td>
-<td><span class="badge badge-info">${r.type}</span></td>
-<td><span class="badge badge-${r.status==='active'?'open':'pending'}">${r.status==='active'?'Active':'Maintenance'}</span></td>
-<td>${r.alloc}</td>
-<td><div style="display:flex;align-items:center;gap:8px"><div class="progress-bar" style="width:80px"><div class="progress-fill" style="width:${r.util}%;background:${r.util>80?'var(--danger)':r.util>50?'var(--warning)':'var(--success)'}"></div></div><span style="font-size:12px;color:var(--text-muted)">${r.util}%</span></div></td>
-</tr>`).join('')}
-</tbody></table>
-</div></div>`;
+].map(r=>`<tr><td style="font-weight:500">${r.name}</td><td><span class="badge badge-info">${r.type}</span></td><td><span class="badge badge-${r.status==='active'?'open':'pending'}">${r.status==='active'?'Active':'Maintenance'}</span></td><td>${r.alloc}</td><td><div style="display:flex;align-items:center;gap:8px"><div class="progress-bar" style="width:80px"><div class="progress-fill" style="width:${r.util}%;background:${r.util>80?'var(--danger)':r.util>50?'var(--warning)':'var(--success)'}"></div></div><span style="font-size:12px;color:var(--text-muted)">${r.util}%</span></div></td></tr>`).join('')}
+</tbody></table></div></div>
+${tpc}
+${tp('opsTabs',1)}
+<div class="card"><div class="card-body" style="padding:0"><table class="data-table"><thead><tr><th>Product</th><th>Type</th><th>Version</th><th>Users</th><th>Status</th></tr></thead><tbody>
+${[
+{name:'Identity Wallet',type:'Application',ver:'v2.3.1',users:1247,status:'active'},
+{name:'Governance Portal',type:'Web App',ver:'v3.0.0',users:892,status:'active'},
+{name:'KERI Witness Node',type:'Service',ver:'v1.4.2',users:24,status:'active'},
+{name:'Community API',type:'API',ver:'v5.0.43',users:156,status:'active'},
+{name:'Mobile Companion',type:'Mobile App',ver:'v1.1.0',users:643,status:'beta'},
+{name:'Analytics Dashboard',type:'Web App',ver:'v0.9.3',users:45,status:'beta'},
+].map(p=>`<tr><td style="font-weight:500">${p.name}</td><td><span class="badge badge-info">${p.type}</span></td><td><code style="font-size:12px;background:var(--accent-light);padding:2px 8px;border-radius:4px">${p.ver}</code></td><td>${p.users.toLocaleString()}</td><td><span class="badge badge-${p.status==='active'?'open':'pending'}">${p.status==='active'?'Active':'Beta'}</span></td></tr>`).join('')}
+</tbody></table></div></div>
+${tpc}
+${tp('opsTabs',2)}
+<div class="card"><div class="card-body" style="padding:0"><table class="data-table"><thead><tr><th>Order</th><th>Requestor</th><th>Type</th><th>Date</th><th>Status</th></tr></thead><tbody>
+${[
+{id:'ORD-042',req:'Alex Rivera',type:'SSL Certificate Renewal',date:'Mar 1, 2026',status:'pending'},
+{id:'ORD-041',req:'Operations',type:'AWS Reserved Instance',date:'Feb 28, 2026',status:'pending'},
+{id:'ORD-040',req:'Sarah Chen',type:'KERI Node Scale-up',date:'Feb 25, 2026',status:'pending'},
+{id:'ORD-039',req:'Mark',type:'Domain Registration',date:'Feb 20, 2026',status:'complete'},
+{id:'ORD-038',req:'James Whitfield',type:'Video Conferencing License',date:'Feb 15, 2026',status:'complete'},
+].map(o=>`<tr><td style="font-weight:500">${o.id}</td><td>${o.req}</td><td>${o.type}</td><td>${o.date}</td><td><span class="badge badge-${o.status==='pending'?'pending':'active'}">${o.status==='pending'?'Pending':'Complete'}</span></td></tr>`).join('')}
+</tbody></table></div></div>
+${tpc}`;
 
 // ─── FINANCIALS ───
-pages.financials=()=>`
-<div class="page-header">
-  <div class="page-header-left">
-    <div class="page-icon">${I('dollar',22,'var(--brown-warm)')}</div>
-    <div><div class="page-title">Financials</div><div class="page-subtitle">Expenses, income, reporting & on-chain</div></div>
-  </div>
-  <div class="header-actions"><button class="btn" onclick="openExportReport('financials')">${I('download',14)} Export</button><button class="btn btn-primary" onclick="openAddTransaction()">${I('plus',14,'#edd6b7')} Add Transaction</button></div>
-</div>
-${tabsHTML(['Overview','Expenses','Income','On-Chain'])}
-<div class="stats-row">
-  <div class="stat-card"><div class="stat-label">Total Balance</div><div class="stat-value">$48,250</div><div class="stat-change up">↑ 12% from last month</div></div>
-  <div class="stat-card"><div class="stat-label">Monthly Income</div><div class="stat-value" style="color:var(--success)">$8,400</div></div>
-  <div class="stat-card"><div class="stat-label">Monthly Expenses</div><div class="stat-value" style="color:var(--danger)">$5,200</div></div>
-  <div class="stat-card"><div class="stat-label">On-Chain Treasury</div><div class="stat-value">₳125K</div></div>
-</div>
-<div class="two-col">
-  <div class="card section-card"><div class="card-body">
-    <h3>Monthly Overview</h3>
-    <div class="chart-placeholder"><div class="chart-bars" id="chartBars">
-      ${['Jan','Feb','Mar','Apr','May','Jun'].map((m,i)=>`<div style="text-align:center;flex:1"><div class="chart-bar" data-h="${[60,75,55,80,70,90][i]}" style="height:0;background:${i<5?'var(--brown-warm)':'var(--brown-deep)'};width:100%;margin:0 auto"></div><div style="font-size:10px;color:var(--text-muted);margin-top:6px">${m}</div></div>`).join('')}
-    </div></div>
-  </div></div>
-  <div class="card section-card"><div class="card-body">
-    <h3>Recent Transactions</h3>
-    ${[
-      {desc:'AWS Infrastructure',amount:'-$1,240',type:'expense',date:'Mar 1'},
-      {desc:'Member contributions',amount:'+$3,200',type:'income',date:'Feb 28'},
-      {desc:'KERI node hosting',amount:'-$680',type:'expense',date:'Feb 25'},
-      {desc:'Partner grant (Cardano)',amount:'+$5,000',type:'income',date:'Feb 20'},
-    ].map(t=>`
-    <div class="list-item">
-      <div class="list-item-icon" style="background:${t.type==='income'?'rgba(107,138,94,0.1)':'rgba(192,96,74,0.1)'}">${I(t.type==='income'?'plus':'download',18,t.type==='income'?'var(--success)':'var(--danger)')}</div>
-      <div class="list-item-content"><div class="list-item-title">${t.desc}</div><div class="list-item-sub">${t.date}</div></div>
-      <div style="font-size:14px;font-weight:600;color:${t.type==='income'?'var(--success)':'var(--danger)'}">${t.amount}</div>
-    </div>`).join('')}
-  </div></div>
-</div>
-<div class="card section-card" style="margin-top:16px"><div class="card-body">
-  <h3>On-Chain Transactions</h3>
-  <div style="overflow-x:auto">
-  <table class="data-table">
-  <thead><tr><th>Tx Hash</th><th>Type</th><th>Amount</th><th>Block</th><th>Date</th></tr></thead>
-  <tbody>
-  ${[
-    {hash:'0x8f2a...c4b1',type:'Treasury Deposit',amount:'₳5,000',block:'#12,847,392',date:'Mar 1'},
-    {hash:'0x3e7b...91d5',type:'Governance Reward',amount:'₳250',block:'#12,846,108',date:'Feb 28'},
-    {hash:'0xa1c9...f8e2',type:'Staking Reward',amount:'₳1,200',block:'#12,840,551',date:'Feb 25'},
-  ].map(tx=>`<tr>
-    <td><span class="onchain-hash">${tx.hash}</span></td>
-    <td>${tx.type}</td><td style="font-weight:500">${tx.amount}</td><td style="font-size:12px">${tx.block}</td><td>${tx.date}</td>
-  </tr>`).join('')}
-  </tbody></table>
-  </div>
-</div></div>`;
+pages.financials=()=>{
+const txns=[
+{id:1,desc:'AWS Infrastructure',amount:'-$1,240',raw:-1240,type:'expense',cat:'Infrastructure',date:'Mar 1, 2026',method:'Bank Transfer'},
+{id:2,desc:'Member contributions',amount:'+$3,200',raw:3200,type:'income',cat:'Contributions',date:'Feb 28, 2026',method:'Bank Transfer'},
+{id:3,desc:'KERI node hosting',amount:'-$680',raw:-680,type:'expense',cat:'Hosting',date:'Feb 25, 2026',method:'Bank Transfer'},
+{id:4,desc:'Partner grant (Cardano)',amount:'+$5,000',raw:5000,type:'income',cat:'Grants',date:'Feb 20, 2026',method:'On-Chain'},
+{id:5,desc:'Domain renewals',amount:'-$320',raw:-320,type:'expense',cat:'Services',date:'Feb 18, 2026',method:'Credit Card'},
+{id:6,desc:'Staking rewards Feb',amount:'+$1,200',raw:1200,type:'income',cat:'Staking Rewards',date:'Feb 15, 2026',method:'On-Chain'},
+{id:7,desc:'Video conferencing license',amount:'-$450',raw:-450,type:'expense',cat:'Services',date:'Feb 12, 2026',method:'Credit Card'},
+{id:8,desc:'Community event sponsorship',amount:'+$2,500',raw:2500,type:'income',cat:'Contributions',date:'Feb 10, 2026',method:'Bank Transfer'},
+{id:9,desc:'SSL certificates',amount:'-$180',raw:-180,type:'expense',cat:'Infrastructure',date:'Feb 8, 2026',method:'Credit Card'},
+];
+const chain=[
+{hash:'0x8f2a...c4b1',type:'Treasury Deposit',amount:'₳5,000',block:'#12,847,392',date:'Mar 1',status:'confirmed'},
+{hash:'0x3e7b...91d5',type:'Governance Reward',amount:'₳250',block:'#12,846,108',date:'Feb 28',status:'confirmed'},
+{hash:'0xa1c9...f8e2',type:'Staking Reward',amount:'₳1,200',block:'#12,840,551',date:'Feb 25',status:'confirmed'},
+{hash:'0xd4f1...a7c3',type:'Infrastructure Payment',amount:'₳800',block:'#12,835,219',date:'Feb 20',status:'confirmed'},
+{hash:'0xb2e8...39f6',type:'Member Reward',amount:'₳150',block:'#12,830,004',date:'Feb 15',status:'confirmed'},
+];
+const renderTxTable=(list)=>`<div class="card"><div class="card-body" style="padding:0"><table class="data-table"><thead><tr><th>Description</th><th>Category</th><th>Date</th><th>Method</th><th style="text-align:right">Amount</th></tr></thead><tbody>
+${list.map(t=>`<tr style="cursor:pointer" onclick="openViewTransaction(${t.id})"><td style="font-weight:500">${t.desc}</td><td><span class="badge badge-info">${t.cat}</span></td><td>${t.date}</td><td>${t.method}</td><td style="text-align:right;font-weight:600;color:${t.raw>0?'var(--success)':'var(--danger)'}">${t.amount}</td></tr>`).join('')}
+</tbody></table></div></div>`;
+const expenses=txns.filter(t=>t.type==='expense'),income=txns.filter(t=>t.type==='income');
+return `<div class="page-header"><div class="page-header-left"><div class="page-icon">${I('dollar',22,'var(--brown-warm)')}</div><div><div class="page-title">Financials</div><div class="page-subtitle">Expenses, income, reporting & on-chain</div></div></div><div class="header-actions"><button class="btn" onclick="openExportReport('financials')">${I('download',14)} Export</button><button class="btn btn-primary" onclick="openAddTransaction()">${I('plus',14,'#edd6b7')} Add Transaction</button></div></div>
+<div class="stats-row"><div class="stat-card"><div class="stat-label">Total Balance</div><div class="stat-value">$48,250</div><div class="stat-change up">↑ 12% from last month</div></div><div class="stat-card"><div class="stat-label">Monthly Income</div><div class="stat-value" style="color:var(--success)">$8,400</div></div><div class="stat-card"><div class="stat-label">Monthly Expenses</div><div class="stat-value" style="color:var(--danger)">$5,200</div></div><div class="stat-card"><div class="stat-label">On-Chain Treasury</div><div class="stat-value">₳125K</div></div></div>
+${tabsHTML(['Overview','Expenses ('+expenses.length+')','Income ('+income.length+')','On-Chain ('+chain.length+')'],0,'finTabs')}
+${tp('finTabs',0)}
+<div class="two-col"><div class="card section-card"><div class="card-body"><h3>Monthly Overview</h3><div class="chart-placeholder"><div class="chart-bars" id="chartBars">${['Jan','Feb','Mar','Apr','May','Jun'].map((m,i)=>`<div style="text-align:center;flex:1"><div class="chart-bar" data-h="${[60,75,55,80,70,90][i]}" style="height:0;background:${i<5?'var(--brown-warm)':'var(--brown-deep)'};width:100%;margin:0 auto"></div><div style="font-size:10px;color:var(--text-muted);margin-top:6px">${m}</div></div>`).join('')}</div></div></div></div>
+<div class="card section-card"><div class="card-body"><h3>Recent Transactions</h3>
+${txns.slice(0,5).map(t=>`<div class="list-item" style="cursor:pointer" onclick="openViewTransaction(${t.id})"><div class="list-item-icon" style="background:${t.type==='income'?'rgba(107,138,94,0.1)':'rgba(192,96,74,0.1)'}">${I(t.type==='income'?'plus':'download',18,t.type==='income'?'var(--success)':'var(--danger)')}</div><div class="list-item-content"><div class="list-item-title">${t.desc}</div><div class="list-item-sub">${t.date}</div></div><div style="font-size:14px;font-weight:600;color:${t.type==='income'?'var(--success)':'var(--danger)'}">${t.amount}</div></div>`).join('')}
+</div></div></div>
+${tpc}
+${tp('finTabs',1)}${renderTxTable(expenses)}${tpc}
+${tp('finTabs',2)}${renderTxTable(income)}${tpc}
+${tp('finTabs',3)}
+<div class="card"><div class="card-body" style="padding:0"><div style="overflow-x:auto"><table class="data-table"><thead><tr><th>Tx Hash</th><th>Type</th><th>Amount</th><th>Block</th><th>Date</th><th>Status</th></tr></thead><tbody>
+${chain.map(tx=>`<tr><td><span class="onchain-hash">${tx.hash}</span></td><td>${tx.type}</td><td style="font-weight:500">${tx.amount}</td><td style="font-size:12px">${tx.block}</td><td>${tx.date}</td><td><span class="badge badge-open">Confirmed</span></td></tr>`).join('')}
+</tbody></table></div></div></div>
+${tpc}`;
+};
 
 // ─── REPORTS ───
 pages.reports=()=>`
-<div class="page-header">
-  <div class="page-header-left">
-    <div class="page-icon">${I('search',22,'var(--brown-warm)')}</div>
-    <div><div class="page-title">Reports</div><div class="page-subtitle">AI-powered community insights</div></div>
-  </div>
-  <div class="header-actions"><button class="btn" onclick="openExportReport('reports')">${I('download',14)} Export Report</button></div>
+<div class="page-header"><div class="page-header-left"><div class="page-icon">${I('search',22,'var(--brown-warm)')}</div><div><div class="page-title">Reports</div><div class="page-subtitle">AI-powered community insights</div></div></div><div class="header-actions"><button class="btn" onclick="openExportReport('reports')">${I('download',14)} Export Report</button></div></div>
+${tabsHTML(['AI Chat','Generated Reports (4)','Metrics'],0,'rptTabs')}
+${tp('rptTabs',0)}
+<div class="chat-container" id="chatContainer"><div class="chat-messages" id="chatMessages"><div class="chat-bubble ai"><div class="ai-label">TANA AI</div>Hello! I can help you explore community data and generate reports. Try asking me about membership trends, governance participation, token distribution, or project progress.</div></div><div class="chat-input-bar"><input class="chat-input" id="chatInput" placeholder="Ask about community data…" onkeydown="if(event.key==='Enter')sendChat()"><button class="chat-send" onclick="sendChat()">${I('send',18,'#edd6b7')}</button></div></div>
+${tpc}
+${tp('rptTabs',1)}
+<div class="card"><div class="card-body" style="padding:0"><table class="data-table"><thead><tr><th>Report</th><th>Type</th><th>Generated</th><th>Period</th><th>Action</th></tr></thead><tbody>
+${[
+{name:'Q1 2026 Community Summary',type:'Quarterly',date:'Mar 1, 2026',period:'Jan–Mar 2026'},
+{name:'February Governance Report',type:'Monthly',date:'Feb 28, 2026',period:'Feb 2026'},
+{name:'Token Distribution Analysis',type:'Ad-hoc',date:'Feb 20, 2026',period:'All time'},
+{name:'Member Engagement Scorecard',type:'Monthly',date:'Feb 15, 2026',period:'Feb 2026'},
+].map(r=>`<tr><td style="font-weight:500"><div style="display:flex;align-items:center;gap:10px">${I('file',18,'var(--brown-warm)')}<span>${r.name}</span></div></td><td><span class="badge badge-info">${r.type}</span></td><td>${r.date}</td><td>${r.period}</td><td><button class="btn btn-sm">${I('download',12)} Download</button></td></tr>`).join('')}
+</tbody></table></div></div>
+${tpc}
+${tp('rptTabs',2)}
+<div class="stats-row"><div class="stat-card"><div class="stat-label">Active Members</div><div class="stat-value">142</div><div class="stat-change up">↑ 8% from last month</div></div><div class="stat-card"><div class="stat-label">Governance Participation</div><div class="stat-value">72%</div><div class="stat-change up">↑ 5%</div></div><div class="stat-card"><div class="stat-label">Avg. Response Time</div><div class="stat-value">2.4h</div><div class="stat-change down">↓ 15%</div></div><div class="stat-card"><div class="stat-label">Project Completion Rate</div><div class="stat-value">84%</div></div></div>
+<div class="two-col">
+<div class="card section-card"><div class="card-body"><h3>Participation by Area</h3>
+${[{name:'Governance',pct:72,color:'var(--success)'},{name:'Development',pct:58,color:'var(--info)'},{name:'Community',pct:85,color:'var(--brown-warm)'},{name:'Identity',pct:45,color:'var(--warning)'},{name:'Operations',pct:62,color:'var(--olive)'}].map(a=>`<div style="margin-bottom:12px"><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span>${a.name}</span><span style="font-weight:600">${a.pct}%</span></div><div class="progress-bar"><div class="progress-fill" style="width:${a.pct}%;background:${a.color}"></div></div></div>`).join('')}
+</div></div>
+<div class="card section-card"><div class="card-body"><h3>Monthly Activity Trend</h3>
+${[{month:'Mar 2026',votes:48,posts:23,tasks:67},{month:'Feb 2026',votes:42,posts:31,tasks:54},{month:'Jan 2026',votes:38,posts:19,tasks:45},{month:'Dec 2025',votes:35,posts:27,tasks:52}].map(m=>`<div class="list-item"><div class="list-item-content"><div class="list-item-title">${m.month}</div><div class="list-item-sub">${m.votes} votes · ${m.posts} posts · ${m.tasks} tasks completed</div></div></div>`).join('')}
+</div></div>
 </div>
-${tabsHTML(['AI Chat','Generated Reports','Metrics'])}
-<div class="chat-container" id="chatContainer">
-  <div class="chat-messages" id="chatMessages">
-    <div class="chat-bubble ai">
-      <div class="ai-label">TANA AI</div>
-      Hello! I can help you explore community data and generate reports. Try asking me about membership trends, governance participation, token distribution, or project progress.
-    </div>
-  </div>
-  <div class="chat-input-bar">
-    <input class="chat-input" id="chatInput" placeholder="Ask about community data…" onkeydown="if(event.key==='Enter')sendChat()">
-    <button class="chat-send" onclick="sendChat()">${I('send',18,'#edd6b7')}</button>
-  </div>
-</div>`;
+${tpc}`;
 
 // ─── SETTINGS ───
 pages.settings=()=>`
@@ -2484,6 +2438,122 @@ function openRegenerateCodes(){
     <button class="btn btn-primary" style="background:var(--danger);border-color:var(--danger)" onclick="closeModal()">Regenerate Codes</button>
   </div>
   `);
+}
+
+// ═══════════════════════════════════════
+// VIEW POST
+// ═══════════════════════════════════════
+function openViewPost(id){
+const posts={1:{title:'📢 Q2 Budget Vote Now Open',author:'Governance Council',avatar:'GC',color:'var(--brown-deep)',time:'2 hours ago',badge:'Announcement',body:'The Q2 community treasury allocation proposal is now live. All members are encouraged to review the proposal in Decisions and cast their vote before March 12.\n\nThis allocation covers infrastructure (15%), education (10%), and outreach (5%). The remaining 70% remains in reserve.\n\nPlease review DEC-023 for full details.'},2:{title:'KERI Delegation Module — Testing Help Needed',author:'Sarah Chen',avatar:'SC',color:'var(--olive)',time:'5 hours ago',badge:'Discussion',body:'The delegation module PR has been merged! We need volunteers for integration testing with the identity wallet.\n\nSpecifically looking for help with:\n- Multi-level delegation chains\n- Key rotation scenarios\n- Witness verification flows'},3:{title:'How do we handle cross-chain credential verification?',author:'Alex Rivera',avatar:'AR',color:'var(--info)',time:'Yesterday',badge:'Question',body:"I've been thinking about how credentials issued on one chain can be verified on another. Has anyone explored LayerZero or similar bridging?\n\nKey considerations:\n- Gas costs for cross-chain verification\n- Latency requirements for real-time checks\n- Trust model differences between chains"},4:{title:'📢 New SSI Wallet Release v2.3',author:'Mark',avatar:'MC',color:'var(--brown-warm)',time:'2 days ago',badge:'Announcement',body:'The latest wallet release includes IndexedDB storage, KERI delegation events, and improved key management via Web Crypto API.\n\nUpgrade instructions are available in the Docs section.'},5:{title:'Community meetup format — thoughts?',author:'James Whitfield',avatar:'JW',color:'#7a6a8a',time:'3 days ago',badge:'Discussion',body:'Should we switch from monthly to bi-weekly meetups? The governance workload is increasing and more frequent sync would help.'},6:{title:'What DID method should we standardize on?',author:'Mei Lin',avatar:'ML',color:'var(--success)',time:'4 days ago',badge:'Question',body:'We currently support did:keri and did:web. Should we commit to one, or maintain both? Curious about interop considerations.'}};
+const p=posts[id]||posts[1];
+openModal(`
+<div class="modal-header"><div class="modal-header-left"><div class="avatar" style="background:${p.color};width:38px;height:38px;font-size:12px">${p.avatar}</div><div><div class="modal-title">${p.author}</div><div class="modal-subtitle">${p.time} · <span class="badge badge-info">${p.badge}</span></div></div></div><button class="modal-close" onclick="closeModal()">✕</button></div>
+<div class="modal-body">
+<h2 style="margin-bottom:16px">${p.title}</h2>
+<div style="white-space:pre-wrap;line-height:1.7;color:var(--text-secondary);font-size:14px;margin-bottom:24px">${p.body}</div>
+<div style="display:flex;gap:12px;padding:16px 0;border-top:1px solid var(--card-border)"><button class="btn btn-sm">${I('thumbsUp',14)} Like</button><button class="btn btn-sm">${I('link',14)} Share</button><button class="btn btn-sm">${I('flag',14)} Report</button></div>
+<div class="form-section-title" style="margin-top:8px">${I('msgCircle',15,'var(--brown-warm)')} Comments</div>
+${[{a:'Sarah Chen',av:'SC',c:'var(--olive)',t:'1 hour ago',txt:'This is great news! Looking forward to reviewing the proposal.'},{a:'Alex Rivera',av:'AR',c:'var(--info)',t:'45 min ago',txt:'Agreed. The allocation ratios look well thought out.'}].map(c=>`<div style="display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--card-border)"><div class="avatar" style="background:${c.c};width:32px;height:32px;font-size:10px">${c.av}</div><div><div style="font-size:13px"><strong>${c.a}</strong> <span style="color:var(--text-muted);margin-left:6px">${c.t}</span></div><div style="font-size:13.5px;color:var(--text-secondary);margin-top:4px">${c.txt}</div></div></div>`).join('')}
+<div style="margin-top:16px"><textarea class="form-input" placeholder="Write a comment…" style="min-height:70px"></textarea><div style="display:flex;justify-content:flex-end;margin-top:8px"><button class="btn btn-primary btn-sm">${I('send',14,'#edd6b7')} Post Comment</button></div></div>
+</div>`,true);
+}
+
+// ═══════════════════════════════════════
+// VIEW CONTACT
+// ═══════════════════════════════════════
+function openViewContact(name){
+const contacts={'selfdriven Foundation':{type:'Organisation',role:'Governance Body',loc:'Global',status:'Active',desc:'The foundational governance body overseeing community operations, treasury, and constitutional compliance.',email:'governance@selfdriven.foundation',did:'did:keri:EBf...x4a9',team:'Governance Council'},'Sarah Chen':{type:'Individual',role:'Identity Lead',loc:'Singapore',status:'Active',desc:'Leading the Identity Working Group. Expert in KERI protocols and SSI credential architecture.',email:'sarah@selfdriven.ai',did:'did:keri:ECh...b7f2',team:'Identity Working Group'},'Alex Rivera':{type:'Individual',role:'Developer',loc:'Austin, TX',status:'Active',desc:'Full-stack developer focusing on wallet UI, API integration, and community portal development.',email:'alex@selfdriven.ai',did:'did:keri:EAr...c3d8',team:'Development'}};
+const c=contacts[name]||{type:'Individual',role:'Member',loc:'Unknown',status:'Active',desc:'Community member.',email:'',did:'',team:''};
+openModal(`
+<div class="modal-header"><div class="modal-header-left"><div class="page-icon" style="width:38px;height:38px">${I(c.type==='Organisation'?'building':'user',20,'var(--brown-warm)')}</div><div><div class="modal-title">${name}</div><div class="modal-subtitle">${c.type} · ${c.role}</div></div></div><button class="modal-close" onclick="closeModal()">✕</button></div>
+<div class="modal-body">
+<div class="detail-section"><div class="form-section-title">${I('user',15,'var(--brown-warm)')} Profile</div>
+<p style="color:var(--text-secondary);line-height:1.6;margin-bottom:16px">${c.desc}</p>
+<div class="form-row"><div class="form-group"><label class="form-label">Location</label><div style="font-size:14px">${c.loc}</div></div><div class="form-group"><label class="form-label">Status</label><div><span class="badge badge-open">${c.status}</span></div></div></div>
+<div class="form-row"><div class="form-group"><label class="form-label">Email</label><div style="font-size:14px">${c.email||'—'}</div></div><div class="form-group"><label class="form-label">Team</label><div style="font-size:14px">${c.team||'—'}</div></div></div></div>
+<div class="detail-section"><div class="form-section-title">${I('key',15,'var(--brown-warm)')} Identity</div>
+<div class="form-group"><label class="form-label">DID</label><div style="font-family:'JetBrains Mono',monospace;font-size:13px;background:var(--cream-pale);padding:8px 12px;border-radius:8px">${c.did||'Not assigned'}</div></div></div>
+</div>
+<div class="modal-footer"><button class="btn" onclick="closeModal()">Close</button><button class="btn btn-primary">${I('msgCircle',14,'#edd6b7')} Message</button></div>
+`,true);
+}
+
+// ═══════════════════════════════════════
+// VIEW OPPORTUNITY
+// ═══════════════════════════════════════
+function openViewOpportunity(id){
+const opps={1:{title:'Cross-Chain Identity Resolution',author:'Alex Rivera',status:'Open',impact:'High',area:'Infrastructure',effort:'Large',desc:'Implement LayerZero integration for cross-chain SSI credential verification between Cardano and Ethereum ecosystems.',criteria:'Successful credential verification across chains with <5s latency and <$0.10 gas cost per verification.',votes:14},2:{title:'Community Onboarding Portal',author:'Mei Lin',status:'Under Review',impact:'Medium',area:'Community',effort:'Medium',desc:'Create an interactive onboarding experience for new members with guided SSI wallet setup.',criteria:'90% completion rate for new member onboarding within first 48 hours.',votes:9},3:{title:'AI-Assisted Governance Summaries',author:'Sarah Chen',status:'Open',impact:'High',area:'Governance',effort:'Medium',desc:'Use AI to generate plain-language summaries of governance proposals to improve participation.',criteria:'Governance participation rate increases by 20% within 3 months.',votes:22}};
+const o=opps[id]||opps[1];
+openModal(`
+<div class="modal-header"><div class="modal-header-left"><div class="page-icon" style="width:38px;height:38px">${I('smile',20,'var(--brown-warm)')}</div><div><div class="modal-title">${o.title}</div><div class="modal-subtitle">Submitted by ${o.author}</div></div></div><button class="modal-close" onclick="closeModal()">✕</button></div>
+<div class="modal-body">
+<div style="display:flex;gap:10px;margin-bottom:20px"><span class="badge badge-${o.status==='Open'?'open':'pending'}">${o.status}</span><span class="badge badge-info">${o.area}</span><span class="badge badge-${o.impact==='High'?'closed':'pending'}">Impact: ${o.impact}</span><span class="badge badge-info">Effort: ${o.effort}</span></div>
+<div class="form-section-title">${I('file',15,'var(--brown-warm)')} Description</div>
+<p style="color:var(--text-secondary);line-height:1.7;margin-bottom:20px">${o.desc}</p>
+<div class="form-section-title">${I('check',15,'var(--brown-warm)')} Success Criteria</div>
+<p style="color:var(--text-secondary);line-height:1.7;margin-bottom:20px">${o.criteria}</p>
+<div style="display:flex;gap:16px;padding:16px;border-radius:12px;background:var(--cream-pale)"><div style="text-align:center;flex:1"><div style="font-size:24px;font-weight:700;color:var(--text-heading)">${o.votes}</div><div style="font-size:12px;color:var(--text-muted)">Upvotes</div></div><div style="text-align:center;flex:1"><div style="font-size:24px;font-weight:700;color:var(--text-heading)">3</div><div style="font-size:12px;color:var(--text-muted)">Comments</div></div></div>
+</div>
+<div class="modal-footer"><button class="btn" onclick="closeModal()">Close</button><button class="btn btn-primary">${I('thumbsUp',14,'#edd6b7')} Upvote</button></div>
+`,true);
+}
+
+// ═══════════════════════════════════════
+// VIEW PROJECT
+// ═══════════════════════════════════════
+function openViewProject(id){
+const projects={1:{name:'Identity Wallet v2',progress:68,tasks:24,done:16,lead:'Sarah Chen',cat:'Development',desc:'Next-generation SSI wallet with KERI delegation, IndexedDB storage, and Web Crypto API integration.',members:['Sarah Chen','Alex Rivera','Mei Lin'],milestones:[{name:'Core architecture',pct:100},{name:'KERI delegation',pct:92},{name:'UI/UX overhaul',pct:55},{name:'Testing & QA',pct:30}]},2:{name:'Governance Framework',progress:45,tasks:18,done:8,lead:'James Whitfield',cat:'Governance',desc:'Comprehensive governance framework defining roles, voting processes, and dispute resolution.',members:['Governance Council','James Whitfield'],milestones:[{name:'Role definitions',pct:100},{name:'Voting protocol',pct:60},{name:'Dispute resolution',pct:20},{name:'Documentation',pct:10}]},3:{name:'Community Portal Redesign',progress:12,tasks:30,done:4,lead:'Alex Rivera',cat:'Design',desc:'Complete redesign with improved UX, accessibility, and mobile responsiveness.',members:['Alex Rivera','Mei Lin','Sarah Chen'],milestones:[{name:'Research & wireframes',pct:80},{name:'Visual design',pct:15},{name:'Frontend build',pct:0},{name:'Testing',pct:0}]},4:{name:'KERI Delegation Module',progress:92,tasks:15,done:14,lead:'Sarah Chen',cat:'Development',desc:'KERI delegation event handling module for multi-level credential issuance and verification.',members:['Sarah Chen','Mark'],milestones:[{name:'Protocol spec',pct:100},{name:'Core implementation',pct:100},{name:'Integration testing',pct:85},{name:'Documentation',pct:80}]}};
+const p=projects[id]||projects[1];
+openModal(`
+<div class="modal-header"><div class="modal-header-left"><div class="page-icon" style="width:38px;height:38px">${I('folder',20,'var(--brown-warm)')}</div><div><div class="modal-title">${p.name}</div><div class="modal-subtitle">Lead: ${p.lead} · <span class="badge badge-info">${p.cat}</span></div></div></div><button class="modal-close" onclick="closeModal()">✕</button></div>
+<div class="modal-body">
+<p style="color:var(--text-secondary);line-height:1.7;margin-bottom:20px">${p.desc}</p>
+<div style="display:flex;gap:16px;padding:16px;border-radius:12px;background:var(--cream-pale);margin-bottom:20px"><div style="text-align:center;flex:1"><div style="font-size:28px;font-weight:700;color:var(--text-heading)">${p.progress}%</div><div style="font-size:12px;color:var(--text-muted)">Complete</div></div><div style="text-align:center;flex:1"><div style="font-size:28px;font-weight:700;color:var(--text-heading)">${p.done}/${p.tasks}</div><div style="font-size:12px;color:var(--text-muted)">Tasks Done</div></div><div style="text-align:center;flex:1"><div style="font-size:28px;font-weight:700;color:var(--text-heading)">${p.members.length}</div><div style="font-size:12px;color:var(--text-muted)">Members</div></div></div>
+<div class="form-section-title">${I('check',15,'var(--brown-warm)')} Milestones</div>
+${p.milestones.map(m=>`<div style="margin-bottom:14px"><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span>${m.name}</span><span style="font-weight:600">${m.pct}%</span></div><div class="progress-bar"><div class="progress-fill" style="width:${m.pct}%;background:${m.pct===100?'var(--success)':m.pct>50?'var(--warning)':'var(--danger)'}"></div></div></div>`).join('')}
+<div class="form-section-title" style="margin-top:20px">${I('users',15,'var(--brown-warm)')} Team Members</div>
+${p.members.map(m=>`<div style="display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:8px;background:var(--cream-pale);margin:0 6px 6px 0"><div class="avatar" style="background:var(--brown-warm);width:24px;height:24px;font-size:9px">${m.split(' ').map(n=>n[0]).join('')}</div><span style="font-size:13px">${m}</span></div>`).join('')}
+</div>
+<div class="modal-footer"><button class="btn" onclick="closeModal()">Close</button><button class="btn btn-primary">Open Project Board</button></div>
+`,true);
+}
+
+// ═══════════════════════════════════════
+// VIEW DOCUMENT
+// ═══════════════════════════════════════
+function openViewDoc(id){
+const docs={1:{name:'Community Constitution v3.2',cat:'Governance',author:'Governance Council',date:'Mar 1, 2026',size:'245 KB',desc:'The foundational document defining the community structure, member rights, governance processes, and amendment procedures.',versions:['v3.2 — Mar 1, 2026','v3.1 — Jan 15, 2026','v3.0 — Nov 20, 2025']},2:{name:'SSI Credential Schema v2 Spec',cat:'Technical',author:'Sarah Chen',date:'Feb 28, 2026',size:'1.2 MB',desc:'Technical specification for the v2 credential schema supporting KERI delegation, multi-sig attestations, and cross-chain anchoring.',versions:['v2.0 — Feb 28, 2026','v1.1 — Dec 10, 2025']},3:{name:'KERI Delegation Architecture',cat:'Technical',author:'Mark',date:'Feb 25, 2026',size:'890 KB',desc:'Architecture document covering multi-level delegation events, witness configuration, key rotation, and recovery procedures.',versions:['v1.0 — Feb 25, 2026']},4:{name:'Q1 2026 Treasury Report',cat:'Governance',author:'Operations',date:'Feb 20, 2026',size:'340 KB',desc:'Quarterly financial report covering income streams, expenditure breakdown, staking rewards, and on-chain transaction summary.',versions:['Q1 2026 — Feb 20, 2026']},5:{name:'New Member Onboarding Guide',cat:'Template',author:'Alex Rivera',date:'Feb 15, 2026',size:'156 KB',desc:'Step-by-step template for onboarding new community members including wallet setup, credential issuance, and governance orientation.',versions:['v2.0 — Feb 15, 2026','v1.0 — Oct 5, 2025']},6:{name:'Governance Proposal Template',cat:'Template',author:'Governance Council',date:'Feb 10, 2026',size:'42 KB',desc:'Standard template for submitting governance proposals with all required sections, voting parameters, and impact assessment guidelines.',versions:['v1.2 — Feb 10, 2026']},7:{name:'Identity Wallet API Reference',cat:'Technical',author:'Alex Rivera',date:'Feb 5, 2026',size:'2.1 MB',desc:'Full API reference documentation for the identity wallet including REST endpoints, WebSocket events, authentication flows, and code examples.',versions:['v2.3 — Feb 5, 2026','v2.2 — Jan 8, 2026']},8:{name:'Voting Process Guide',cat:'Governance',author:'James Whitfield',date:'Jan 28, 2026',size:'120 KB',desc:'Detailed guide explaining the community voting process, quorum calculations, delegation procedures, and dispute resolution.',versions:['v1.1 — Jan 28, 2026']},9:{name:'Project Brief Template',cat:'Template',author:'Mei Lin',date:'Jan 20, 2026',size:'38 KB',desc:'Template for drafting project briefs with scope definition, timeline, resource requirements, and success criteria sections.',versions:['v1.0 — Jan 20, 2026']}};
+const d=docs[id]||docs[1];
+openModal(`
+<div class="modal-header"><div class="modal-header-left"><div class="page-icon" style="width:38px;height:38px">${I('file',20,'var(--brown-warm)')}</div><div><div class="modal-title">${d.name}</div><div class="modal-subtitle">${d.author} · ${d.date} · ${d.size}</div></div></div><button class="modal-close" onclick="closeModal()">✕</button></div>
+<div class="modal-body">
+<div style="margin-bottom:16px"><span class="badge badge-info">${d.cat}</span></div>
+<div class="form-section-title">${I('file',15,'var(--brown-warm)')} Description</div>
+<p style="color:var(--text-secondary);line-height:1.7;margin-bottom:20px">${d.desc}</p>
+<div class="form-section-title">${I('git',15,'var(--brown-warm)')} Version History</div>
+${d.versions.map((v,i)=>`<div style="display:flex;align-items:center;gap:10px;padding:10px 0;${i<d.versions.length-1?'border-bottom:1px solid var(--card-border)':''}"><div style="width:8px;height:8px;border-radius:50%;background:${i===0?'var(--success)':'var(--text-muted)'}"></div><span style="font-size:13.5px;color:${i===0?'var(--text-primary)':'var(--text-muted)'}">${v}</span>${i===0?'<span class="badge badge-open" style="margin-left:auto">Current</span>':''}</div>`).join('')}
+</div>
+<div class="modal-footer"><button class="btn" onclick="closeModal()">Close</button><button class="btn">${I('download',14)} Download</button><button class="btn btn-primary">${I('eye',14,'#edd6b7')} Open Document</button></div>
+`,true);
+}
+
+// ═══════════════════════════════════════
+// VIEW TRANSACTION
+// ═══════════════════════════════════════
+function openViewTransaction(id){
+const txns={1:{desc:'AWS Infrastructure',amount:'-$1,240',type:'expense',cat:'Infrastructure',date:'Mar 1, 2026',method:'Bank Transfer',ref:'INV-2026-0301',notes:'Monthly AWS bill covering EC2, RDS, S3, and CloudFront services for community infrastructure.'},2:{desc:'Member contributions',amount:'+$3,200',type:'income',cat:'Contributions',date:'Feb 28, 2026',method:'Bank Transfer',ref:'DEP-2026-0228',notes:'Monthly member contribution deposits from 12 active contributing members.'},3:{desc:'KERI node hosting',amount:'-$680',type:'expense',cat:'Hosting',date:'Feb 25, 2026',method:'Bank Transfer',ref:'INV-2026-0225',notes:'Dedicated hosting for 3 KERI witness nodes across US, EU, and APAC regions.'},4:{desc:'Partner grant (Cardano)',amount:'+$5,000',type:'income',cat:'Grants',date:'Feb 20, 2026',method:'On-Chain',ref:'TX-0x8f2a...c4b1',notes:'Quarterly development grant from Cardano Foundation for SSI infrastructure work.'},5:{desc:'Domain renewals',amount:'-$320',type:'expense',cat:'Services',date:'Feb 18, 2026',method:'Credit Card',ref:'INV-2026-0218',notes:'Annual renewal for selfdriven.foundation, selfdriven.ai, selfdriven.network, and tana.community domains.'},6:{desc:'Staking rewards Feb',amount:'+$1,200',type:'income',cat:'Staking Rewards',date:'Feb 15, 2026',method:'On-Chain',ref:'TX-0xa1c9...f8e2',notes:'February ADA staking rewards from community treasury delegation.'},7:{desc:'Video conferencing license',amount:'-$450',type:'expense',cat:'Services',date:'Feb 12, 2026',method:'Credit Card',ref:'INV-2026-0212',notes:'Annual license renewal for governance meeting video conferencing platform.'},8:{desc:'Community event sponsorship',amount:'+$2,500',type:'income',cat:'Contributions',date:'Feb 10, 2026',method:'Bank Transfer',ref:'DEP-2026-0210',notes:'Sponsorship contribution for Q1 community virtual summit event.'},9:{desc:'SSL certificates',amount:'-$180',type:'expense',cat:'Infrastructure',date:'Feb 8, 2026',method:'Credit Card',ref:'INV-2026-0208',notes:'Annual wildcard SSL certificate renewal for *.selfdriven.ai and *.selfdriven.foundation.'}};
+const t=txns[id]||txns[1];
+const isIncome=t.type==='income';
+openModal(`
+<div class="modal-header"><div class="modal-header-left"><div class="page-icon" style="width:38px;height:38px;background:${isIncome?'rgba(107,138,94,0.1)':'rgba(192,96,74,0.1)'}">${I(isIncome?'plus':'download',20,isIncome?'var(--success)':'var(--danger)')}</div><div><div class="modal-title">${t.desc}</div><div class="modal-subtitle">${t.date} · ${t.cat}</div></div></div><button class="modal-close" onclick="closeModal()">✕</button></div>
+<div class="modal-body">
+<div style="text-align:center;padding:20px 0;margin-bottom:20px;border-bottom:1px solid var(--card-border)"><div style="font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:${isIncome?'var(--success)':'var(--danger)'}">${t.amount}</div><div style="font-size:13px;color:var(--text-muted)">${isIncome?'Income':'Expense'} · ${t.cat}</div></div>
+<div class="form-row"><div class="form-group"><label class="form-label">Date</label><div style="font-size:14px">${t.date}</div></div><div class="form-group"><label class="form-label">Payment Method</label><div style="font-size:14px">${t.method}</div></div></div>
+<div class="form-row"><div class="form-group"><label class="form-label">Reference</label><div style="font-family:'JetBrains Mono',monospace;font-size:13px;background:var(--cream-pale);padding:6px 10px;border-radius:6px">${t.ref}</div></div><div class="form-group"><label class="form-label">Category</label><div><span class="badge badge-info">${t.cat}</span></div></div></div>
+<div class="form-group"><label class="form-label">Notes</label><div style="font-size:14px;color:var(--text-secondary);line-height:1.6">${t.notes}</div></div>
+</div>
+<div class="modal-footer"><button class="btn" onclick="closeModal()">Close</button><button class="btn">${I('download',14)} Receipt</button></div>
+`);
 }
 
 // ─── INIT ───
