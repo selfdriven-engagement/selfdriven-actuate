@@ -1,3 +1,8 @@
+---
+layout: null
+permalink: /interfaces/k8kqbuxn/tana/facilitator
+title: TANA Facilitator Interface
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -770,7 +775,7 @@ pages.whatsup=()=>`
   <div style="display:flex;justify-content:flex-end;margin-top:10px"><button class="btn btn-primary btn-sm" onclick="openNewPost()">Post Update</button></div>
 </div></div>
 <div class="card post-card"><div class="card-body">
-  <div class="post-header"><div class="avatar" style="background:var(--olive)">SC</div><div class="post-meta"><div class="post-author">Sarah Chen</div><div class="post-time">2 hours ago</div></div></div>
+  <div class="post-header"><div class="avatar" style="background:var(--olive)">SC</div><div class="post-meta"><div class="post-author">Lucy Hartwell</div><div class="post-time">2 hours ago</div></div></div>
   <div class="post-body">Just finished hand-dyeing a batch of merino in indigo and walnut. The colours came out beautifully — swatches will be at the studio this weekend! 🧶</div>
   <div class="post-actions"><button class="post-action">${I('thumbsUp',14)} 12</button><button class="post-action">${I('msgCircle',14)} 4 Comments</button></div>
 </div></div>
@@ -1060,7 +1065,7 @@ const renderTxTable=(list)=>`<div class="card"><div class="card-body" style="pad
 ${list.map(t=>`<tr style="cursor:pointer" onclick="openViewTransaction(${t.id})"><td style="font-weight:500">${t.desc}</td><td><span class="badge badge-info">${t.cat}</span></td><td>${t.date}</td><td>${t.method}</td><td style="text-align:right;font-weight:600;color:${t.raw>0?'var(--success)':'var(--danger)'}">${t.amount}</td></tr>`).join('')}
 </tbody></table></div></div>`;
 const expenses=txns.filter(t=>t.type==='expense'),income=txns.filter(t=>t.type==='income');
-return `<div class="page-header"><div class="page-header-left"><div class="page-icon">${I('dollar',22,'var(--brown-warm)')}</div><div><div class="page-title">Financials</div><div class="page-subtitle">Expenses, income, reporting & on-chain</div></div></div><div class="header-actions"><button class="btn" onclick="openExportReport('financials')">${I('download',14)} Export</button><button class="btn btn-primary" onclick="openAddTransaction()">${I('plus',14,'#edd6b7')} Add Transaction</button></div></div>
+return `<div class="page-header"><div class="page-header-left"><div class="page-icon">${I('dollar',22,'var(--brown-warm)')}</div><div><div class="page-title">Financials</div><div class="page-subtitle">Expenses, income, reporting & grants</div></div></div><div class="header-actions"><button class="btn" onclick="openExportReport('financials')">${I('download',14)} Export</button><button class="btn btn-primary" onclick="openAddTransaction()">${I('plus',14,'#edd6b7')} Add Transaction</button></div></div>
 <div class="stats-row"><div class="stat-card"><div class="stat-label">Total Balance</div><div class="stat-value">$12,450</div><div class="stat-change up">↑ 8% from last month</div></div><div class="stat-card"><div class="stat-label">Monthly Income</div><div class="stat-value" style="color:var(--success)">$5,660</div></div><div class="stat-card"><div class="stat-label">Monthly Expenses</div><div class="stat-value" style="color:var(--danger)">$2,950</div></div><div class="stat-card"><div class="stat-label">Grants Received</div><div class="stat-value">$10,650</div></div></div>
 ${tabsHTML(['Overview','Expenses ('+expenses.length+')','Income ('+income.length+')','Grants & Donations ('+chain.length+')'],0,'finTabs')}
 ${tp('finTabs',0)}
@@ -1096,10 +1101,10 @@ ${[
 </tbody></table></div></div>
 ${tpc}
 ${tp('rptTabs',2)}
-<div class="stats-row"><div class="stat-card"><div class="stat-label">Active Members</div><div class="stat-value">142</div><div class="stat-change up">↑ 8% from last month</div></div><div class="stat-card"><div class="stat-label">Governance Participation</div><div class="stat-value">72%</div><div class="stat-change up">↑ 5%</div></div><div class="stat-card"><div class="stat-label">Avg. Response Time</div><div class="stat-value">2.4h</div><div class="stat-change down">↓ 15%</div></div><div class="stat-card"><div class="stat-label">Project Completion Rate</div><div class="stat-value">84%</div></div></div>
+<div class="stats-row"><div class="stat-card"><div class="stat-label">Active Members</div><div class="stat-value">24</div><div class="stat-change up">↑ 3 from last month</div></div><div class="stat-card"><div class="stat-label">Workshop Attendance</div><div class="stat-value">82%</div><div class="stat-change up">↑ 12%</div></div><div class="stat-card"><div class="stat-label">Avg. Response Time</div><div class="stat-value">4.2h</div><div class="stat-change down">↓ 18%</div></div><div class="stat-card"><div class="stat-label">Project Completion</div><div class="stat-value">76%</div></div></div>
 <div class="two-col">
 <div class="card section-card"><div class="card-body"><h3>Participation by Area</h3>
-${[{name:'Governance',pct:72,color:'var(--success)'},{name:'Development',pct:58,color:'var(--info)'},{name:'Community',pct:85,color:'var(--brown-warm)'},{name:'Identity',pct:45,color:'var(--warning)'},{name:'Operations',pct:62,color:'var(--olive)'}].map(a=>`<div style="margin-bottom:12px"><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span>${a.name}</span><span style="font-weight:600">${a.pct}%</span></div><div class="progress-bar"><div class="progress-fill" style="width:${a.pct}%;background:${a.color}"></div></div></div>`).join('')}
+${[{name:'Textiles & Quilting',pct:85,color:'var(--success)'},{name:'Ceramics',pct:68,color:'var(--info)'},{name:'Weaving & Fibre',pct:52,color:'var(--brown-warm)'},{name:'Natural Dyeing',pct:42,color:'var(--warning)'},{name:'Makers Market',pct:75,color:'var(--olive)'}].map(a=>`<div style="margin-bottom:12px"><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span>${a.name}</span><span style="font-weight:600">${a.pct}%</span></div><div class="progress-bar"><div class="progress-fill" style="width:${a.pct}%;background:${a.color}"></div></div></div>`).join('')}
 </div></div>
 <div class="card section-card"><div class="card-body"><h3>Monthly Activity Trend</h3>
 ${[{month:'Mar 2026',votes:48,posts:23,tasks:67},{month:'Feb 2026',votes:42,posts:31,tasks:54},{month:'Jan 2026',votes:38,posts:19,tasks:45},{month:'Dec 2025',votes:35,posts:27,tasks:52}].map(m=>`<div class="list-item"><div class="list-item-content"><div class="list-item-title">${m.month}</div><div class="list-item-sub">${m.votes} votes · ${m.posts} posts · ${m.tasks} tasks completed</div></div></div>`).join('')}
@@ -1397,41 +1402,41 @@ function openNewProposal(){
 // ═══════════════════════════════════════
 function openViewProposal(id){
   const proposals={
-    'DEC-024':{
-      title:'Adopt SSI Credential Schema v2',
-      status:'Active', category:'Technical',
-      author:'Sarah Chen', authorAvatar:'SC', authorColor:'var(--olive)',
+    'DEC-012':{
+      title:'Add Saturday Ceramics Workshop',
+      status:'Active', category:'Workshops',
+      author:'Tom Pearson', authorAvatar:'TP', authorColor:'var(--info)',
       created:'Mar 1, 2026', closes:'Mar 15, 2026',
-      summary:'Proposal to upgrade the community\'s SSI credential schema to v2 to support KERI delegation, multi-sig attestations, and cross-chain anchoring.',
-      description:'This proposal outlines the migration path from our current v1 credential schema to the new v2 specification. The upgrade introduces three key capabilities:\n\n1. KERI Delegation Support — Enables hierarchical delegation of credential issuance authority through KERI event logs, allowing sub-organisations to issue credentials under the community\'s root identifier.\n\n2. Multi-Signature Attestations — Requires multiple authorised parties to co-sign credential issuance for high-value credentials (e.g., governance roles, treasury access).\n\n3. Cross-Chain Anchoring — Anchors credential revocation registries on both Cardano and Ethereum, enabling verification across ecosystems.\n\nThe migration will be phased over 6 weeks with backward compatibility maintained during the transition period.',
-      votesFor:18, votesAgainst:3, votesAbstain:4, totalMembers:32,
+      summary:'Proposal to add a weekly Saturday morning ceramics session from 9am–12pm using the community kiln and wheel studio.',
+      description:'This proposal introduces a new weekly Saturday morning ceramics session to meet growing demand for studio time.\n\nSchedule — Every Saturday 9am–12pm, with the first hour as open studio and the remaining two hours as a guided project session.\n\nFacilities — The session will use the existing ceramics studio including 6 pottery wheels, the community kiln, and hand-building tables. A volunteer studio monitor will supervise each session.\n\nCosts — Estimated $120/month for additional clay, glazes, and kiln gas. Covered by participant fees of $15/session or included in premium membership.\n\nThe trial period will run for 8 weeks with a review at the end to decide on permanent scheduling.',
+      votesFor:14, votesAgainst:2, votesAbstain:3, totalMembers:24,
       voted:true, votedChoice:'For',
-      tags:['SSI','KERI','credentials','technical'],
+      tags:['ceramics','workshop','Saturday','studio'],
     },
-    'DEC-023':{
-      title:'Community Treasury Allocation Q2',
+    'DEC-011':{
+      title:'Spring Retreat Budget Allocation',
       status:'Active', category:'Treasury',
-      author:'Governance Council', authorAvatar:'GC', authorColor:'var(--brown-deep)',
+      author:'Ellen Morris', authorAvatar:'EM', authorColor:'var(--brown-deep)',
       created:'Feb 28, 2026', closes:'Mar 12, 2026',
-      summary:'Allocate 15% of community treasury to infrastructure development, 10% to education, and 5% to outreach programs for Q2 2026.',
-      description:'This quarterly allocation proposal distributes community treasury funds across three priority areas identified in the annual planning session:\n\nInfrastructure (15% / ₳18,750) — Covers AWS hosting, KERI node cluster scaling, Cardano node maintenance, and identity wallet API infrastructure.\n\nEducation (10% / ₳12,500) — Funds developer workshops, SSI onboarding materials, video tutorials, and conference participation.\n\nOutreach (5% / ₳6,250) — Supports community growth initiatives including partner engagement, social media presence, and regional meetups.\n\nThe remaining 70% stays in reserve for operational expenses and emergency allocation.',
-      votesFor:10, votesAgainst:2, votesAbstain:2, totalMembers:32,
+      summary:'Allocate $2,400 from community funds towards the Spring Quilting Retreat — covering venue, guest instructor fees, and fabric supplies.',
+      description:'This proposal allocates funds for the Spring Quilting Retreat (April 12–14):\n\nVenue Hire ($800) — Three-day hire of the Blue Mountains Community Centre with accommodation for 20 participants.\n\nGuest Instructor ($900) — Maya Patel, specialist in Sashiko and Japanese textile techniques, for two full-day workshops.\n\nMaterials & Supplies ($500) — Quilting cotton, batting, threads, hand-dyeing supplies for participant kits.\n\nCatering ($200) — Morning tea and lunch provisions for all three days.\n\nParticipant fees of $80 each (20 spots) will recoup $1,600, making the net cost to the community $800.',
+      votesFor:8, votesAgainst:1, votesAbstain:2, totalMembers:24,
       voted:false, votedChoice:null,
-      tags:['treasury','budget','Q2'],
+      tags:['retreat','quilting','budget','spring'],
     },
-    'DEC-022':{
-      title:'Add Constitutional Committee Role',
-      status:'Pending Quorum', category:'Governance',
-      author:'Mark', authorAvatar:'MC', authorColor:'var(--brown-warm)',
+    'DEC-010':{
+      title:'Adopt Shared Tool Library Policy',
+      status:'Active', category:'Policy',
+      author:'Rosa Delgado', authorAvatar:'RD', authorColor:'var(--brown-warm)',
       created:'Feb 20, 2026', closes:'Mar 5, 2026',
-      summary:'Establish a Constitutional Committee to oversee governance protocol compliance and arbitration processes.',
-      description:'This proposal establishes a 5-member Constitutional Committee (CC) responsible for:\n\nProtocol Compliance — Reviewing all governance proposals for alignment with the Community Constitution before they go to vote.\n\nArbitration — Resolving disputes between community members or between members and governance decisions.\n\nConstitutional Amendments — Managing the formal process for proposing and ratifying changes to the Community Constitution.\n\nCC members serve 12-month rotating terms with staggered elections. Initial members will be nominated and confirmed through a special election within 30 days of this proposal passing.',
-      votesFor:6, votesAgainst:1, votesAbstain:2, totalMembers:32,
+      summary:'Establish a shared tool lending library where members can borrow speciality equipment for up to 7 days.',
+      description:'This proposal creates a tool lending library for community members:\n\nEligible Items — Speciality tools including rigid heddle looms, drum carders, ball winders, rotary cutters, embossing heat tools, and pottery trimming tools.\n\nBorrowing Rules — Members may borrow up to 2 items for 7 days. A $20 refundable deposit is required per item. Late returns incur a $5/day fee.\n\nInventory Management — Ellen Morris will maintain a spreadsheet tracking all items. Members book via the community noticeboard or message the committee.\n\nDamage Policy — Members are responsible for repair or replacement costs if tools are returned damaged beyond normal wear.\n\nInitial investment of $300 for labels, storage bins, and a tool cabinet. Ongoing costs are minimal.',
+      votesFor:5, votesAgainst:1, votesAbstain:1, totalMembers:24,
       voted:false, votedChoice:null,
-      tags:['governance','constitution','committee'],
+      tags:['tools','policy','lending','equipment'],
     },
   };
-  const p=proposals[id]||proposals['DEC-024'];
+  const p=proposals[id]||proposals['DEC-012'];
   const totalVotes=p.votesFor+p.votesAgainst+p.votesAbstain;
   const pctFor=totalVotes>0?Math.round(p.votesFor/totalVotes*100):0;
   const pctAgainst=totalVotes>0?Math.round(p.votesAgainst/totalVotes*100):0;
@@ -1523,14 +1528,14 @@ function openViewProposal(id){
     </div>
 
     <div class="detail-section" style="border-bottom:none;margin-bottom:0;padding-bottom:0">
-      <div class="detail-section-title">Discussion (${id==='DEC-024'?'5':'2'} comments)</div>
+      <div class="detail-section-title">Discussion (${id==='DEC-012'?'4':'2'} comments)</div>
       <div class="comment-item">
-        <div class="avatar" style="background:var(--info);width:32px;height:32px;font-size:11px;border-radius:8px">AR</div>
-        <div style="flex:1"><div><span class="comment-author">Alex Rivera</span><span class="comment-time">2 hours ago</span></div><div class="comment-body">Strong support for this. The multi-sig attestation feature alone would significantly improve our credential security posture.</div></div>
+        <div class="avatar" style="background:var(--olive);width:32px;height:32px;font-size:11px;border-radius:8px">LH</div>
+        <div style="flex:1"><div><span class="comment-author">Lucy Hartwell</span><span class="comment-time">2 hours ago</span></div><div class="comment-body">This would be wonderful — Saturday mornings are when most of our members are free. Would we need a second kiln monitor?</div></div>
       </div>
       <div class="comment-item">
-        <div class="avatar" style="background:var(--olive);width:32px;height:32px;font-size:11px;border-radius:8px">ML</div>
-        <div style="flex:1"><div><span class="comment-author">Mei Lin</span><span class="comment-time">5 hours ago</span></div><div class="comment-body">What's the estimated migration effort for existing credentials? Will holders need to re-issue?</div></div>
+        <div class="avatar" style="background:var(--success);width:32px;height:32px;font-size:11px;border-radius:8px">NC</div>
+        <div style="flex:1"><div><span class="comment-author">Nina Chang</span><span class="comment-time">5 hours ago</span></div><div class="comment-body">Love this idea. Could we also open the textile studio on Saturdays at the same time for those who prefer fibre arts?</div></div>
       </div>
       <div style="display:flex;gap:10px;margin-top:14px">
         <input class="form-input" placeholder="Add a comment…" style="flex:1;margin-bottom:0">
@@ -1665,15 +1670,15 @@ function openAddContact(){
       <div class="form-row">
         <div class="form-group">
           <label class="form-label">Role / Title</label>
-          <input class="form-input" placeholder="e.g., Developer, Facilitator">
+          <input class="form-input" placeholder="e.g., Weaver, Ceramicist">
         </div>
         <div class="form-group">
           <label class="form-label">Organisation</label>
           <select class="form-select">
             <option value="">Select organisation…</option>
-            <option>selfdriven Foundation</option>
-            <option>Cardano Foundation</option>
-            <option>TANA Insurance Co.</option>
+            <option>Heartwood Makers Collective</option>
+            <option>Makers Supply Co.</option>
+            <option>The Wool Collective</option>
             <option>Independent</option>
           </select>
         </div>
@@ -1681,29 +1686,29 @@ function openAddContact(){
     </div>
 
     <div class="form-section">
-      <div class="form-section-title">${I('shield',15,'var(--brown-warm)')} Identity & Access</div>
+      <div class="form-section-title">${I('shield',15,'var(--brown-warm)')} Skills & Access</div>
       <div class="form-group">
-        <label class="form-label">DID (Decentralized Identifier)</label>
-        <input class="form-input" placeholder="did:keri:EXq5…" style="font-family:'JetBrains Mono',monospace;font-size:13px">
-        <div class="form-hint">Optional — link their Self-Sovereign Identity credential</div>
+        <label class="form-label">Craft Speciality</label>
+        <input class="form-input" placeholder="e.g., Weaving, ceramics, natural dyeing">
+        <div class="form-hint">Optional — their primary craft discipline</div>
       </div>
       <div class="form-row">
         <div class="form-group">
           <label class="form-label">Community Role</label>
           <select class="form-select">
             <option>Member</option>
-            <option>Contributor</option>
-            <option>Facilitator</option>
-            <option>Council Member</option>
-            <option>Observer</option>
+            <option>Instructor</option>
+            <option>Studio Lead</option>
+            <option>Committee Member</option>
+            <option>Guest</option>
           </select>
         </div>
         <div class="form-group">
           <label class="form-label">Team Assignment</label>
           <select class="form-select">
             <option value="">No team</option>
-            <option>Identity Working Group</option>
-            <option>Governance Council</option>
+            <option>Textile Arts Guild</option>
+            <option>Makers Committee</option>
             <option>Operations</option>
             <option>Development</option>
           </select>
@@ -1745,7 +1750,7 @@ function setContactType(type){
       <div class="form-row"><div class="form-group"><label class="form-label">First Name <span style="color:var(--danger)">*</span></label><input class="form-input" placeholder="First name"></div><div class="form-group"><label class="form-label">Last Name <span style="color:var(--danger)">*</span></label><input class="form-input" placeholder="Last name"></div></div>
       <div class="form-group"><label class="form-label">Email Address</label><input class="form-input" type="email" placeholder="email@example.com"></div>
       <div class="form-row"><div class="form-group"><label class="form-label">Phone</label><input class="form-input" type="tel" placeholder="+61 400 000 000"></div><div class="form-group"><label class="form-label">Location</label><input class="form-input" placeholder="City, Country"></div></div>
-      <div class="form-row"><div class="form-group"><label class="form-label">Role / Title</label><input class="form-input" placeholder="e.g., Developer, Facilitator"></div><div class="form-group"><label class="form-label">Organisation</label><select class="form-select"><option value="">Select…</option><option>selfdriven Foundation</option><option>Cardano Foundation</option><option>TANA Insurance Co.</option><option>Independent</option></select></div></div>`;
+      <div class="form-row"><div class="form-group"><label class="form-label">Role / Title</label><input class="form-input" placeholder="e.g., Weaver, Ceramicist"></div><div class="form-group"><label class="form-label">Organisation</label><select class="form-select"><option value="">Select…</option><option>Heartwood Makers Collective</option><option>The Wool Collective</option><option>Makers Supply Co.</option><option>Independent</option></select></div></div>`;
   } else {
     orgBtn.style.borderColor='var(--brown-warm)';orgBtn.style.background='var(--accent-light)';orgBtn.style.color='var(--brown-deep)';
     indBtn.style.borderColor='';indBtn.style.background='';indBtn.style.color='';
@@ -1843,18 +1848,18 @@ function openSubmitOpportunity(){
         <label class="form-label">Who would champion this?</label>
         <select class="form-select">
           <option value="">Select a person or team…</option>
-          <option>Sarah Chen — Identity Lead</option>
-          <option>Alex Rivera — Developer</option>
-          <option>Governance Council</option>
-          <option>Identity Working Group</option>
-          <option>Operations Team</option>
+          <option>Lucy Hartwell — Textile Lead</option>
+          <option>Tom Pearson — Ceramics Lead</option>
+          <option>Rosa Delgado — Weaving</option>
+          <option>Ellen Morris — Treasurer</option>
+          <option>Nina Chang — Embroidery</option>
           <option>I'll champion it myself</option>
         </select>
       </div>
       <div class="form-group">
         <label class="form-label">Related Areas of Focus</label>
         <div style="display:flex;flex-wrap:wrap;gap:8px">
-          ${['Identity','Governance','Infrastructure','Education','Community','Security','Treasury','Partnerships'].map(a=>`<button class="btn btn-sm" style="font-size:12px" onclick="this.style.borderColor=this.style.borderColor?'':'var(--brown-warm)';this.style.background=this.style.background==='var(--accent-light)'?'':'var(--accent-light)';this.style.color=this.style.color==='var(--brown-deep)'?'':'var(--brown-deep)'">${a}</button>`).join('')}
+          ${['Textiles','Ceramics','Weaving','Dyeing','Education','Community','Events','Equipment','Operations'].map(a=>`<button class="btn btn-sm" style="font-size:12px" onclick="this.style.borderColor=this.style.borderColor?'':'var(--brown-warm)';this.style.background=this.style.background==='var(--accent-light)'?'':'var(--accent-light)';this.style.color=this.style.color==='var(--brown-deep)'?'':'var(--brown-deep)'">${a}</button>`).join('')}
         </div>
       </div>
     </div>
@@ -1906,7 +1911,7 @@ function openNewProject(){
       <div class="form-section-title">${I('folder',15,'var(--brown-warm)')} Project Details</div>
       <div class="form-group">
         <label class="form-label">Project Name <span style="color:var(--danger)">*</span></label>
-        <input class="form-input" placeholder="e.g., Identity Wallet v3">
+        <input class="form-input" placeholder="e.g., Community Quilt Phase 2">
       </div>
       <div class="form-group">
         <label class="form-label">Description <span style="color:var(--danger)">*</span></label>
@@ -1937,22 +1942,22 @@ function openNewProject(){
         <label class="form-label">Project Lead <span style="color:var(--danger)">*</span></label>
         <select class="form-select">
           <option value="">Select lead…</option>
-          <option>Sarah Chen</option><option>Alex Rivera</option><option>Mei Lin</option>
-          <option>James Whitfield</option><option>Mark</option>
+          <option>Lucy Hartwell</option><option>Tom Pearson</option><option>Nina Chang</option>
+          <option>Rosa Delgado</option><option>Ellen Morris</option><option>Jake Turner</option>
         </select>
       </div>
       <div class="form-group">
         <label class="form-label">Team Members</label>
         <div class="form-tag-input" onclick="this.querySelector('input').focus()">
-          <span class="form-tag">Sarah Chen <button onclick="this.parentElement.remove()">×</button></span>
+          <span class="form-tag">Lucy Hartwell <button onclick="this.parentElement.remove()">×</button></span>
           <input placeholder="Add members…" onkeydown="if(event.key==='Enter'&&this.value.trim()){const t=document.createElement('span');t.className='form-tag';t.innerHTML=this.value.trim()+' <button onclick=\\'this.parentElement.remove()\\'>×</button>';this.parentElement.insertBefore(t,this);this.value='';event.preventDefault();}">
         </div>
       </div>
       <div class="form-group">
         <label class="form-label">Working Group</label>
         <select class="form-select">
-          <option value="">None</option><option>Identity Working Group</option>
-          <option>Governance Council</option><option>Operations</option><option>Development</option>
+          <option value="">None</option><option>Textile Arts Guild</option>
+          <option>Ceramics Circle</option><option>Fibre Arts Studio</option><option>Natural Dye Lab</option><option>Market Committee</option>
         </select>
       </div>
     </div>
@@ -2083,7 +2088,7 @@ function openTokenHistory(){
       {date:'Feb 23, 2026',act:'Redeemed for community credits',cat:'Redemption',amt:'-50'},
       {date:'Feb 20, 2026',act:'Facilitated onboarding session',cat:'Community',amt:'+30'},
       {date:'Feb 18, 2026',act:'Weekly streak bonus',cat:'Bonus',amt:'+10'},
-      {date:'Feb 15, 2026',act:'Reviewed credential schema',cat:'Development',amt:'+20'},
+      {date:'Feb 15, 2026',act:'Attended quilting workshop',cat:'Development',amt:'+20'},
       {date:'Feb 12, 2026',act:'Voted on DEC-021',cat:'Governance',amt:'+15'},
     ].map(t=>`<tr>
       <td style="font-size:12.5px;color:var(--text-muted)">${t.date}</td>
@@ -2173,8 +2178,8 @@ function openAddResource(){
         <div class="form-group">
           <label class="form-label">Allocation</label>
           <select class="form-select">
-            <option>Operations</option><option>Development</option><option>Identity WG</option>
-            <option>Blockchain</option><option>Community</option>
+            <option>Operations</option><option>Development</option><option>Textile Arts Guild</option>
+            <option>Grants</option><option>Community</option>
           </select>
         </div>
       </div>
@@ -2189,7 +2194,7 @@ function openAddResource(){
         <div class="form-group">
           <label class="form-label">Currency</label>
           <select class="form-select">
-            <option>USD</option><option>AUD</option><option>EUR</option><option>ADA (₳)</option>
+            <option>USD</option><option>AUD</option><option>EUR</option>
           </select>
         </div>
       </div>
@@ -2239,7 +2244,7 @@ function openAddTransaction(){
     </div>
     <div class="form-group">
       <label class="form-label">Description <span style="color:var(--danger)">*</span></label>
-      <input class="form-input" placeholder="e.g., AWS Infrastructure, Member contributions">
+      <input class="form-input" placeholder="e.g., Studio rent, Workshop fees, Clay supplies">
     </div>
     <div class="form-row three">
       <div class="form-group">
@@ -2249,7 +2254,7 @@ function openAddTransaction(){
       <div class="form-group">
         <label class="form-label">Currency</label>
         <select class="form-select">
-          <option>USD</option><option>AUD</option><option>EUR</option><option>ADA (₳)</option>
+          <option>USD</option><option>AUD</option><option>EUR</option>
         </select>
       </div>
       <div class="form-group">
@@ -2264,21 +2269,21 @@ function openAddTransaction(){
           <option value="">Select category…</option>
           <option>Infrastructure</option><option>Hosting</option><option>Development</option>
           <option>Grants</option><option>Contributions</option><option>Services</option>
-          <option>Staking Rewards</option><option>Other</option>
+          <option>Market Income</option><option>Other</option>
         </select>
       </div>
       <div class="form-group">
         <label class="form-label">Payment Method</label>
         <select class="form-select">
-          <option>Bank Transfer</option><option>On-Chain (Cardano)</option><option>On-Chain (Ethereum)</option>
+          <option>Bank Transfer</option><option>Bank Transfer</option><option>Direct Deposit</option>
           <option>Credit Card</option><option>PayPal</option><option>Other</option>
         </select>
       </div>
     </div>
     <div class="form-group">
-      <label class="form-label">On-Chain Tx Hash</label>
+      <label class="form-label">Invoice / Receipt Reference</label>
       <input class="form-input" placeholder="0x…" style="font-family:'JetBrains Mono',monospace;font-size:13px">
-      <div class="form-hint">Optional — link this to a blockchain transaction</div>
+      <div class="form-hint">Optional — add an invoice or receipt reference</div>
     </div>
     <div class="form-group">
       <label class="form-label">Attachments</label>
@@ -2331,7 +2336,7 @@ function openExportReport(source){
     <div class="form-group">
       <label class="form-label">Include Sections</label>
       ${(source==='financials'?
-        ['Summary Overview','Income Breakdown','Expense Breakdown','On-Chain Transactions','Treasury Balance','Charts & Graphs']:
+        ['Summary Overview','Income Breakdown','Expense Breakdown','Grants & Donations','Membership Summary','Charts & Graphs']:
         ['Community Activity','Governance Participation','Token Distribution','Project Progress','Member Engagement','AI Insights']
       ).map(s=>`
       <div class="form-checkbox-row">
@@ -2442,7 +2447,7 @@ function openRegenerateCodes(){
 // VIEW POST
 // ═══════════════════════════════════════
 function openViewPost(id){
-const posts={1:{title:'📢 Q2 Budget Vote Now Open',author:'Governance Council',avatar:'GC',color:'var(--brown-deep)',time:'2 hours ago',badge:'Announcement',body:'The Q2 community treasury allocation proposal is now live. All members are encouraged to review the proposal in Decisions and cast their vote before March 12.\n\nThis allocation covers infrastructure (15%), education (10%), and outreach (5%). The remaining 70% remains in reserve.\n\nPlease review DEC-023 for full details.'},2:{title:'KERI Delegation Module — Testing Help Needed',author:'Sarah Chen',avatar:'SC',color:'var(--olive)',time:'5 hours ago',badge:'Discussion',body:'The delegation module PR has been merged! We need volunteers for integration testing with the identity wallet.\n\nSpecifically looking for help with:\n- Multi-level delegation chains\n- Key rotation scenarios\n- Witness verification flows'},3:{title:'How do we handle cross-chain credential verification?',author:'Alex Rivera',avatar:'AR',color:'var(--info)',time:'Yesterday',badge:'Question',body:"I've been thinking about how credentials issued on one chain can be verified on another. Has anyone explored LayerZero or similar bridging?\n\nKey considerations:\n- Gas costs for cross-chain verification\n- Latency requirements for real-time checks\n- Trust model differences between chains"},4:{title:'📢 New SSI Wallet Release v2.3',author:'Mark',avatar:'MC',color:'var(--brown-warm)',time:'2 days ago',badge:'Announcement',body:'The latest wallet release includes IndexedDB storage, KERI delegation events, and improved key management via Web Crypto API.\n\nUpgrade instructions are available in the Docs section.'},5:{title:'Community meetup format — thoughts?',author:'James Whitfield',avatar:'JW',color:'#7a6a8a',time:'3 days ago',badge:'Discussion',body:'Should we switch from monthly to bi-weekly meetups? The governance workload is increasing and more frequent sync would help.'},6:{title:'What DID method should we standardize on?',author:'Mei Lin',avatar:'ML',color:'var(--success)',time:'4 days ago',badge:'Question',body:'We currently support did:keri and did:web. Should we commit to one, or maintain both? Curious about interop considerations.'}};
+const posts={1:{title:'📢 Spring Quilting Retreat — Registration Open',author:'Lucy Hartwell',avatar:'LH',color:'var(--olive)',time:'2 hours ago',badge:'Announcement',body:'Registrations are now live for the Spring Quilting Retreat (April 12–14). Guest instructor Maya Patel will be teaching Sashiko techniques.\n\nThe retreat is at Blue Mountains Community Centre. Spaces are limited to 20 participants.\n\nFees: $80 per person (materials included). Sign up on the noticeboard or message Lucy.'},2:{title:'Raku Firing Weekend — Who\'s In?',author:'Tom Pearson',avatar:'TP',color:'var(--info)',time:'5 hours ago',badge:'Discussion',body:'Planning a raku firing session next Saturday. Need at least 6 participants to fire up the outdoor kiln.\n\nWhat to bring:\n- Your bisque-fired pieces (max 3 per person)\n- Tongs and heat-resistant gloves\n- Newspaper for reduction\n\nI\'ll provide the raku glazes and combustible materials.'},3:{title:'Best beginner loom for rigid heddle weaving?',author:'Rosa Delgado',avatar:'RD',color:'var(--brown-warm)',time:'Yesterday',badge:'Question',body:'I want to recommend looms for our intro weaving class. Considering the Ashford Knitters Loom vs Schacht Cricket.\n\nKey factors:\n- Price point for beginners\n- Weaving width (at least 30cm)\n- Portability for take-home projects'},4:{title:'📢 New Dye Kitchen Safety Guidelines',author:'Ellen Morris',avatar:'EM',color:'var(--brown-deep)',time:'2 days ago',badge:'Announcement',body:'Updated safety guidelines for the dye kitchen are posted by the door.\n\nKey changes: mandatory gloves for all acid dyes, new ventilation protocol for vat dyes, and updated MSDS sheets in the folder.\n\nPlease read before your next dye session.'},5:{title:'Embroidery circle — changing to Thursday nights',author:'Nina Chang',avatar:'NC',color:'var(--success)',time:'3 days ago',badge:'Discussion',body:'After the poll, Thursday 7pm won! We\'ll start the new schedule next week. Bring your current project or start a new sampler.'},6:{title:'How do you store handspun yarn?',author:'Jake Turner',avatar:'JT',color:'#7a6a8a',time:'4 days ago',badge:'Question',body:'My handspun skeins keep tangling. Anyone have a good storage system? I\'ve tried swift-wound balls but they lose twist over time.'}};
 const p=posts[id]||posts[1];
 openModal(`
 <div class="modal-header"><div class="modal-header-left"><div class="avatar" style="background:${p.color};width:38px;height:38px;font-size:12px">${p.avatar}</div><div><div class="modal-title">${p.author}</div><div class="modal-subtitle">${p.time} · <span class="badge badge-info">${p.badge}</span></div></div></div><button class="modal-close" onclick="closeModal()">✕</button></div>
@@ -2451,7 +2456,7 @@ openModal(`
 <div style="white-space:pre-wrap;line-height:1.7;color:var(--text-secondary);font-size:14px;margin-bottom:24px">${p.body}</div>
 <div style="display:flex;gap:12px;padding:16px 0;border-top:1px solid var(--card-border)"><button class="btn btn-sm">${I('thumbsUp',14)} Like</button><button class="btn btn-sm">${I('link',14)} Share</button><button class="btn btn-sm">${I('flag',14)} Report</button></div>
 <div class="form-section-title" style="margin-top:8px">${I('msgCircle',15,'var(--brown-warm)')} Comments</div>
-${[{a:'Sarah Chen',av:'SC',c:'var(--olive)',t:'1 hour ago',txt:'This is great news! Looking forward to reviewing the proposal.'},{a:'Alex Rivera',av:'AR',c:'var(--info)',t:'45 min ago',txt:'Agreed. The allocation ratios look well thought out.'}].map(c=>`<div style="display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--card-border)"><div class="avatar" style="background:${c.c};width:32px;height:32px;font-size:10px">${c.av}</div><div><div style="font-size:13px"><strong>${c.a}</strong> <span style="color:var(--text-muted);margin-left:6px">${c.t}</span></div><div style="font-size:13.5px;color:var(--text-secondary);margin-top:4px">${c.txt}</div></div></div>`).join('')}
+${[{a:'Tom Pearson',av:'TP',c:'var(--info)',t:'1 hour ago',txt:'Sounds wonderful! I\'ll bring some hand-built mugs to display as well.'},{a:'Nina Chang',av:'NC',c:'var(--success)',t:'45 min ago',txt:'Count me in. Will there be space for a small embroidery demonstration too?'}].map(c=>`<div style="display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--card-border)"><div class="avatar" style="background:${c.c};width:32px;height:32px;font-size:10px">${c.av}</div><div><div style="font-size:13px"><strong>${c.a}</strong> <span style="color:var(--text-muted);margin-left:6px">${c.t}</span></div><div style="font-size:13.5px;color:var(--text-secondary);margin-top:4px">${c.txt}</div></div></div>`).join('')}
 <div style="margin-top:16px"><textarea class="form-input" placeholder="Write a comment…" style="min-height:70px"></textarea><div style="display:flex;justify-content:flex-end;margin-top:8px"><button class="btn btn-primary btn-sm">${I('send',14,'#edd6b7')} Post Comment</button></div></div>
 </div>`,true);
 }
@@ -2460,8 +2465,8 @@ ${[{a:'Sarah Chen',av:'SC',c:'var(--olive)',t:'1 hour ago',txt:'This is great ne
 // VIEW CONTACT
 // ═══════════════════════════════════════
 function openViewContact(name){
-const contacts={'selfdriven Foundation':{type:'Organisation',role:'Governance Body',loc:'Global',status:'Active',desc:'The foundational governance body overseeing community operations, treasury, and constitutional compliance.',email:'governance@selfdriven.foundation',did:'did:keri:EBf...x4a9',team:'Governance Council'},'Sarah Chen':{type:'Individual',role:'Identity Lead',loc:'Singapore',status:'Active',desc:'Leading the Identity Working Group. Expert in KERI protocols and SSI credential architecture.',email:'sarah@selfdriven.ai',did:'did:keri:ECh...b7f2',team:'Identity Working Group'},'Alex Rivera':{type:'Individual',role:'Developer',loc:'Austin, TX',status:'Active',desc:'Full-stack developer focusing on wallet UI, API integration, and community portal development.',email:'alex@selfdriven.ai',did:'did:keri:EAr...c3d8',team:'Development'}};
-const c=contacts[name]||{type:'Individual',role:'Member',loc:'Unknown',status:'Active',desc:'Community member.',email:'',did:'',team:''};
+const contacts={'Heartwood Makers Collective':{type:'Organisation',role:'Partner Studio',loc:'Melbourne, AU',status:'Active',desc:'Independent makers studio offering shared workspace, exhibition space, and collaborative projects with our community.',email:'hello@heartwoodmakers.com.au',skill:'Mixed media, woodwork, textiles',team:'Textile Arts Guild'},'Lucy Hartwell':{type:'Individual',role:'Textile Lead',loc:'Sydney, AU',status:'Active',desc:'Experienced quilter, hand-dyer, and textile artist. Leads the Textile Arts Guild and organises community retreats.',email:'lucy@makershub.com.au',skill:'Quilting, hand-dyeing, Sashiko',team:'Textile Arts Guild'},'Tom Pearson':{type:'Individual',role:'Ceramics Lead',loc:'Blue Mountains, AU',status:'Active',desc:'Studio potter specialising in raku, stoneware, and hand-building. Manages the ceramics studio and kiln schedule.',email:'tom@makershub.com.au',skill:'Raku, stoneware, wheel throwing',team:'Ceramics Circle'},'Rosa Delgado':{type:'Individual',role:'Weaving Instructor',loc:'Adelaide, AU',status:'Active',desc:'Experienced weaver teaching rigid heddle and floor loom techniques. Runs the beginner weaving programme.',email:'rosa@makershub.com.au',skill:'Weaving, tapestry, fibre prep',team:'Fibre Arts Studio'},'Nina Chang':{type:'Individual',role:'Embroidery Lead',loc:'Hobart, AU',status:'Active',desc:'Embroidery artist and knitting pattern designer. Runs the weekly embroidery circle and publishes patterns.',email:'nina@makershub.com.au',skill:'Embroidery, knitting, pattern design',team:'Textile Arts Guild'},'Ellen Morris':{type:'Individual',role:'Treasurer / Dyer',loc:'Perth, AU',status:'Active',desc:'Community treasurer and natural dye specialist. Manages finances, the dye kitchen, and bulk supply orders.',email:'ellen@makershub.com.au',skill:'Natural dyeing, eco-printing, bookkeeping',team:'Natural Dye Lab'}};
+const c=contacts[name]||{type:'Individual',role:'Member',loc:'Unknown',status:'Active',desc:'Community maker.',email:'',skill:'',team:''};
 openModal(`
 <div class="modal-header"><div class="modal-header-left"><div class="page-icon" style="width:38px;height:38px">${I(c.type==='Organisation'?'building':'user',20,'var(--brown-warm)')}</div><div><div class="modal-title">${name}</div><div class="modal-subtitle">${c.type} · ${c.role}</div></div></div><button class="modal-close" onclick="closeModal()">✕</button></div>
 <div class="modal-body">
@@ -2469,8 +2474,8 @@ openModal(`
 <p style="color:var(--text-secondary);line-height:1.6;margin-bottom:16px">${c.desc}</p>
 <div class="form-row"><div class="form-group"><label class="form-label">Location</label><div style="font-size:14px">${c.loc}</div></div><div class="form-group"><label class="form-label">Status</label><div><span class="badge badge-open">${c.status}</span></div></div></div>
 <div class="form-row"><div class="form-group"><label class="form-label">Email</label><div style="font-size:14px">${c.email||'—'}</div></div><div class="form-group"><label class="form-label">Team</label><div style="font-size:14px">${c.team||'—'}</div></div></div></div>
-<div class="detail-section"><div class="form-section-title">${I('key',15,'var(--brown-warm)')} Identity</div>
-<div class="form-group"><label class="form-label">DID</label><div style="font-family:'JetBrains Mono',monospace;font-size:13px;background:var(--cream-pale);padding:8px 12px;border-radius:8px">${c.did||'Not assigned'}</div></div></div>
+<div class="detail-section"><div class="form-section-title">${I('smile',15,'var(--brown-warm)')} Craft Skills</div>
+<div class="form-group"><label class="form-label">Specialities</label><div style="font-size:14px">${c.skill||'Not specified'}</div></div></div>
 </div>
 <div class="modal-footer"><button class="btn" onclick="closeModal()">Close</button><button class="btn btn-primary">${I('msgCircle',14,'#edd6b7')} Message</button></div>
 `,true);
@@ -2480,7 +2485,7 @@ openModal(`
 // VIEW OPPORTUNITY
 // ═══════════════════════════════════════
 function openViewOpportunity(id){
-const opps={1:{title:'Cross-Chain Identity Resolution',author:'Alex Rivera',status:'Open',impact:'High',area:'Infrastructure',effort:'Large',desc:'Implement LayerZero integration for cross-chain SSI credential verification between Cardano and Ethereum ecosystems.',criteria:'Successful credential verification across chains with <5s latency and <$0.10 gas cost per verification.',votes:14},2:{title:'Community Onboarding Portal',author:'Mei Lin',status:'Under Review',impact:'Medium',area:'Community',effort:'Medium',desc:'Create an interactive onboarding experience for new members with guided SSI wallet setup.',criteria:'90% completion rate for new member onboarding within first 48 hours.',votes:9},3:{title:'AI-Assisted Governance Summaries',author:'Sarah Chen',status:'Open',impact:'High',area:'Governance',effort:'Medium',desc:'Use AI to generate plain-language summaries of governance proposals to improve participation.',criteria:'Governance participation rate increases by 20% within 3 months.',votes:22}};
+const opps={1:{title:'Community Quilt for Local Hospital',author:'Tom Pearson',status:'Open',impact:'High',area:'Infrastructure',effort:'Large',desc:'Create a collaborative quilt with contributions from all members to donate to the children\'s ward.',criteria:'All 24 quilt squares completed and assembled into finished quilt by June 2026.',votes:14},2:{title:'Online Pattern Library',author:'Nina Chang',status:'Under Review',impact:'Medium',area:'Community',effort:'Medium',desc:'Build a shared digital library of patterns, templates, and tutorials contributed by members.',criteria:'Library contains 50+ patterns across all craft disciplines within 6 months.',votes:9},3:{title:'Guest Instructor Series',author:'Lucy Hartwell',status:'Open',impact:'High',area:'Governance',effort:'Medium',desc:'Quarterly guest instructor workshops on speciality techniques like Sashiko, raku, and botanical printing.',criteria:'4 guest workshops delivered per year with average 15+ attendees each.',votes:22}};
 const o=opps[id]||opps[1];
 openModal(`
 <div class="modal-header"><div class="modal-header-left"><div class="page-icon" style="width:38px;height:38px">${I('smile',20,'var(--brown-warm)')}</div><div><div class="modal-title">${o.title}</div><div class="modal-subtitle">Submitted by ${o.author}</div></div></div><button class="modal-close" onclick="closeModal()">✕</button></div>
@@ -2500,7 +2505,7 @@ openModal(`
 // VIEW PROJECT
 // ═══════════════════════════════════════
 function openViewProject(id){
-const projects={1:{name:'Identity Wallet v2',progress:68,tasks:24,done:16,lead:'Sarah Chen',cat:'Development',desc:'Next-generation SSI wallet with KERI delegation, IndexedDB storage, and Web Crypto API integration.',members:['Sarah Chen','Alex Rivera','Mei Lin'],milestones:[{name:'Core architecture',pct:100},{name:'KERI delegation',pct:92},{name:'UI/UX overhaul',pct:55},{name:'Testing & QA',pct:30}]},2:{name:'Governance Framework',progress:45,tasks:18,done:8,lead:'James Whitfield',cat:'Governance',desc:'Comprehensive governance framework defining roles, voting processes, and dispute resolution.',members:['Governance Council','James Whitfield'],milestones:[{name:'Role definitions',pct:100},{name:'Voting protocol',pct:60},{name:'Dispute resolution',pct:20},{name:'Documentation',pct:10}]},3:{name:'Community Portal Redesign',progress:12,tasks:30,done:4,lead:'Alex Rivera',cat:'Design',desc:'Complete redesign with improved UX, accessibility, and mobile responsiveness.',members:['Alex Rivera','Mei Lin','Sarah Chen'],milestones:[{name:'Research & wireframes',pct:80},{name:'Visual design',pct:15},{name:'Frontend build',pct:0},{name:'Testing',pct:0}]},4:{name:'KERI Delegation Module',progress:92,tasks:15,done:14,lead:'Sarah Chen',cat:'Development',desc:'KERI delegation event handling module for multi-level credential issuance and verification.',members:['Sarah Chen','Mark'],milestones:[{name:'Protocol spec',pct:100},{name:'Core implementation',pct:100},{name:'Integration testing',pct:85},{name:'Documentation',pct:80}]}};
+const projects={1:{name:'Spring Quilting Retreat',progress:65,tasks:20,done:13,lead:'Lucy Hartwell',cat:'Workshop',desc:'Three-day quilting retreat featuring Sashiko guest instructor, fabric dyeing, and collaborative quilt assembly.',members:['Lucy Hartwell','Nina Chang','Ellen Morris'],milestones:[{name:'Venue & instructor booked',pct:100},{name:'Materials sourced',pct:85},{name:'Registrations & comms',pct:55},{name:'On-site setup',pct:20}]},2:{name:'Community Quilt — Hospital Donation',progress:40,tasks:16,done:6,lead:'Lucy Hartwell',cat:'Community',desc:'Collaborative quilt with squares contributed by members for Sydney Royal Hospital children\'s ward.',members:['Lucy Hartwell','Nina Chang','Rosa Delgado','Ellen Morris'],milestones:[{name:'Design & colour palette',pct:100},{name:'Square collection',pct:50},{name:'Assembly & quilting',pct:15},{name:'Presentation & delivery',pct:0}]},3:{name:'Ceramics Studio Upgrade',progress:85,tasks:12,done:10,lead:'Tom Pearson',cat:'Infrastructure',desc:'Upgrade the ceramics studio with new shelving, kiln maintenance, replacement pottery wheels, and ventilation.',members:['Tom Pearson','Ellen Morris'],milestones:[{name:'Equipment ordered',pct:100},{name:'Installation',pct:90},{name:'Safety inspection',pct:70},{name:'Grand reopening',pct:0}]},4:{name:'Beginner Weaving Course',progress:20,tasks:14,done:3,lead:'Rosa Delgado',cat:'Education',desc:'Six-week beginner weaving course covering rigid heddle basics, pattern reading, and project completion.',members:['Rosa Delgado','Jake Turner'],milestones:[{name:'Curriculum design',pct:100},{name:'Loom prep & materials',pct:30},{name:'Class delivery',pct:0},{name:'Student projects',pct:0}]},5:{name:'Makers Market April Setup',progress:55,tasks:18,done:10,lead:'Ellen Morris',cat:'Events',desc:'Organise the April makers market including stall allocation, signage, payment systems, and promotion.',members:['Ellen Morris','Lucy Hartwell','Tom Pearson'],milestones:[{name:'Stall bookings',pct:100},{name:'Marketing & flyers',pct:60},{name:'Logistics & setup',pct:30},{name:'Day-of coordination',pct:0}]}};
 const p=projects[id]||projects[1];
 openModal(`
 <div class="modal-header"><div class="modal-header-left"><div class="page-icon" style="width:38px;height:38px">${I('folder',20,'var(--brown-warm)')}</div><div><div class="modal-title">${p.name}</div><div class="modal-subtitle">Lead: ${p.lead} · <span class="badge badge-info">${p.cat}</span></div></div></div><button class="modal-close" onclick="closeModal()">✕</button></div>
@@ -2520,7 +2525,7 @@ ${p.members.map(m=>`<div style="display:inline-flex;align-items:center;gap:8px;p
 // VIEW DOCUMENT
 // ═══════════════════════════════════════
 function openViewDoc(id){
-const docs={1:{name:'Community Constitution v3.2',cat:'Governance',author:'Governance Council',date:'Mar 1, 2026',size:'245 KB',desc:'The foundational document defining the community structure, member rights, governance processes, and amendment procedures.',versions:['v3.2 — Mar 1, 2026','v3.1 — Jan 15, 2026','v3.0 — Nov 20, 2025']},2:{name:'SSI Credential Schema v2 Spec',cat:'Technical',author:'Sarah Chen',date:'Feb 28, 2026',size:'1.2 MB',desc:'Technical specification for the v2 credential schema supporting KERI delegation, multi-sig attestations, and cross-chain anchoring.',versions:['v2.0 — Feb 28, 2026','v1.1 — Dec 10, 2025']},3:{name:'KERI Delegation Architecture',cat:'Technical',author:'Mark',date:'Feb 25, 2026',size:'890 KB',desc:'Architecture document covering multi-level delegation events, witness configuration, key rotation, and recovery procedures.',versions:['v1.0 — Feb 25, 2026']},4:{name:'Q1 2026 Treasury Report',cat:'Governance',author:'Operations',date:'Feb 20, 2026',size:'340 KB',desc:'Quarterly financial report covering income streams, expenditure breakdown, staking rewards, and on-chain transaction summary.',versions:['Q1 2026 — Feb 20, 2026']},5:{name:'New Member Onboarding Guide',cat:'Template',author:'Alex Rivera',date:'Feb 15, 2026',size:'156 KB',desc:'Step-by-step template for onboarding new community members including wallet setup, credential issuance, and governance orientation.',versions:['v2.0 — Feb 15, 2026','v1.0 — Oct 5, 2025']},6:{name:'Governance Proposal Template',cat:'Template',author:'Governance Council',date:'Feb 10, 2026',size:'42 KB',desc:'Standard template for submitting governance proposals with all required sections, voting parameters, and impact assessment guidelines.',versions:['v1.2 — Feb 10, 2026']},7:{name:'Identity Wallet API Reference',cat:'Technical',author:'Alex Rivera',date:'Feb 5, 2026',size:'2.1 MB',desc:'Full API reference documentation for the identity wallet including REST endpoints, WebSocket events, authentication flows, and code examples.',versions:['v2.3 — Feb 5, 2026','v2.2 — Jan 8, 2026']},8:{name:'Voting Process Guide',cat:'Governance',author:'James Whitfield',date:'Jan 28, 2026',size:'120 KB',desc:'Detailed guide explaining the community voting process, quorum calculations, delegation procedures, and dispute resolution.',versions:['v1.1 — Jan 28, 2026']},9:{name:'Project Brief Template',cat:'Template',author:'Mei Lin',date:'Jan 20, 2026',size:'38 KB',desc:'Template for drafting project briefs with scope definition, timeline, resource requirements, and success criteria sections.',versions:['v1.0 — Jan 20, 2026']}};
+const docs={1:{name:'Makers Hub Constitution & Rules',cat:'Governance',author:'Ellen Morris',date:'Mar 1, 2026',size:'180 KB',desc:'Foundational document defining membership rules, studio usage policies, governance procedures, and amendment process.',versions:['v3.2 — Mar 1, 2026','v3.1 — Jan 15, 2026','v3.0 — Nov 20, 2025']},2:{name:'Studio Safety Handbook',cat:'Governance',author:'Tom Pearson',date:'Feb 28, 2026',size:'420 KB',desc:'Comprehensive safety guide covering kiln operation, dye kitchen protocols, sharps handling, and first aid.',versions:['v2.0 — Feb 28, 2026','v1.1 — Dec 10, 2025']},3:{name:'Natural Dye Recipe Book',cat:'Technical',author:'Ellen Morris',date:'Feb 25, 2026',size:'1.8 MB',desc:'Collection of natural dye recipes with colour samples, mordant ratios, and fibre preparation instructions.',versions:['v1.0 — Feb 25, 2026']},4:{name:'Q1 2026 Treasury Report',cat:'Governance',author:'Ellen Morris',date:'Feb 20, 2026',size:'340 KB',desc:'Quarterly financial report covering workshop fees, market income, membership subscriptions, and supply expenses.',versions:['Q1 2026 — Feb 20, 2026']},5:{name:'Workshop Proposal Template',cat:'Template',author:'Lucy Hartwell',date:'Feb 15, 2026',size:'38 KB',desc:'Standard template for proposing new workshops including materials list, skill level, timeline, and budget estimates.',versions:['v2.0 — Feb 15, 2026','v1.0 — Oct 5, 2025']},6:{name:'Makers Market Stall Agreement',cat:'Template',author:'Ellen Morris',date:'Feb 10, 2026',size:'28 KB',desc:'Agreement form for market stall holders covering fees, insurance, display standards, and setup procedures.',versions:['v1.2 — Feb 10, 2026']},7:{name:'Beginner Knitting Patterns Pack',cat:'Technical',author:'Nina Chang',date:'Feb 5, 2026',size:'2.4 MB',desc:'Collection of 12 beginner-friendly knitting patterns with charts, written instructions, and technique notes.',versions:['v2.3 — Feb 5, 2026','v2.2 — Jan 8, 2026']},8:{name:'AGM Minutes 2025',cat:'Governance',author:'Ellen Morris',date:'Jan 28, 2026',size:'95 KB',desc:'Minutes from the 2025 Annual General Meeting including committee elections, budget approval, and priorities.',versions:['v1.1 — Jan 28, 2026']},9:{name:'Event Planning Checklist',cat:'Template',author:'Lucy Hartwell',date:'Jan 20, 2026',size:'22 KB',desc:'Reusable checklist template for planning community events, retreats, and exhibitions.',versions:['v1.0 — Jan 20, 2026']}};
 const d=docs[id]||docs[1];
 openModal(`
 <div class="modal-header"><div class="modal-header-left"><div class="page-icon" style="width:38px;height:38px">${I('file',20,'var(--brown-warm)')}</div><div><div class="modal-title">${d.name}</div><div class="modal-subtitle">${d.author} · ${d.date} · ${d.size}</div></div></div><button class="modal-close" onclick="closeModal()">✕</button></div>
@@ -2539,7 +2544,7 @@ ${d.versions.map((v,i)=>`<div style="display:flex;align-items:center;gap:10px;pa
 // VIEW TRANSACTION
 // ═══════════════════════════════════════
 function openViewTransaction(id){
-const txns={1:{desc:'AWS Infrastructure',amount:'-$1,240',type:'expense',cat:'Infrastructure',date:'Mar 1, 2026',method:'Bank Transfer',ref:'INV-2026-0301',notes:'Monthly AWS bill covering EC2, RDS, S3, and CloudFront services for community infrastructure.'},2:{desc:'Member contributions',amount:'+$3,200',type:'income',cat:'Contributions',date:'Feb 28, 2026',method:'Bank Transfer',ref:'DEP-2026-0228',notes:'Monthly member contribution deposits from 12 active contributing members.'},3:{desc:'KERI node hosting',amount:'-$680',type:'expense',cat:'Hosting',date:'Feb 25, 2026',method:'Bank Transfer',ref:'INV-2026-0225',notes:'Dedicated hosting for 3 KERI witness nodes across US, EU, and APAC regions.'},4:{desc:'Partner grant (Cardano)',amount:'+$5,000',type:'income',cat:'Grants',date:'Feb 20, 2026',method:'On-Chain',ref:'TX-0x8f2a...c4b1',notes:'Quarterly development grant from Cardano Foundation for SSI infrastructure work.'},5:{desc:'Domain renewals',amount:'-$320',type:'expense',cat:'Services',date:'Feb 18, 2026',method:'Credit Card',ref:'INV-2026-0218',notes:'Annual renewal for selfdriven.foundation, selfdriven.ai, selfdriven.network, and tana.community domains.'},6:{desc:'Staking rewards Feb',amount:'+$1,200',type:'income',cat:'Staking Rewards',date:'Feb 15, 2026',method:'On-Chain',ref:'TX-0xa1c9...f8e2',notes:'February ADA staking rewards from community treasury delegation.'},7:{desc:'Video conferencing license',amount:'-$450',type:'expense',cat:'Services',date:'Feb 12, 2026',method:'Credit Card',ref:'INV-2026-0212',notes:'Annual license renewal for governance meeting video conferencing platform.'},8:{desc:'Community event sponsorship',amount:'+$2,500',type:'income',cat:'Contributions',date:'Feb 10, 2026',method:'Bank Transfer',ref:'DEP-2026-0210',notes:'Sponsorship contribution for Q1 community virtual summit event.'},9:{desc:'SSL certificates',amount:'-$180',type:'expense',cat:'Infrastructure',date:'Feb 8, 2026',method:'Credit Card',ref:'INV-2026-0208',notes:'Annual wildcard SSL certificate renewal for *.selfdriven.ai and *.selfdriven.foundation.'}};
+const txns={1:{desc:'Kiln gas & maintenance',amount:'-$340',type:'expense',cat:'Equipment',date:'Mar 1, 2026',method:'Bank Transfer',ref:'INV-2026-0301',notes:'Monthly gas bill for the community kiln plus quarterly burner service and thermocouple calibration.'},2:{desc:'Makers Market stall fees',amount:'+$1,800',type:'income',cat:'Market Income',date:'Feb 28, 2026',method:'Bank Transfer',ref:'DEP-2026-0228',notes:'Collected stall fees from 18 vendors at the February makers market ($100 each).'},3:{desc:'Fabric & thread supplies',amount:'-$580',type:'expense',cat:'Materials',date:'Feb 25, 2026',method:'Credit Card',ref:'INV-2026-0225',notes:'Quilting cotton, batting, and specialty threads for the Spring Retreat project kits.'},4:{desc:'Workshop fees — February',amount:'+$2,400',type:'income',cat:'Workshop Fees',date:'Feb 20, 2026',method:'Bank Transfer',ref:'DEP-2026-0220',notes:'Combined workshop fees from ceramics (8 sessions), weaving (4 sessions), and embroidery circle (4 sessions).'},5:{desc:'Studio rent',amount:'-$1,200',type:'expense',cat:'Rent',date:'Feb 18, 2026',method:'Bank Transfer',ref:'INV-2026-0218',notes:'Monthly rent for the Makers Hub studio space including ceramics room, textile studio, dye kitchen, and common area.'},6:{desc:'Membership subscriptions',amount:'+$960',type:'income',cat:'Memberships',date:'Feb 15, 2026',method:'Bank Transfer',ref:'DEP-2026-0215',notes:'Monthly membership fees from 24 active members ($40 each).'},7:{desc:'Clay & glazes bulk order',amount:'-$450',type:'expense',cat:'Materials',date:'Feb 12, 2026',method:'Credit Card',ref:'INV-2026-0212',notes:'100kg stoneware clay, 5L each of 4 glaze colours, and kiln wash from Makers Supply Co.'},8:{desc:'Guest instructor sponsorship',amount:'+$500',type:'income',cat:'Sponsorship',date:'Feb 10, 2026',method:'Bank Transfer',ref:'DEP-2026-0210',notes:'Sponsorship from Heartwood Makers Collective towards the guest instructor programme.'},9:{desc:'Insurance premium',amount:'-$380',type:'expense',cat:'Insurance',date:'Feb 8, 2026',method:'Bank Transfer',ref:'INV-2026-0208',notes:'Quarterly public liability and contents insurance premium for the Makers Hub studio.'}};
 const t=txns[id]||txns[1];
 const isIncome=t.type==='income';
 openModal(`
@@ -2558,22 +2563,26 @@ openModal(`
 // PROJECT BOARD (Kanban-style)
 // ═══════════════════════════════════════
 function openProjectBoard(id){
-const projects={1:{name:'Identity Wallet v2',lead:'Sarah Chen',tasks:[
-{t:'Design credential display UI',s:'done',a:'AR'},{t:'Implement KERI key rotation',s:'done',a:'SC'},{t:'IndexedDB storage layer',s:'done',a:'SC'},{t:'Web Crypto API integration',s:'done',a:'AR'},
-{t:'Delegation event handler',s:'progress',a:'SC'},{t:'Backup & recovery flow',s:'progress',a:'ML'},{t:'UI accessibility audit',s:'progress',a:'AR'},
-{t:'Cross-browser testing',s:'todo',a:'ML'},{t:'Performance benchmarks',s:'todo',a:'AR'},{t:'Security review',s:'todo',a:'SC'},{t:'Release notes',s:'todo',a:'SC'},{t:'Documentation update',s:'todo',a:'ML'}
-]},2:{name:'Governance Framework',lead:'James Whitfield',tasks:[
-{t:'Define council roles',s:'done',a:'JW'},{t:'Voting protocol spec',s:'done',a:'GC'},{t:'Quorum rules document',s:'done',a:'JW'},
-{t:'Dispute resolution process',s:'progress',a:'JW'},{t:'Amendment procedure',s:'progress',a:'GC'},
-{t:'Community review period',s:'todo',a:'GC'},{t:'Ratification vote',s:'todo',a:'JW'},{t:'Final publication',s:'todo',a:'GC'}
-]},3:{name:'Community Portal Redesign',lead:'Alex Rivera',tasks:[
-{t:'User research interviews',s:'done',a:'AR'},{t:'Competitive analysis',s:'done',a:'ML'},
-{t:'Wireframes — desktop',s:'progress',a:'AR'},{t:'Wireframes — mobile',s:'progress',a:'ML'},
-{t:'Visual design system',s:'todo',a:'AR'},{t:'Component library',s:'todo',a:'ML'},{t:'Frontend build — layout',s:'todo',a:'AR'},{t:'Frontend build — pages',s:'todo',a:'ML'},{t:'CMS integration',s:'todo',a:'AR'},{t:'Beta testing',s:'todo',a:'SC'}
-]},4:{name:'KERI Delegation Module',lead:'Sarah Chen',tasks:[
-{t:'Protocol spec document',s:'done',a:'SC'},{t:'Core delegation logic',s:'done',a:'SC'},{t:'Event serialisation',s:'done',a:'MC'},{t:'Witness verification',s:'done',a:'SC'},{t:'Key pre-rotation support',s:'done',a:'MC'},
-{t:'Integration test suite',s:'progress',a:'SC'},
-{t:'API documentation',s:'todo',a:'MC'}
+const projects={1:{name:'Spring Quilting Retreat',lead:'Lucy Hartwell',tasks:[
+{t:'Book venue — Blue Mountains CC',s:'done',a:'LH'},{t:'Confirm guest instructor',s:'done',a:'LH'},{t:'Order quilting cotton & batting',s:'done',a:'EM'},{t:'Design participant kits',s:'done',a:'NC'},
+{t:'Print promotional flyers',s:'progress',a:'LH'},{t:'Online registration form',s:'progress',a:'EM'},{t:'Prepare Sashiko samples',s:'progress',a:'NC'},
+{t:'Arrange catering for 3 days',s:'todo',a:'EM'},{t:'Pack project kits',s:'todo',a:'NC'},{t:'Set up venue',s:'todo',a:'LH'},{t:'Photograph for newsletter',s:'todo',a:'LH'}
+]},2:{name:'Community Quilt — Hospital',lead:'Lucy Hartwell',tasks:[
+{t:'Choose colour palette & theme',s:'done',a:'LH'},{t:'Cut backing fabric',s:'done',a:'NC'},{t:'Distribute square templates',s:'done',a:'LH'},
+{t:'Collect squares (12 of 24)',s:'progress',a:'LH'},{t:'Assemble border strips',s:'progress',a:'RD'},
+{t:'Machine quilt top',s:'todo',a:'LH'},{t:'Bind edges',s:'todo',a:'NC'},{t:'Wash & press',s:'todo',a:'EM'},{t:'Hospital presentation',s:'todo',a:'LH'}
+]},3:{name:'Ceramics Studio Upgrade',lead:'Tom Pearson',tasks:[
+{t:'Order new shelving units',s:'done',a:'TP'},{t:'Service kiln burners',s:'done',a:'TP'},{t:'Install ventilation',s:'done',a:'EM'},{t:'Repair 2 pottery wheels',s:'done',a:'TP'},{t:'Paint studio walls',s:'done',a:'TP'},
+{t:'Install tool pegboard',s:'progress',a:'TP'},
+{t:'Final safety inspection',s:'todo',a:'EM'}
+]},4:{name:'Beginner Weaving Course',lead:'Rosa Delgado',tasks:[
+{t:'Write 6-week curriculum',s:'done',a:'RD'},{t:'Order rigid heddle looms ×8',s:'done',a:'EM'},{t:'Prepare warp yarn kits',s:'done',a:'RD'},
+{t:'Create handout booklets',s:'progress',a:'RD'},{t:'Set up looms in room',s:'progress',a:'JT'},
+{t:'Teach Week 1–2: Plain weave',s:'todo',a:'RD'},{t:'Teach Week 3–4: Patterns',s:'todo',a:'RD'},{t:'Student exhibition',s:'todo',a:'JT'}
+]},5:{name:'Makers Market April',lead:'Ellen Morris',tasks:[
+{t:'Confirm stall bookings',s:'done',a:'EM'},{t:'Book community hall',s:'done',a:'EM'},{t:'Design market poster',s:'done',a:'LH'},
+{t:'Arrange card terminals',s:'progress',a:'EM'},{t:'Social media promotion',s:'progress',a:'NC'},
+{t:'Set up stalls morning-of',s:'todo',a:'TP'},{t:'Run welcome desk',s:'todo',a:'NC'},{t:'Pack down & clean up',s:'todo',a:'EM'}
 ]}};
 const p=projects[id]||projects[1];
 const todo=p.tasks.filter(t=>t.s==='todo'),prog=p.tasks.filter(t=>t.s==='progress'),done=p.tasks.filter(t=>t.s==='done');
@@ -2599,18 +2608,21 @@ openModal(`
 // VIEW TEAM
 // ═══════════════════════════════════════
 function openViewTeam(id){
-const teams={1:{name:'Identity Working Group',lead:'Sarah Chen',desc:'Focused on SSI credential systems, KERI delegation protocols, and identity wallet development.',members:[
-{name:'Sarah Chen',role:'Identity Lead',avatar:'SC',color:'var(--olive)'},{name:'David Park',role:'Security Analyst',avatar:'DP',color:'#5a7a6a'}
-],projects:['Identity Wallet v2','KERI Delegation Module'],meetings:'Tuesdays 10am'},
-2:{name:'Governance Council',lead:'James Whitfield',desc:'Oversees community governance processes, proposal management, and constitutional compliance.',members:[
-{name:'James Whitfield',role:'Facilitator',avatar:'JW',color:'#7a6a8a'},{name:'Governance Council',role:'Body',avatar:'GC',color:'var(--brown-deep)'}
-],projects:['Governance Framework'],meetings:'Wednesdays 2pm'},
-3:{name:'Development',lead:'Alex Rivera',desc:'Full-stack development, API integration, portal frontend, and mobile applications.',members:[
-{name:'Alex Rivera',role:'Developer',avatar:'AR',color:'var(--info)'},{name:'Mei Lin',role:'Contributor',avatar:'ML',color:'var(--success)'}
-],projects:['Community Portal Redesign'],meetings:'Mon / Wed / Fri standup 9am'},
-4:{name:'Operations',lead:'TANA Insurance Co.',desc:'Infrastructure management, hosting, deployments, and community tooling.',members:[
-{name:'TANA Insurance Co.',role:'Member Org',avatar:'TI',color:'var(--brown-warm)'}
-],projects:[],meetings:'As needed'}};
+const teams={1:{name:'Textile Arts Guild',lead:'Lucy Hartwell',desc:'Knitting, quilting, weaving, dyeing, embroidery — all textile and fibre crafts. Organises retreats, workshops, and the community quilt project.',members:[
+{name:'Lucy Hartwell',role:'Textile Lead',avatar:'LH',color:'var(--olive)'},{name:'Nina Chang',role:'Embroidery Lead',avatar:'NC',color:'var(--success)'},{name:'Ellen Morris',role:'Natural Dyer',avatar:'EM',color:'var(--brown-deep)'}
+],projects:['Spring Quilting Retreat','Community Quilt — Hospital Donation'],meetings:'Tuesdays 6pm'},
+2:{name:'Ceramics Circle',lead:'Tom Pearson',desc:'Pottery, raku firing, hand-building, glazing, and kiln management. Runs beginner and advanced studio sessions.',members:[
+{name:'Tom Pearson',role:'Ceramics Lead',avatar:'TP',color:'var(--info)'}
+],projects:['Ceramics Studio Upgrade'],meetings:'Wednesdays 10am & Saturdays 9am'},
+3:{name:'Fibre Arts Studio',lead:'Rosa Delgado',desc:'Spinning, weaving, tapestry, and fibre preparation. Runs beginner weaving courses and manages the loom room.',members:[
+{name:'Rosa Delgado',role:'Weaving Instructor',avatar:'RD',color:'var(--brown-warm)'},{name:'Jake Turner',role:'Spinner & Fibre Artist',avatar:'JT',color:'#7a6a8a'}
+],projects:['Beginner Weaving Course'],meetings:'Thursdays 2pm'},
+4:{name:'Natural Dye Lab',lead:'Ellen Morris',desc:'Plant-based dyeing, eco-printing, mordant chemistry, and sustainable colour research. Maintains the dye kitchen and garden.',members:[
+{name:'Ellen Morris',role:'Dye Specialist',avatar:'EM',color:'var(--brown-deep)'}
+],projects:[],meetings:'Fridays 10am'},
+5:{name:'Makers Market Committee',lead:'Ellen Morris',desc:'Organises the monthly makers market, manages stall bookings, promotion, and vendor relations.',members:[
+{name:'Ellen Morris',role:'Treasurer',avatar:'EM',color:'var(--brown-deep)'},{name:'Lucy Hartwell',role:'Marketing',avatar:'LH',color:'var(--olive)'},{name:'Tom Pearson',role:'Logistics',avatar:'TP',color:'var(--info)'},{name:'Nina Chang',role:'Social Media',avatar:'NC',color:'var(--success)'}
+],projects:['Makers Market April Setup'],meetings:'1st Monday of each month 7pm'}};
 const t=teams[id]||teams[1];
 openModal(`
 <div class="modal-header"><div class="modal-header-left"><div class="page-icon" style="width:38px;height:38px">${I('users',20,'var(--brown-warm)')}</div><div><div class="modal-title">${t.name}</div><div class="modal-subtitle">Lead: ${t.lead} · ${t.members.length} members</div></div></div><button class="modal-close" onclick="closeModal()">✕</button></div>
@@ -2634,7 +2646,7 @@ function openAddProduct(){
 openModal(`
 <div class="modal-header"><div class="modal-header-left"><div class="page-icon" style="width:38px;height:38px">${I('plus',20,'var(--brown-warm)')}</div><div><div class="modal-title">Add Product</div><div class="modal-subtitle">Register a new product or service</div></div></div><button class="modal-close" onclick="closeModal()">✕</button></div>
 <div class="modal-body">
-<div class="form-group"><label class="form-label">Product Name <span style="color:var(--danger)">*</span></label><input class="form-input" placeholder="e.g. Identity Wallet"></div>
+<div class="form-group"><label class="form-label">Product Name <span style="color:var(--danger)">*</span></label><input class="form-input" placeholder="e.g. Hand-dyed Merino Skein"></div>
 <div class="form-row">
 <div class="form-group"><label class="form-label">Type <span style="color:var(--danger)">*</span></label><select class="form-input"><option value="">Select type…</option><option>Application</option><option>Web App</option><option>Mobile App</option><option>Service</option><option>API</option><option>Library</option><option>Other</option></select></div>
 <div class="form-group"><label class="form-label">Version</label><input class="form-input" placeholder="e.g. v1.0.0"></div>
@@ -2642,7 +2654,7 @@ openModal(`
 <div class="form-group"><label class="form-label">Description</label><textarea class="form-input" placeholder="Describe the product…" style="min-height:80px"></textarea></div>
 <div class="form-row">
 <div class="form-group"><label class="form-label">Status</label><select class="form-input"><option>Active</option><option>Beta</option><option>Development</option><option>Deprecated</option></select></div>
-<div class="form-group"><label class="form-label">Owner / Team</label><select class="form-input"><option value="">Select…</option><option>Development</option><option>Identity WG</option><option>Operations</option><option>Governance Council</option></select></div>
+<div class="form-group"><label class="form-label">Owner / Team</label><select class="form-input"><option value="">Select…</option><option>Textile Arts Guild</option><option>Ceramics Circle</option><option>Fibre Arts Studio</option><option>Natural Dye Lab</option><option>Market Committee</option></select></div>
 </div>
 <div class="form-group"><label class="form-label">URL / Repository</label><input class="form-input" placeholder="https://…"></div>
 <div class="form-row">
@@ -2658,12 +2670,12 @@ openModal(`
 // VIEW PRODUCT
 // ═══════════════════════════════════════
 function openViewProduct(id){
-const products={1:{name:'Identity Wallet',type:'Application',ver:'v2.3.1',users:1247,status:'Active',desc:'Community SSI wallet application for managing credentials, delegation, and identity verification. Supports KERI protocols and WebAuthn passkey authentication.',owner:'Identity WG',url:'https://wallet.selfdriven.ai',pricing:'Free',launched:'Jun 2025',updated:'Feb 28, 2026'},
-2:{name:'Governance Portal',type:'Web App',ver:'v3.0.0',users:892,status:'Active',desc:'Web-based governance platform for submitting proposals, casting votes, tracking quorum, and managing community decisions.',owner:'Development',url:'https://governance.selfdriven.ai',pricing:'Free',launched:'Sep 2024',updated:'Mar 1, 2026'},
-3:{name:'KERI Witness Node',type:'Service',ver:'v1.4.2',users:24,status:'Active',desc:'Distributed witness service for KERI credential verification and event receipt infrastructure.',owner:'Identity WG',url:'https://witness.selfdriven.network',pricing:'Free',launched:'Jan 2026',updated:'Feb 20, 2026'},
-4:{name:'Community API',type:'API',ver:'v5.0.43',users:156,status:'Active',desc:'RESTful API for community data including members, projects, tokens, governance, and identity services.',owner:'Development',url:'https://api.selfdriven.cloud',pricing:'Free',launched:'Mar 2023',updated:'Feb 25, 2026'},
-5:{name:'Mobile Companion',type:'Mobile App',ver:'v1.1.0',users:643,status:'Beta',desc:'Mobile companion app for notifications, quick voting, token balance checking, and credential presentation.',owner:'Development',url:'',pricing:'Free',launched:'Dec 2025',updated:'Feb 15, 2026'},
-6:{name:'Analytics Dashboard',type:'Web App',ver:'v0.9.3',users:45,status:'Beta',desc:'Real-time analytics showing community engagement metrics, governance participation rates, and project progress.',owner:'Development',url:'',pricing:'Free',launched:'Feb 2026',updated:'Feb 28, 2026'}};
+const products={1:{name:'Hand-dyed Merino Skein (100g)',type:'Yarn',ver:'Indigo',users:48,status:'Active',desc:'100g skeins of hand-dyed Australian merino wool in our signature indigo colourway. Dyed in small batches using natural indigo vat technique by Ellen Morris.',owner:'Natural Dye Lab',url:'',pricing:'$28 each',launched:'Jan 2026',updated:'Feb 28, 2026'},
+2:{name:'Ceramic Mug — Speckled Glaze',type:'Ceramics',ver:'Stoneware',users:32,status:'Active',desc:'Wheel-thrown stoneware mug with our popular speckled glaze finish. Dishwasher and microwave safe. Made by Tom Pearson.',owner:'Ceramics Circle',url:'',pricing:'$35 each',launched:'Nov 2025',updated:'Mar 1, 2026'},
+3:{name:'Woven Table Runner',type:'Textiles',ver:'Cotton/Linen',users:14,status:'Active',desc:'Handwoven cotton and linen table runner in a classic twill pattern. Each piece is unique. Made by Rosa Delgado and the Fibre Arts Studio.',owner:'Fibre Arts Studio',url:'',pricing:'$65 each',launched:'Dec 2025',updated:'Feb 20, 2026'},
+4:{name:'Beginner Knitting Kit',type:'Kit',ver:'v2',users:65,status:'Active',desc:'Complete starter kit with bamboo needles, 200g worsted yarn, printed pattern booklet, stitch markers, and video tutorial access. Designed by Nina Chang.',owner:'Textile Arts Guild',url:'',pricing:'$45 each',launched:'Sep 2025',updated:'Feb 25, 2026'},
+5:{name:'Natural Dye Sampler Pack',type:'Supplies',ver:'5 colours',users:28,status:'Active',desc:'Sample pack of 5 natural dye extracts (indigo, madder, weld, logwood, cochineal) with mordant and instruction card. Great for experimentation.',owner:'Natural Dye Lab',url:'',pricing:'$22 each',launched:'Feb 2026',updated:'Feb 28, 2026'},
+6:{name:'Handspun Art Yarn (50g)',type:'Yarn',ver:'Mixed fibre',users:0,status:'Beta',desc:'Unique textured art yarn hand-spun from a blend of merino, silk, and recycled sari. Limited edition — currently sold out.',owner:'Fibre Arts Studio',url:'',pricing:'$38 each',launched:'Jan 2026',updated:'Feb 15, 2026'}};
 const p=products[id]||products[1];
 openModal(`
 <div class="modal-header"><div class="modal-header-left"><div class="page-icon" style="width:38px;height:38px">${I('pie',20,'var(--brown-warm)')}</div><div><div class="modal-title">${p.name}</div><div class="modal-subtitle">${p.type} · <code style="font-size:12px;background:var(--accent-light);padding:2px 8px;border-radius:4px">${p.ver}</code></div></div></div><button class="modal-close" onclick="closeModal()">✕</button></div>
@@ -2692,11 +2704,11 @@ openModal(`
 </div>
 <div class="form-group"><label class="form-label">Details / Justification</label><textarea class="form-input" placeholder="Why is this order needed?" style="min-height:80px"></textarea></div>
 <div class="form-row">
-<div class="form-group"><label class="form-label">Requested By</label><select class="form-input"><option value="">Select member…</option><option>Alex Rivera</option><option>Sarah Chen</option><option>Mark</option><option>James Whitfield</option><option>Mei Lin</option><option>Operations</option></select></div>
+<div class="form-group"><label class="form-label">Requested By</label><select class="form-input"><option value="">Select member…</option><option>Lucy Hartwell</option><option>Tom Pearson</option><option>Rosa Delgado</option><option>Nina Chang</option><option>Ellen Morris</option><option>Jake Turner</option></select></div>
 <div class="form-group"><label class="form-label">Needed By</label><input class="form-input" type="date"></div>
 </div>
 <div class="form-row">
-<div class="form-group"><label class="form-label">Estimated Cost</label><div style="display:flex;gap:8px"><select class="form-input" style="width:80px"><option>USD</option><option>AUD</option><option>EUR</option><option>ADA</option></select><input class="form-input" type="number" placeholder="0.00" step="0.01"></div></div>
+<div class="form-group"><label class="form-label">Estimated Cost</label><div style="display:flex;gap:8px"><select class="form-input" style="width:80px"><option>USD</option><option>AUD</option><option>EUR</option></select><input class="form-input" type="number" placeholder="0.00" step="0.01"></div></div>
 <div class="form-group"><label class="form-label">Vendor / Supplier</label><input class="form-input" placeholder="e.g. AWS, Namecheap"></div>
 </div>
 <div class="form-group"><label class="form-label">Attachments</label><div style="border:2px dashed var(--card-border);border-radius:10px;padding:20px;text-align:center;color:var(--text-muted);font-size:13px;cursor:pointer">${I('upload',20,'var(--text-muted)')}<div style="margin-top:6px">Drop files here or click to upload</div></div></div>
@@ -2709,11 +2721,11 @@ openModal(`
 // VIEW ORDER
 // ═══════════════════════════════════════
 function openViewOrder(id){
-const orders={'ORD-042':{desc:'SSL Certificate Renewal',req:'Alex Rivera',type:'Certificate',date:'Mar 1, 2026',status:'Pending',priority:'High',cost:'$180',vendor:'DigiCert',needed:'Mar 10, 2026',notes:'Wildcard SSL certificate for *.selfdriven.ai and *.selfdriven.foundation expiring March 12. Needs urgent renewal to avoid service disruption.',history:[{act:'Order submitted',by:'Alex Rivera',date:'Mar 1, 2026'},{act:'Approved by Operations',by:'Operations',date:'Mar 1, 2026'}]},
-'ORD-041':{desc:'AWS Reserved Instance',req:'Operations',type:'Infrastructure',date:'Feb 28, 2026',status:'Pending',priority:'Normal',cost:'$2,400/yr',vendor:'AWS',needed:'Mar 15, 2026',notes:'Convert 2 on-demand EC2 instances (t3.large) to 1-year reserved instances for cost savings. Estimated 40% savings.',history:[{act:'Order submitted',by:'Operations',date:'Feb 28, 2026'}]},
-'ORD-040':{desc:'KERI Node Scale-up',req:'Sarah Chen',type:'Infrastructure',date:'Feb 25, 2026',status:'Pending',priority:'Normal',cost:'$480/mo',vendor:'AWS / Hetzner',needed:'Mar 20, 2026',notes:'Deploy 2 additional KERI witness nodes in EU-West and APAC regions for redundancy and latency improvements.',history:[{act:'Order submitted',by:'Sarah Chen',date:'Feb 25, 2026'},{act:'Under review',by:'Operations',date:'Feb 27, 2026'}]},
-'ORD-039':{desc:'Domain Registration',req:'Mark',type:'Domain',date:'Feb 20, 2026',status:'Complete',priority:'Normal',cost:'$45',vendor:'Namecheap',needed:'Feb 25, 2026',notes:'Register tana.community domain for the community hub portal.',history:[{act:'Order submitted',by:'Mark',date:'Feb 20, 2026'},{act:'Approved',by:'Operations',date:'Feb 20, 2026'},{act:'Purchased & configured',by:'Operations',date:'Feb 21, 2026'},{act:'DNS propagated — Complete',by:'Operations',date:'Feb 22, 2026'}]},
-'ORD-038':{desc:'Video Conferencing License',req:'James Whitfield',type:'Software License',date:'Feb 15, 2026',status:'Complete',priority:'Low',cost:'$150/yr',vendor:'Zoom',needed:'Mar 1, 2026',notes:'Annual Zoom Pro license for governance meetings and community calls.',history:[{act:'Order submitted',by:'James Whitfield',date:'Feb 15, 2026'},{act:'Approved & purchased',by:'Ellen Morris',date:'Feb 16, 2026'},{act:'License activated',by:'Operations',date:'Feb 17, 2026'}]}};
+const orders={'ORD-042':{desc:'Fabric — Quilting Cotton (20m)',req:'Lucy Hartwell',type:'Materials',date:'Mar 1, 2026',status:'Pending',priority:'High',cost:'$320',vendor:'Makers Supply Co.',needed:'Mar 10, 2026',notes:'20 metres of quilting cotton in assorted prints and solids for the Spring Retreat participant kits. Need arrival before April 5 for kit packing.',history:[{act:'Order submitted',by:'Lucy Hartwell',date:'Mar 1, 2026'},{act:'Approved by Ellen Morris',by:'Ellen Morris',date:'Mar 1, 2026'}]},
+'ORD-041':{desc:'Stoneware Clay (100kg)',req:'Tom Pearson',type:'Materials',date:'Feb 28, 2026',status:'Pending',priority:'Normal',cost:'$185',vendor:'Walker Ceramics',needed:'Mar 15, 2026',notes:'100kg of mid-fire stoneware clay for the ceramics studio. Current stock running low with Saturday sessions starting soon.',history:[{act:'Order submitted',by:'Tom Pearson',date:'Feb 28, 2026'}]},
+'ORD-040':{desc:'Acid Dye Refill Kit',req:'Ellen Morris',type:'Supplies',date:'Feb 25, 2026',status:'Pending',priority:'Normal',cost:'$95',vendor:'Kraftkolour',needed:'Mar 20, 2026',notes:'Refill kit for acid dyes — turquoise, scarlet, gold, and navy. For workshop use in the dye kitchen.',history:[{act:'Order submitted',by:'Ellen Morris',date:'Feb 25, 2026'},{act:'Under review',by:'Ellen Morris',date:'Feb 27, 2026'}]},
+'ORD-039':{desc:'Heddle Reeds (10dpi, 12dpi)',req:'Rosa Delgado',type:'Equipment',date:'Feb 20, 2026',status:'Complete',priority:'Normal',cost:'$120',vendor:'Ashford NZ',needed:'Feb 28, 2026',notes:'Replacement heddle reeds for the 8 rigid heddle looms — needed before the beginner weaving course starts.',history:[{act:'Order submitted',by:'Rosa Delgado',date:'Feb 20, 2026'},{act:'Approved',by:'Ellen Morris',date:'Feb 20, 2026'},{act:'Shipped from NZ',by:'Ashford NZ',date:'Feb 22, 2026'},{act:'Received & installed',by:'Rosa Delgado',date:'Feb 26, 2026'}]},
+'ORD-038':{desc:'DMC Embroidery Floss (bulk)',req:'Nina Chang',type:'Materials',date:'Feb 15, 2026',status:'Complete',priority:'Low',cost:'$85',vendor:'Makers Supply Co.',needed:'Mar 1, 2026',notes:'Bulk order of 60 DMC embroidery floss skeins in assorted colours for the embroidery circle supplies.',history:[{act:'Order submitted',by:'Nina Chang',date:'Feb 15, 2026'},{act:'Approved & ordered',by:'Ellen Morris',date:'Feb 16, 2026'},{act:'Delivered',by:'Makers Supply Co.',date:'Feb 19, 2026'}]}};
 const o=orders[id]||orders['ORD-042'];
 const isPending=o.status==='Pending';
 openModal(`
