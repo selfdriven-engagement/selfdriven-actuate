@@ -1,9 +1,3 @@
----
-layout: null
-permalink: /interfaces/k8kqbuxn/tana/facilitator
-title: TANA Facilitator Interface
----
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -404,6 +398,169 @@ textarea.form-input { min-height:80px; resize:vertical; line-height:1.5; }
   word-break:break-all;
 }
 
+/* ═══ MODAL / SLIDE PANEL ═══ */
+.modal-overlay {
+  position:fixed; inset:0; z-index:1000;
+  background:rgba(58,46,42,0.45); backdrop-filter:blur(4px);
+  display:flex; align-items:center; justify-content:center;
+  opacity:0; pointer-events:none;
+  transition:opacity 0.25s ease;
+}
+.modal-overlay.open { opacity:1; pointer-events:auto; }
+.modal-panel {
+  background:var(--card-bg); border-radius:18px;
+  box-shadow:0 20px 60px rgba(89,57,52,0.18);
+  width:90%; max-width:680px; max-height:88vh;
+  display:flex; flex-direction:column;
+  transform:translateY(16px) scale(0.97);
+  transition:transform 0.3s cubic-bezier(0.22,1,0.36,1);
+  overflow:hidden;
+}
+.modal-overlay.open .modal-panel { transform:translateY(0) scale(1); }
+.modal-panel.wide { max-width:840px; }
+.modal-header {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:20px 24px 16px; border-bottom:1px solid var(--card-border);
+  flex-shrink:0;
+}
+.modal-header-left { display:flex; align-items:center; gap:12px; }
+.modal-title {
+  font-family:'Playfair Display', Georgia, serif;
+  font-size:19px; font-weight:700; color:var(--text-heading);
+}
+.modal-subtitle { font-size:12.5px; color:var(--text-muted); margin-top:1px; }
+.modal-close {
+  width:36px; height:36px; border-radius:10px; border:none;
+  background:var(--cream-light); color:var(--text-muted);
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition:all 0.2s ease; flex-shrink:0;
+}
+.modal-close:hover { background:var(--accent-light); color:var(--text-primary); }
+.modal-body {
+  padding:24px; overflow-y:auto; flex:1;
+}
+.modal-body::-webkit-scrollbar { width:4px; }
+.modal-body::-webkit-scrollbar-thumb { background:rgba(175,129,95,0.15); border-radius:2px; }
+.modal-footer {
+  display:flex; align-items:center; justify-content:flex-end; gap:10px;
+  padding:16px 24px; border-top:1px solid var(--card-border);
+  flex-shrink:0; background:var(--cream-pale);
+}
+.modal-footer .btn { min-width:100px; justify-content:center; }
+
+/* Form layout inside modals */
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.form-row.three { grid-template-columns:1fr 1fr 1fr; }
+.form-section { margin-bottom:24px; }
+.form-section-title {
+  font-size:14px; font-weight:600; color:var(--text-heading);
+  margin-bottom:12px; padding-bottom:8px;
+  border-bottom:1px solid var(--card-border);
+  display:flex; align-items:center; gap:8px;
+}
+.form-select {
+  width:100%; padding:10px 14px; font-size:14px; font-family:inherit;
+  color:var(--text-primary); background:var(--card-bg);
+  border:1.5px solid var(--card-border); border-radius:10px; outline:none;
+  transition:border-color 0.2s ease; appearance:none; cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a89888' stroke-width='2' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat:no-repeat; background-position:right 14px center;
+}
+.form-select:focus { border-color:var(--brown-warm); }
+.form-checkbox-row {
+  display:flex; align-items:center; gap:10px; padding:8px 0;
+}
+.form-checkbox {
+  width:20px; height:20px; border-radius:6px;
+  border:2px solid var(--card-border); background:transparent;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition:all 0.2s ease; flex-shrink:0;
+}
+.form-checkbox.checked { background:var(--success); border-color:var(--success); }
+.form-checkbox-label { font-size:13.5px; color:var(--text-primary); cursor:pointer; }
+.form-tag-input {
+  display:flex; flex-wrap:wrap; gap:6px; padding:8px 12px;
+  min-height:44px; border:1.5px solid var(--card-border);
+  border-radius:10px; background:var(--card-bg); align-items:center;
+  transition:border-color 0.2s ease; cursor:text;
+}
+.form-tag-input:focus-within { border-color:var(--brown-warm); }
+.form-tag {
+  display:inline-flex; align-items:center; gap:4px;
+  padding:3px 10px; border-radius:6px; font-size:12px; font-weight:500;
+  background:var(--accent-light); color:var(--olive);
+}
+.form-tag button {
+  background:none; border:none; color:var(--text-muted); cursor:pointer;
+  font-size:14px; line-height:1; padding:0 0 0 2px;
+}
+.form-tag-input input {
+  border:none; outline:none; background:transparent; font-size:13px;
+  font-family:inherit; color:var(--text-primary); flex:1; min-width:80px;
+}
+.char-count { font-size:11px; color:var(--text-muted); text-align:right; margin-top:2px; }
+
+/* Detail view specifics */
+.detail-header {
+  display:flex; align-items:flex-start; justify-content:space-between;
+  margin-bottom:20px; gap:16px;
+}
+.detail-title {
+  font-family:'Playfair Display', Georgia, serif;
+  font-size:20px; font-weight:700; color:var(--text-heading); line-height:1.3;
+}
+.detail-meta {
+  display:flex; flex-wrap:wrap; gap:12px; margin-top:8px;
+  font-size:12.5px; color:var(--text-muted);
+}
+.detail-meta-item { display:flex; align-items:center; gap:4px; }
+.detail-section {
+  margin-bottom:20px; padding-bottom:20px;
+  border-bottom:1px solid var(--card-border);
+}
+.detail-section:last-child { border-bottom:none; margin-bottom:0; padding-bottom:0; }
+.detail-section-title {
+  font-size:13px; font-weight:600; text-transform:uppercase;
+  letter-spacing:0.06em; color:var(--text-muted); margin-bottom:10px;
+}
+.vote-results {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:14px;
+}
+.vote-result-card {
+  text-align:center; padding:14px; border-radius:12px; background:var(--cream-pale);
+}
+.vote-result-value {
+  font-family:'Playfair Display', Georgia, serif;
+  font-size:28px; font-weight:700; line-height:1;
+}
+.vote-result-label { font-size:11.5px; color:var(--text-muted); margin-top:4px; font-weight:500; }
+.comment-item {
+  display:flex; gap:10px; padding:12px 0;
+  border-bottom:1px solid var(--card-border);
+}
+.comment-item:last-child { border-bottom:none; }
+.comment-body { font-size:13.5px; line-height:1.5; color:var(--text-secondary); }
+.comment-author { font-size:13px; font-weight:600; color:var(--text-primary); }
+.comment-time { font-size:11.5px; color:var(--text-muted); margin-left:8px; }
+
+/* Timeline */
+.timeline-item {
+  display:flex; gap:14px; padding:10px 0; position:relative;
+}
+.timeline-item::before {
+  content:''; position:absolute; left:15px; top:38px; bottom:-10px;
+  width:1px; background:var(--card-border);
+}
+.timeline-item:last-child::before { display:none; }
+.timeline-dot {
+  width:30px; height:30px; border-radius:50%; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  background:var(--cream-light); z-index:1;
+}
+.timeline-content { flex:1; padding-top:3px; }
+.timeline-text { font-size:13px; color:var(--text-secondary); }
+.timeline-date { font-size:11.5px; color:var(--text-muted); margin-top:2px; }
+
 /* ═══ ANIMATIONS ═══ */
 @keyframes fadeIn {
   from { opacity:0; transform:translateY(6px); }
@@ -449,6 +606,11 @@ textarea.form-input { min-height:80px; resize:vertical; line-height:1.5; }
 <!-- ═══════════ MAIN ═══════════ -->
 <div class="main-wrapper">
   <main class="main-content" id="mainContent"></main>
+</div>
+
+<!-- ═══════════ MODAL ═══════════ -->
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal-panel" id="modalPanel"></div>
 </div>
 
 <script>
@@ -618,10 +780,10 @@ pages.decisions=()=>`
     <div class="page-icon">${I('git',22,'var(--brown-warm)')}</div>
     <div><div class="page-title">Decisions</div><div class="page-subtitle">Community governance decisions</div></div>
   </div>
-  <div class="header-actions"><button class="btn btn-primary">${I('plus',14,'#edd6b7')} New Proposal</button></div>
+  <div class="header-actions"><button class="btn btn-primary" onclick="openNewProposal()">${I('plus',14,'#edd6b7')} New Proposal</button></div>
 </div>
 ${tabsHTML(['Active (3)','Passed (12)','Rejected (2)','Draft (1)'])}
-<div class="card section-card" style="margin-bottom:16px"><div class="card-body">
+<div class="card section-card" style="margin-bottom:16px"><div class="card-body" style="cursor:pointer" onclick="openViewProposal('DEC-024')">
   <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
     <div>
       <h3 style="margin-bottom:4px">DEC-024: Adopt SSI Credential Schema v2</h3>
@@ -641,7 +803,7 @@ ${tabsHTML(['Active (3)','Passed (12)','Rejected (2)','Draft (1)'])}
     <span class="vote-count">25 of 32 members voted · Quorum reached</span>
   </div>
 </div></div>
-<div class="card section-card" style="margin-bottom:16px"><div class="card-body">
+<div class="card section-card" style="margin-bottom:16px"><div class="card-body" style="cursor:pointer" onclick="openViewProposal('DEC-023')">
   <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
     <div><h3 style="margin-bottom:4px">DEC-023: Community Treasury Allocation Q2</h3><div style="font-size:12.5px;color:var(--text-muted)">Proposed by Governance Council · Feb 28 · Closes Mar 12</div></div>
     <span class="badge badge-open">Active</span>
@@ -655,7 +817,7 @@ ${tabsHTML(['Active (3)','Passed (12)','Rejected (2)','Draft (1)'])}
     <span class="vote-count">14 of 32 voted</span>
   </div>
 </div></div>
-<div class="card section-card"><div class="card-body">
+<div class="card section-card"><div class="card-body" style="cursor:pointer" onclick="openViewProposal('DEC-022')">
   <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
     <div><h3 style="margin-bottom:4px">DEC-022: Add Constitutional Committee Role</h3><div style="font-size:12.5px;color:var(--text-muted)">Proposed by Mark · Feb 20 · Closes Mar 5</div></div>
     <span class="badge badge-pending">Pending Quorum</span>
@@ -672,7 +834,7 @@ pages.conversations=()=>`
     <div class="page-icon">${I('chat',22,'var(--brown-warm)')}</div>
     <div><div class="page-title">Conversations</div><div class="page-subtitle">Posts & comments</div></div>
   </div>
-  <div class="header-actions"><button class="btn btn-primary">${I('plus',14,'#edd6b7')} New Post</button></div>
+  <div class="header-actions"><button class="btn btn-primary" onclick="openNewPost()">${I('plus',14,'#edd6b7')} New Post</button></div>
 </div>
 ${tabsHTML(['All Posts','Announcements','Discussion','Questions'])}
 <div class="card" style="margin-bottom:16px"><div class="card-body">
@@ -710,7 +872,7 @@ pages.contacts=()=>`
   </div>
   <div class="header-actions">
     <div class="search-box">${I('search',16,'#a89888')}<input placeholder="Search contacts…"></div>
-    <button class="btn btn-primary">${I('plus',14,'#edd6b7')} Add Contact</button>
+    <button class="btn btn-primary" onclick="openAddContact()">${I('plus',14,'#edd6b7')} Add Contact</button>
   </div>
 </div>
 ${tabsHTML(['All','Organisations','Individuals','Teams'])}
@@ -742,7 +904,7 @@ pages.opportunities=()=>`
     <div class="page-icon">${I('smile',22,'var(--brown-warm)')}</div>
     <div><div class="page-title">Opportunities</div><div class="page-subtitle">Community improvements for consideration</div></div>
   </div>
-  <div class="header-actions"><button class="btn btn-primary">${I('plus',14,'#edd6b7')} Submit Opportunity</button></div>
+  <div class="header-actions"><button class="btn btn-primary" onclick="openSubmitOpportunity()">${I('plus',14,'#edd6b7')} Submit Opportunity</button></div>
 </div>
 ${tabsHTML(['Open (5)','Under Review (2)','Approved (8)','Archived'])}
 <div class="stats-row">
@@ -1127,6 +1289,645 @@ function animateTokens(){
     requestAnimationFrame(step);
   };
   setTimeout(step,400);
+}
+
+// ═══════════════════════════════════════
+// MODAL SYSTEM
+// ═══════════════════════════════════════
+function openModal(content,wide){
+  const overlay=document.getElementById('modalOverlay');
+  const panel=document.getElementById('modalPanel');
+  panel.className='modal-panel'+(wide?' wide':'');
+  panel.innerHTML=content;
+  requestAnimationFrame(()=>overlay.classList.add('open'));
+  document.addEventListener('keydown',escHandler);
+}
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.removeEventListener('keydown',escHandler);
+}
+function escHandler(e){if(e.key==='Escape')closeModal();}
+
+// ═══════════════════════════════════════
+// NEW PROPOSAL
+// ═══════════════════════════════════════
+function openNewProposal(){
+  openModal(`
+  <div class="modal-header">
+    <div class="modal-header-left">
+      <div class="page-icon" style="width:38px;height:38px">${I('git',20,'var(--brown-warm)')}</div>
+      <div><div class="modal-title">New Proposal</div><div class="modal-subtitle">Submit a governance proposal for community vote</div></div>
+    </div>
+    <button class="modal-close" onclick="closeModal()">✕</button>
+  </div>
+  <div class="modal-body">
+    <div class="form-section">
+      <div class="form-section-title">${I('file',15,'var(--brown-warm)')} Proposal Details</div>
+      <div class="form-group">
+        <label class="form-label">Proposal Title <span style="color:var(--danger)">*</span></label>
+        <input class="form-input" placeholder="e.g., Adopt new SSI credential schema" id="propTitle" oninput="document.getElementById('propTitleCount').textContent=this.value.length+'/120'">
+        <div class="char-count" id="propTitleCount">0/120</div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Category <span style="color:var(--danger)">*</span></label>
+          <select class="form-select">
+            <option value="">Select category…</option>
+            <option>Governance</option>
+            <option>Technical</option>
+            <option>Treasury</option>
+            <option>Membership</option>
+            <option>Policy</option>
+            <option>Constitutional</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Priority</label>
+          <select class="form-select">
+            <option>Normal</option>
+            <option>High</option>
+            <option>Critical</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Summary <span style="color:var(--danger)">*</span></label>
+        <textarea class="form-input" placeholder="Brief summary of the proposal (displayed in list view)…" style="min-height:70px"></textarea>
+        <div class="form-hint">Keep it concise — 1-2 sentences that capture the essence</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Full Description <span style="color:var(--danger)">*</span></label>
+        <textarea class="form-input" placeholder="Detailed proposal description. Include background context, rationale, specific changes proposed, and expected outcomes…" style="min-height:160px"></textarea>
+        <div class="form-hint">Supports markdown formatting</div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="form-section-title">${I('users',15,'var(--brown-warm)')} Voting Configuration</div>
+      <div class="form-row three">
+        <div class="form-group">
+          <label class="form-label">Voting Period</label>
+          <select class="form-select">
+            <option>7 days</option>
+            <option>14 days</option>
+            <option>21 days</option>
+            <option>30 days</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Quorum Required</label>
+          <select class="form-select">
+            <option>Simple Majority (50%+1)</option>
+            <option>Two-Thirds (66%)</option>
+            <option>Three-Quarters (75%)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Eligible Voters</label>
+          <select class="form-select">
+            <option>All Members</option>
+            <option>Council Members Only</option>
+            <option>Token Holders</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-checkbox-row">
+        <button class="form-checkbox checked" onclick="this.classList.toggle('checked')">${I('check',13,'#fff',2.5)}</button>
+        <span class="form-checkbox-label" onclick="this.previousElementSibling.classList.toggle('checked')">Allow abstain votes</span>
+      </div>
+      <div class="form-checkbox-row">
+        <button class="form-checkbox" onclick="this.classList.toggle('checked')"></button>
+        <span class="form-checkbox-label" onclick="this.previousElementSibling.classList.toggle('checked')">Anonymous voting (hide voter identity until closed)</span>
+      </div>
+    </div>
+
+    <div class="form-section" style="margin-bottom:0">
+      <div class="form-section-title">${I('link',15,'var(--brown-warm)')} Attachments & References</div>
+      <div class="form-group">
+        <label class="form-label">Tags</label>
+        <div class="form-tag-input" onclick="this.querySelector('input').focus()">
+          <span class="form-tag">governance <button onclick="this.parentElement.remove()">×</button></span>
+          <span class="form-tag">SSI <button onclick="this.parentElement.remove()">×</button></span>
+          <input placeholder="Add tag…" onkeydown="if(event.key==='Enter'&&this.value.trim()){const t=document.createElement('span');t.className='form-tag';t.innerHTML=this.value.trim()+' <button onclick=\\'this.parentElement.remove()\\'>×</button>';this.parentElement.insertBefore(t,this);this.value='';event.preventDefault();}">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Supporting Documents</label>
+        <div style="border:2px dashed var(--card-border);border-radius:12px;padding:28px;text-align:center;cursor:pointer;transition:border-color 0.2s ease" onmouseover="this.style.borderColor='var(--brown-warm)'" onmouseout="this.style.borderColor='var(--card-border)'">
+          <div style="margin-bottom:6px">${I('upload',24,'var(--text-muted)')}</div>
+          <div style="font-size:13.5px;color:var(--text-secondary)">Drag files here or <span style="color:var(--brown-warm);font-weight:500">browse</span></div>
+          <div style="font-size:11.5px;color:var(--text-muted);margin-top:4px">PDF, DOCX, or images up to 10MB</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Related Proposals or Links</label>
+        <input class="form-input" placeholder="Paste URL or search for related proposals…">
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" onclick="closeModal()">Cancel</button>
+    <button class="btn" style="border-color:var(--warning);color:var(--warning)">Save as Draft</button>
+    <button class="btn btn-primary" onclick="closeModal();navigate('decisions')">Submit Proposal</button>
+  </div>
+  `,true);
+}
+
+// ═══════════════════════════════════════
+// VIEW PROPOSAL DETAIL
+// ═══════════════════════════════════════
+function openViewProposal(id){
+  const proposals={
+    'DEC-024':{
+      title:'Adopt SSI Credential Schema v2',
+      status:'Active', category:'Technical',
+      author:'Sarah Chen', authorAvatar:'SC', authorColor:'var(--olive)',
+      created:'Mar 1, 2026', closes:'Mar 15, 2026',
+      summary:'Proposal to upgrade the community\'s SSI credential schema to v2 to support KERI delegation, multi-sig attestations, and cross-chain anchoring.',
+      description:'This proposal outlines the migration path from our current v1 credential schema to the new v2 specification. The upgrade introduces three key capabilities:\n\n1. KERI Delegation Support — Enables hierarchical delegation of credential issuance authority through KERI event logs, allowing sub-organisations to issue credentials under the community\'s root identifier.\n\n2. Multi-Signature Attestations — Requires multiple authorised parties to co-sign credential issuance for high-value credentials (e.g., governance roles, treasury access).\n\n3. Cross-Chain Anchoring — Anchors credential revocation registries on both Cardano and Ethereum, enabling verification across ecosystems.\n\nThe migration will be phased over 6 weeks with backward compatibility maintained during the transition period.',
+      votesFor:18, votesAgainst:3, votesAbstain:4, totalMembers:32,
+      voted:true, votedChoice:'For',
+      tags:['SSI','KERI','credentials','technical'],
+    },
+    'DEC-023':{
+      title:'Community Treasury Allocation Q2',
+      status:'Active', category:'Treasury',
+      author:'Governance Council', authorAvatar:'GC', authorColor:'var(--brown-deep)',
+      created:'Feb 28, 2026', closes:'Mar 12, 2026',
+      summary:'Allocate 15% of community treasury to infrastructure development, 10% to education, and 5% to outreach programs for Q2 2026.',
+      description:'This quarterly allocation proposal distributes community treasury funds across three priority areas identified in the annual planning session:\n\nInfrastructure (15% / ₳18,750) — Covers AWS hosting, KERI node cluster scaling, Cardano node maintenance, and identity wallet API infrastructure.\n\nEducation (10% / ₳12,500) — Funds developer workshops, SSI onboarding materials, video tutorials, and conference participation.\n\nOutreach (5% / ₳6,250) — Supports community growth initiatives including partner engagement, social media presence, and regional meetups.\n\nThe remaining 70% stays in reserve for operational expenses and emergency allocation.',
+      votesFor:10, votesAgainst:2, votesAbstain:2, totalMembers:32,
+      voted:false, votedChoice:null,
+      tags:['treasury','budget','Q2'],
+    },
+    'DEC-022':{
+      title:'Add Constitutional Committee Role',
+      status:'Pending Quorum', category:'Governance',
+      author:'Mark', authorAvatar:'MC', authorColor:'var(--brown-warm)',
+      created:'Feb 20, 2026', closes:'Mar 5, 2026',
+      summary:'Establish a Constitutional Committee to oversee governance protocol compliance and arbitration processes.',
+      description:'This proposal establishes a 5-member Constitutional Committee (CC) responsible for:\n\nProtocol Compliance — Reviewing all governance proposals for alignment with the Community Constitution before they go to vote.\n\nArbitration — Resolving disputes between community members or between members and governance decisions.\n\nConstitutional Amendments — Managing the formal process for proposing and ratifying changes to the Community Constitution.\n\nCC members serve 12-month rotating terms with staggered elections. Initial members will be nominated and confirmed through a special election within 30 days of this proposal passing.',
+      votesFor:6, votesAgainst:1, votesAbstain:2, totalMembers:32,
+      voted:false, votedChoice:null,
+      tags:['governance','constitution','committee'],
+    },
+  };
+  const p=proposals[id]||proposals['DEC-024'];
+  const totalVotes=p.votesFor+p.votesAgainst+p.votesAbstain;
+  const pctFor=totalVotes>0?Math.round(p.votesFor/totalVotes*100):0;
+  const pctAgainst=totalVotes>0?Math.round(p.votesAgainst/totalVotes*100):0;
+  const descParagraphs=p.description.split('\\n\\n').filter(Boolean).map(para=>`<p style="margin-bottom:12px">${para}</p>`).join('');
+
+  openModal(`
+  <div class="modal-header">
+    <div class="modal-header-left">
+      <span class="badge badge-${p.status==='Active'?'open':'pending'}">${p.status}</span>
+      <span class="badge badge-info">${p.category}</span>
+    </div>
+    <button class="modal-close" onclick="closeModal()">✕</button>
+  </div>
+  <div class="modal-body">
+    <div class="detail-header">
+      <div style="flex:1">
+        <div style="font-size:12px;color:var(--text-muted);margin-bottom:4px;font-weight:600;letter-spacing:0.05em">${id}</div>
+        <div class="detail-title">${p.title}</div>
+        <div class="detail-meta">
+          <span class="detail-meta-item"><div class="avatar" style="background:${p.authorColor};width:22px;height:22px;font-size:9px;border-radius:6px">${p.authorAvatar}</div> ${p.author}</span>
+          <span class="detail-meta-item">${I('token',13,'#a89888')} Created ${p.created}</span>
+          <span class="detail-meta-item">${I('token',13,'#a89888')} Closes ${p.closes}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-section">
+      <div class="detail-section-title">Voting Results</div>
+      <div class="vote-results">
+        <div class="vote-result-card">
+          <div class="vote-result-value" style="color:var(--success)">${p.votesFor}</div>
+          <div class="vote-result-label">For (${pctFor}%)</div>
+        </div>
+        <div class="vote-result-card">
+          <div class="vote-result-value" style="color:var(--danger)">${p.votesAgainst}</div>
+          <div class="vote-result-label">Against (${pctAgainst}%)</div>
+        </div>
+        <div class="vote-result-card">
+          <div class="vote-result-value" style="color:var(--text-muted)">${p.votesAbstain}</div>
+          <div class="vote-result-label">Abstain</div>
+        </div>
+      </div>
+      <div class="progress-bar" style="height:10px;border-radius:5px;margin-bottom:8px;display:flex;overflow:hidden;background:var(--cream-light)">
+        <div style="width:${pctFor}%;background:var(--success);transition:width 0.6s ease"></div>
+        <div style="width:${pctAgainst}%;background:var(--danger);transition:width 0.6s ease"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-muted)">
+        <span>${totalVotes} of ${p.totalMembers} members voted</span>
+        <span>${totalVotes>=Math.ceil(p.totalMembers/2)?'Quorum reached ✓':'Need '+(Math.ceil(p.totalMembers/2)-totalVotes)+' more for quorum'}</span>
+      </div>
+      ${!p.voted?`
+      <div style="display:flex;gap:8px;margin-top:14px">
+        <button class="btn btn-primary" style="flex:1;justify-content:center;background:var(--success);border-color:var(--success)">${I('check',14,'#fff')} Vote For</button>
+        <button class="btn" style="flex:1;justify-content:center;color:var(--danger);border-color:var(--danger)">Vote Against</button>
+        <button class="btn" style="flex:1;justify-content:center">Abstain</button>
+      </div>`:`
+      <div style="margin-top:14px;padding:10px 14px;border-radius:10px;background:rgba(107,138,94,0.08);display:flex;align-items:center;gap:8px;font-size:13px;color:var(--success);font-weight:500">
+        ${I('check',16,'var(--success)',2.5)} You voted "${p.votedChoice}" on this proposal
+      </div>`}
+    </div>
+
+    <div class="detail-section">
+      <div class="detail-section-title">Description</div>
+      <div style="font-size:14px;line-height:1.7;color:var(--text-secondary)">${p.description.replace(/\n\n/g,'</p><p style="margin-bottom:12px">').replace(/\n/g,'<br>')}</div>
+    </div>
+
+    <div class="detail-section">
+      <div class="detail-section-title">Tags</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px">
+        ${p.tags.map(t=>`<span class="form-tag">${t}</span>`).join('')}
+      </div>
+    </div>
+
+    <div class="detail-section">
+      <div class="detail-section-title">Activity Timeline</div>
+      <div class="timeline-item">
+        <div class="timeline-dot">${I('plus',14,'var(--success)')}</div>
+        <div class="timeline-content"><div class="timeline-text"><strong>${p.author}</strong> created this proposal</div><div class="timeline-date">${p.created}</div></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">${I('check',14,'var(--success)')}</div>
+        <div class="timeline-content"><div class="timeline-text">Voting period opened</div><div class="timeline-date">${p.created}</div></div>
+      </div>
+      ${totalVotes>=Math.ceil(p.totalMembers/2)?`
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:rgba(107,138,94,0.15)">${I('users',14,'var(--success)')}</div>
+        <div class="timeline-content"><div class="timeline-text"><strong>Quorum reached</strong> — ${totalVotes} of ${p.totalMembers} members voted</div><div class="timeline-date">Mar 2, 2026</div></div>
+      </div>`:''}
+    </div>
+
+    <div class="detail-section" style="border-bottom:none;margin-bottom:0;padding-bottom:0">
+      <div class="detail-section-title">Discussion (${id==='DEC-024'?'5':'2'} comments)</div>
+      <div class="comment-item">
+        <div class="avatar" style="background:var(--info);width:32px;height:32px;font-size:11px;border-radius:8px">AR</div>
+        <div style="flex:1"><div><span class="comment-author">Alex Rivera</span><span class="comment-time">2 hours ago</span></div><div class="comment-body">Strong support for this. The multi-sig attestation feature alone would significantly improve our credential security posture.</div></div>
+      </div>
+      <div class="comment-item">
+        <div class="avatar" style="background:var(--olive);width:32px;height:32px;font-size:11px;border-radius:8px">ML</div>
+        <div style="flex:1"><div><span class="comment-author">Mei Lin</span><span class="comment-time">5 hours ago</span></div><div class="comment-body">What's the estimated migration effort for existing credentials? Will holders need to re-issue?</div></div>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:14px">
+        <input class="form-input" placeholder="Add a comment…" style="flex:1;margin-bottom:0">
+        <button class="btn btn-primary btn-sm">${I('send',14,'#edd6b7')}</button>
+      </div>
+    </div>
+  </div>
+  `,true);
+}
+
+// ═══════════════════════════════════════
+// NEW POST (CONVERSATIONS)
+// ═══════════════════════════════════════
+function openNewPost(){
+  openModal(`
+  <div class="modal-header">
+    <div class="modal-header-left">
+      <div class="page-icon" style="width:38px;height:38px">${I('chat',20,'var(--brown-warm)')}</div>
+      <div><div class="modal-title">New Post</div><div class="modal-subtitle">Start a conversation with the community</div></div>
+    </div>
+    <button class="modal-close" onclick="closeModal()">✕</button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label class="form-label">Post Title <span style="color:var(--danger)">*</span></label>
+      <input class="form-input" placeholder="Give your post a clear, descriptive title">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Category <span style="color:var(--danger)">*</span></label>
+        <select class="form-select">
+          <option value="">Select category…</option>
+          <option>Announcement</option>
+          <option>Discussion</option>
+          <option>Question</option>
+          <option>Proposal</option>
+          <option>Update</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Visibility</label>
+        <select class="form-select">
+          <option>All Members</option>
+          <option>Council Only</option>
+          <option>Working Group</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Content <span style="color:var(--danger)">*</span></label>
+      <textarea class="form-input" placeholder="Write your post content here. You can use markdown for formatting…" style="min-height:200px"></textarea>
+      <div class="form-hint">Supports markdown: **bold**, *italic*, [links](url), bullet lists, code blocks</div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Tags</label>
+      <div class="form-tag-input" onclick="this.querySelector('input').focus()">
+        <input placeholder="Add tags to help others find your post…" onkeydown="if(event.key==='Enter'&&this.value.trim()){const t=document.createElement('span');t.className='form-tag';t.innerHTML=this.value.trim()+' <button onclick=\\'this.parentElement.remove()\\'>×</button>';this.parentElement.insertBefore(t,this);this.value='';event.preventDefault();}">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Attachments</label>
+      <div style="border:2px dashed var(--card-border);border-radius:12px;padding:24px;text-align:center;cursor:pointer;transition:border-color 0.2s ease" onmouseover="this.style.borderColor='var(--brown-warm)'" onmouseout="this.style.borderColor='var(--card-border)'">
+        <div style="margin-bottom:6px">${I('upload',22,'var(--text-muted)')}</div>
+        <div style="font-size:13px;color:var(--text-secondary)">Drag files here or <span style="color:var(--brown-warm);font-weight:500">browse</span></div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:3px">Images, PDFs, or documents up to 10MB each</div>
+      </div>
+    </div>
+    <div class="form-checkbox-row">
+      <button class="form-checkbox" onclick="this.classList.toggle('checked')"></button>
+      <span class="form-checkbox-label" onclick="this.previousElementSibling.classList.toggle('checked')">Pin this post to the top of the feed</span>
+    </div>
+    <div class="form-checkbox-row">
+      <button class="form-checkbox checked" onclick="this.classList.toggle('checked')">${I('check',13,'#fff',2.5)}</button>
+      <span class="form-checkbox-label" onclick="this.previousElementSibling.classList.toggle('checked')">Allow comments on this post</span>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" onclick="closeModal()">Cancel</button>
+    <button class="btn" style="border-color:var(--warning);color:var(--warning)">Save Draft</button>
+    <button class="btn btn-primary" onclick="closeModal();navigate('conversations')">${I('send',14,'#edd6b7')} Publish Post</button>
+  </div>
+  `);
+}
+
+// ═══════════════════════════════════════
+// ADD CONTACT
+// ═══════════════════════════════════════
+function openAddContact(){
+  openModal(`
+  <div class="modal-header">
+    <div class="modal-header-left">
+      <div class="page-icon" style="width:38px;height:38px">${I('users',20,'var(--brown-warm)')}</div>
+      <div><div class="modal-title">Add Contact</div><div class="modal-subtitle">Add an organisation or individual</div></div>
+    </div>
+    <button class="modal-close" onclick="closeModal()">✕</button>
+  </div>
+  <div class="modal-body">
+    <div class="form-section">
+      <div class="form-section-title">${I('user',15,'var(--brown-warm)')} Contact Type</div>
+      <div style="display:flex;gap:10px;margin-bottom:16px">
+        <button class="btn" style="flex:1;justify-content:center" id="ctIndiv" onclick="setContactType('individual')">${I('user',16)} Individual</button>
+        <button class="btn" style="flex:1;justify-content:center" id="ctOrg" onclick="setContactType('organisation')">${I('building',16)} Organisation</button>
+      </div>
+    </div>
+
+    <div class="form-section" id="contactFields">
+      <div class="form-section-title">${I('file',15,'var(--brown-warm)')} Details</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">First Name <span style="color:var(--danger)">*</span></label>
+          <input class="form-input" placeholder="First name">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Last Name <span style="color:var(--danger)">*</span></label>
+          <input class="form-input" placeholder="Last name">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input class="form-input" type="email" placeholder="email@example.com">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Phone</label>
+          <input class="form-input" type="tel" placeholder="+61 400 000 000">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Location</label>
+          <input class="form-input" placeholder="City, Country">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Role / Title</label>
+          <input class="form-input" placeholder="e.g., Developer, Facilitator">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Organisation</label>
+          <select class="form-select">
+            <option value="">Select organisation…</option>
+            <option>selfdriven Foundation</option>
+            <option>Cardano Foundation</option>
+            <option>TANA Insurance Co.</option>
+            <option>Independent</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="form-section-title">${I('shield',15,'var(--brown-warm)')} Identity & Access</div>
+      <div class="form-group">
+        <label class="form-label">DID (Decentralized Identifier)</label>
+        <input class="form-input" placeholder="did:keri:EXq5…" style="font-family:'JetBrains Mono',monospace;font-size:13px">
+        <div class="form-hint">Optional — link their Self-Sovereign Identity credential</div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Community Role</label>
+          <select class="form-select">
+            <option>Member</option>
+            <option>Contributor</option>
+            <option>Facilitator</option>
+            <option>Council Member</option>
+            <option>Observer</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Team Assignment</label>
+          <select class="form-select">
+            <option value="">No team</option>
+            <option>Identity Working Group</option>
+            <option>Governance Council</option>
+            <option>Operations</option>
+            <option>Development</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section" style="margin-bottom:0">
+      <div class="form-section-title">${I('file',15,'var(--brown-warm)')} Additional</div>
+      <div class="form-group">
+        <label class="form-label">Notes</label>
+        <textarea class="form-input" placeholder="Any additional notes about this contact…" style="min-height:70px"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Tags</label>
+        <div class="form-tag-input" onclick="this.querySelector('input').focus()">
+          <input placeholder="Add tags…" onkeydown="if(event.key==='Enter'&&this.value.trim()){const t=document.createElement('span');t.className='form-tag';t.innerHTML=this.value.trim()+' <button onclick=\\'this.parentElement.remove()\\'>×</button>';this.parentElement.insertBefore(t,this);this.value='';event.preventDefault();}">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" onclick="closeModal()">Cancel</button>
+    <button class="btn btn-primary" onclick="closeModal();navigate('contacts')">${I('plus',14,'#edd6b7')} Add Contact</button>
+  </div>
+  `);
+  setContactType('individual');
+}
+
+function setContactType(type){
+  const indBtn=document.getElementById('ctIndiv');
+  const orgBtn=document.getElementById('ctOrg');
+  const fields=document.getElementById('contactFields');
+  if(type==='individual'){
+    indBtn.style.borderColor='var(--brown-warm)';indBtn.style.background='var(--accent-light)';indBtn.style.color='var(--brown-deep)';
+    orgBtn.style.borderColor='';orgBtn.style.background='';orgBtn.style.color='';
+    fields.innerHTML=`
+      <div class="form-section-title">${I('file',15,'var(--brown-warm)')} Personal Details</div>
+      <div class="form-row"><div class="form-group"><label class="form-label">First Name <span style="color:var(--danger)">*</span></label><input class="form-input" placeholder="First name"></div><div class="form-group"><label class="form-label">Last Name <span style="color:var(--danger)">*</span></label><input class="form-input" placeholder="Last name"></div></div>
+      <div class="form-group"><label class="form-label">Email Address</label><input class="form-input" type="email" placeholder="email@example.com"></div>
+      <div class="form-row"><div class="form-group"><label class="form-label">Phone</label><input class="form-input" type="tel" placeholder="+61 400 000 000"></div><div class="form-group"><label class="form-label">Location</label><input class="form-input" placeholder="City, Country"></div></div>
+      <div class="form-row"><div class="form-group"><label class="form-label">Role / Title</label><input class="form-input" placeholder="e.g., Developer, Facilitator"></div><div class="form-group"><label class="form-label">Organisation</label><select class="form-select"><option value="">Select…</option><option>selfdriven Foundation</option><option>Cardano Foundation</option><option>TANA Insurance Co.</option><option>Independent</option></select></div></div>`;
+  } else {
+    orgBtn.style.borderColor='var(--brown-warm)';orgBtn.style.background='var(--accent-light)';orgBtn.style.color='var(--brown-deep)';
+    indBtn.style.borderColor='';indBtn.style.background='';indBtn.style.color='';
+    fields.innerHTML=`
+      <div class="form-section-title">${I('building',15,'var(--brown-warm)')} Organisation Details</div>
+      <div class="form-group"><label class="form-label">Organisation Name <span style="color:var(--danger)">*</span></label><input class="form-input" placeholder="Organisation name"></div>
+      <div class="form-row"><div class="form-group"><label class="form-label">Type</label><select class="form-select"><option>Company</option><option>Foundation</option><option>Government</option><option>Non-Profit</option><option>Community Group</option></select></div><div class="form-group"><label class="form-label">Industry</label><input class="form-input" placeholder="e.g., Technology, Finance"></div></div>
+      <div class="form-group"><label class="form-label">Website</label><input class="form-input" placeholder="https://…"></div>
+      <div class="form-row"><div class="form-group"><label class="form-label">Primary Contact Email</label><input class="form-input" type="email" placeholder="contact@org.com"></div><div class="form-group"><label class="form-label">Location / HQ</label><input class="form-input" placeholder="City, Country"></div></div>
+      <div class="form-group"><label class="form-label">Description</label><textarea class="form-input" placeholder="Brief description of the organisation…" style="min-height:70px"></textarea></div>`;
+  }
+}
+
+// ═══════════════════════════════════════
+// SUBMIT OPPORTUNITY
+// ═══════════════════════════════════════
+function openSubmitOpportunity(){
+  openModal(`
+  <div class="modal-header">
+    <div class="modal-header-left">
+      <div class="page-icon" style="width:38px;height:38px">${I('smile',20,'var(--brown-warm)')}</div>
+      <div><div class="modal-title">Submit Opportunity</div><div class="modal-subtitle">Suggest an improvement for the community</div></div>
+    </div>
+    <button class="modal-close" onclick="closeModal()">✕</button>
+  </div>
+  <div class="modal-body">
+    <div class="form-section">
+      <div class="form-section-title">${I('zap',15,'var(--brown-warm)')} Opportunity Details</div>
+      <div class="form-group">
+        <label class="form-label">Title <span style="color:var(--danger)">*</span></label>
+        <input class="form-input" placeholder="A clear, concise title for the opportunity">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Category <span style="color:var(--danger)">*</span></label>
+          <select class="form-select">
+            <option value="">Select category…</option>
+            <option>Technical Infrastructure</option>
+            <option>Governance Process</option>
+            <option>Community Engagement</option>
+            <option>Security & Identity</option>
+            <option>Documentation</option>
+            <option>Partnerships</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Estimated Impact</label>
+          <select class="form-select">
+            <option>Low — Nice to have</option>
+            <option>Medium — Meaningful improvement</option>
+            <option selected>High — Significant community benefit</option>
+            <option>Critical — Urgent need</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Description <span style="color:var(--danger)">*</span></label>
+        <textarea class="form-input" placeholder="Describe the opportunity in detail. What problem does it solve? Who benefits? What would the outcome look like?" style="min-height:140px"></textarea>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="form-section-title">${I('check',15,'var(--brown-warm)')} Success Criteria</div>
+      <div class="form-group">
+        <label class="form-label">How will we know this is successful?</label>
+        <textarea class="form-input" placeholder="Define measurable outcomes or acceptance criteria…" style="min-height:80px"></textarea>
+        <div class="form-hint">E.g., "Reduce onboarding time from 30 minutes to 5 minutes"</div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Estimated Effort</label>
+          <select class="form-select">
+            <option>Small (days)</option>
+            <option>Medium (weeks)</option>
+            <option selected>Large (months)</option>
+            <option>Extra Large (quarter+)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Suggested Priority</label>
+          <select class="form-select">
+            <option>Low</option>
+            <option selected>Medium</option>
+            <option>High</option>
+            <option>Urgent</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="form-section-title">${I('users',15,'var(--brown-warm)')} Stakeholders & Resources</div>
+      <div class="form-group">
+        <label class="form-label">Who would champion this?</label>
+        <select class="form-select">
+          <option value="">Select a person or team…</option>
+          <option>Sarah Chen — Identity Lead</option>
+          <option>Alex Rivera — Developer</option>
+          <option>Governance Council</option>
+          <option>Identity Working Group</option>
+          <option>Operations Team</option>
+          <option>I'll champion it myself</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Related Areas of Focus</label>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          ${['Identity','Governance','Infrastructure','Education','Community','Security','Treasury','Partnerships'].map(a=>`<button class="btn btn-sm" style="font-size:12px" onclick="this.style.borderColor=this.style.borderColor?'':'var(--brown-warm)';this.style.background=this.style.background==='var(--accent-light)'?'':'var(--accent-light)';this.style.color=this.style.color==='var(--brown-deep)'?'':'var(--brown-deep)'">${a}</button>`).join('')}
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section" style="margin-bottom:0">
+      <div class="form-section-title">${I('link',15,'var(--brown-warm)')} Supporting Materials</div>
+      <div class="form-group">
+        <label class="form-label">Tags</label>
+        <div class="form-tag-input" onclick="this.querySelector('input').focus()">
+          <input placeholder="Add tags…" onkeydown="if(event.key==='Enter'&&this.value.trim()){const t=document.createElement('span');t.className='form-tag';t.innerHTML=this.value.trim()+' <button onclick=\\'this.parentElement.remove()\\'>×</button>';this.parentElement.insertBefore(t,this);this.value='';event.preventDefault();}">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Reference Links</label>
+        <input class="form-input" placeholder="Paste relevant URLs, prior art, or research links…" style="margin-bottom:8px">
+        <input class="form-input" placeholder="Add another link…">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Attachments</label>
+        <div style="border:2px dashed var(--card-border);border-radius:12px;padding:24px;text-align:center;cursor:pointer;transition:border-color 0.2s ease" onmouseover="this.style.borderColor='var(--brown-warm)'" onmouseout="this.style.borderColor='var(--card-border)'">
+          <div style="margin-bottom:6px">${I('upload',22,'var(--text-muted)')}</div>
+          <div style="font-size:13px;color:var(--text-secondary)">Drag files here or <span style="color:var(--brown-warm);font-weight:500">browse</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" onclick="closeModal()">Cancel</button>
+    <button class="btn" style="border-color:var(--warning);color:var(--warning)">Save Draft</button>
+    <button class="btn btn-primary" onclick="closeModal();navigate('opportunities')">Submit Opportunity</button>
+  </div>
+  `);
 }
 
 // ─── INIT ───
