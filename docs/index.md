@@ -2,7 +2,7 @@
 layout: default
 title: Actuate | selfdriven Community
 ---
-## Frameworks & Resources for Self-Actuating Communities/Organisations.
+## A Protocol (Frameworks & Resources) for Self-Actuating Communities/Organisations.
 
 ### Frameworks
 
