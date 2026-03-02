@@ -870,9 +870,9 @@ ${tp('ctTabs',0)}${renderTable(contacts)}${tpc}
 ${tp('ctTabs',1)}${renderTable(contacts.filter(c=>c.type==='Organisation'))}${tpc}
 ${tp('ctTabs',2)}${renderTable(contacts.filter(c=>c.type==='Individual'))}${tpc}
 ${tp('ctTabs',3)}
-${teams.map(t=>`<div class="card section-card"><div class="card-body"><div style="display:flex;justify-content:space-between;align-items:center">
+${teams.map(t=>`<div class="card section-card"><div class="card-body" style="cursor:pointer" onclick="openViewTeam(${t.id})"><div style="display:flex;justify-content:space-between;align-items:center">
 <div><h3 style="margin-bottom:4px">${t.name}</h3><div style="font-size:12.5px;color:var(--text-muted)">Lead: ${t.lead} · ${t.members} members</div></div>
-<button class="btn btn-sm">View Team</button></div></div></div>`).join('')}
+<button class="btn btn-sm" onclick="event.stopPropagation();openViewTeam(${t.id})">View Team</button></div></div></div>`).join('')}
 ${tpc}`;
 };
 
@@ -1010,18 +1010,20 @@ ${[
 </tbody></table></div></div>
 ${tpc}
 ${tp('opsTabs',1)}
+<div style="display:flex;justify-content:flex-end;margin-bottom:12px"><button class="btn btn-primary btn-sm" onclick="openAddProduct()">${I('plus',14,'#edd6b7')} Add Product</button></div>
 <div class="card"><div class="card-body" style="padding:0"><table class="data-table"><thead><tr><th>Product</th><th>Type</th><th>Version</th><th>Users</th><th>Status</th></tr></thead><tbody>
 ${[
-{name:'Identity Wallet',type:'Application',ver:'v2.3.1',users:1247,status:'active'},
-{name:'Governance Portal',type:'Web App',ver:'v3.0.0',users:892,status:'active'},
-{name:'KERI Witness Node',type:'Service',ver:'v1.4.2',users:24,status:'active'},
-{name:'Community API',type:'API',ver:'v5.0.43',users:156,status:'active'},
-{name:'Mobile Companion',type:'Mobile App',ver:'v1.1.0',users:643,status:'beta'},
-{name:'Analytics Dashboard',type:'Web App',ver:'v0.9.3',users:45,status:'beta'},
-].map(p=>`<tr><td style="font-weight:500">${p.name}</td><td><span class="badge badge-info">${p.type}</span></td><td><code style="font-size:12px;background:var(--accent-light);padding:2px 8px;border-radius:4px">${p.ver}</code></td><td>${p.users.toLocaleString()}</td><td><span class="badge badge-${p.status==='active'?'open':'pending'}">${p.status==='active'?'Active':'Beta'}</span></td></tr>`).join('')}
+{id:1,name:'Identity Wallet',type:'Application',ver:'v2.3.1',users:1247,status:'active'},
+{id:2,name:'Governance Portal',type:'Web App',ver:'v3.0.0',users:892,status:'active'},
+{id:3,name:'KERI Witness Node',type:'Service',ver:'v1.4.2',users:24,status:'active'},
+{id:4,name:'Community API',type:'API',ver:'v5.0.43',users:156,status:'active'},
+{id:5,name:'Mobile Companion',type:'Mobile App',ver:'v1.1.0',users:643,status:'beta'},
+{id:6,name:'Analytics Dashboard',type:'Web App',ver:'v0.9.3',users:45,status:'beta'},
+].map(p=>`<tr style="cursor:pointer" onclick="openViewProduct(${p.id})"><td style="font-weight:500">${p.name}</td><td><span class="badge badge-info">${p.type}</span></td><td><code style="font-size:12px;background:var(--accent-light);padding:2px 8px;border-radius:4px">${p.ver}</code></td><td>${p.users.toLocaleString()}</td><td><span class="badge badge-${p.status==='active'?'open':'pending'}">${p.status==='active'?'Active':'Beta'}</span></td></tr>`).join('')}
 </tbody></table></div></div>
 ${tpc}
 ${tp('opsTabs',2)}
+<div style="display:flex;justify-content:flex-end;margin-bottom:12px"><button class="btn btn-primary btn-sm" onclick="openAddOrder()">${I('plus',14,'#edd6b7')} Add Order</button></div>
 <div class="card"><div class="card-body" style="padding:0"><table class="data-table"><thead><tr><th>Order</th><th>Requestor</th><th>Type</th><th>Date</th><th>Status</th></tr></thead><tbody>
 ${[
 {id:'ORD-042',req:'Alex Rivera',type:'SSL Certificate Renewal',date:'Mar 1, 2026',status:'pending'},
@@ -1029,7 +1031,7 @@ ${[
 {id:'ORD-040',req:'Sarah Chen',type:'KERI Node Scale-up',date:'Feb 25, 2026',status:'pending'},
 {id:'ORD-039',req:'Mark',type:'Domain Registration',date:'Feb 20, 2026',status:'complete'},
 {id:'ORD-038',req:'James Whitfield',type:'Video Conferencing License',date:'Feb 15, 2026',status:'complete'},
-].map(o=>`<tr><td style="font-weight:500">${o.id}</td><td>${o.req}</td><td>${o.type}</td><td>${o.date}</td><td><span class="badge badge-${o.status==='pending'?'pending':'active'}">${o.status==='pending'?'Pending':'Complete'}</span></td></tr>`).join('')}
+].map(o=>`<tr style="cursor:pointer" onclick="openViewOrder('${o.id}')"><td style="font-weight:500">${o.id}</td><td>${o.req}</td><td>${o.type}</td><td>${o.date}</td><td><span class="badge badge-${o.status==='pending'?'pending':'active'}">${o.status==='pending'?'Pending':'Complete'}</span></td></tr>`).join('')}
 </tbody></table></div></div>
 ${tpc}`;
 
@@ -2509,7 +2511,7 @@ ${p.milestones.map(m=>`<div style="margin-bottom:14px"><div style="display:flex;
 <div class="form-section-title" style="margin-top:20px">${I('users',15,'var(--brown-warm)')} Team Members</div>
 ${p.members.map(m=>`<div style="display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:8px;background:var(--cream-pale);margin:0 6px 6px 0"><div class="avatar" style="background:var(--brown-warm);width:24px;height:24px;font-size:9px">${m.split(' ').map(n=>n[0]).join('')}</div><span style="font-size:13px">${m}</span></div>`).join('')}
 </div>
-<div class="modal-footer"><button class="btn" onclick="closeModal()">Close</button><button class="btn btn-primary">Open Project Board</button></div>
+<div class="modal-footer"><button class="btn" onclick="closeModal()">Close</button><button class="btn btn-primary" onclick="closeModal();openProjectBoard(${id})">Open Project Board</button></div>
 `,true);
 }
 
@@ -2549,6 +2551,185 @@ openModal(`
 </div>
 <div class="modal-footer"><button class="btn" onclick="closeModal()">Close</button><button class="btn">${I('download',14)} Receipt</button></div>
 `);
+}
+
+// ═══════════════════════════════════════
+// PROJECT BOARD (Kanban-style)
+// ═══════════════════════════════════════
+function openProjectBoard(id){
+const projects={1:{name:'Identity Wallet v2',lead:'Sarah Chen',tasks:[
+{t:'Design credential display UI',s:'done',a:'AR'},{t:'Implement KERI key rotation',s:'done',a:'SC'},{t:'IndexedDB storage layer',s:'done',a:'SC'},{t:'Web Crypto API integration',s:'done',a:'AR'},
+{t:'Delegation event handler',s:'progress',a:'SC'},{t:'Backup & recovery flow',s:'progress',a:'ML'},{t:'UI accessibility audit',s:'progress',a:'AR'},
+{t:'Cross-browser testing',s:'todo',a:'ML'},{t:'Performance benchmarks',s:'todo',a:'AR'},{t:'Security review',s:'todo',a:'SC'},{t:'Release notes',s:'todo',a:'SC'},{t:'Documentation update',s:'todo',a:'ML'}
+]},2:{name:'Governance Framework',lead:'James Whitfield',tasks:[
+{t:'Define council roles',s:'done',a:'JW'},{t:'Voting protocol spec',s:'done',a:'GC'},{t:'Quorum rules document',s:'done',a:'JW'},
+{t:'Dispute resolution process',s:'progress',a:'JW'},{t:'Amendment procedure',s:'progress',a:'GC'},
+{t:'Community review period',s:'todo',a:'GC'},{t:'Ratification vote',s:'todo',a:'JW'},{t:'Final publication',s:'todo',a:'GC'}
+]},3:{name:'Community Portal Redesign',lead:'Alex Rivera',tasks:[
+{t:'User research interviews',s:'done',a:'AR'},{t:'Competitive analysis',s:'done',a:'ML'},
+{t:'Wireframes — desktop',s:'progress',a:'AR'},{t:'Wireframes — mobile',s:'progress',a:'ML'},
+{t:'Visual design system',s:'todo',a:'AR'},{t:'Component library',s:'todo',a:'ML'},{t:'Frontend build — layout',s:'todo',a:'AR'},{t:'Frontend build — pages',s:'todo',a:'ML'},{t:'CMS integration',s:'todo',a:'AR'},{t:'Beta testing',s:'todo',a:'SC'}
+]},4:{name:'KERI Delegation Module',lead:'Sarah Chen',tasks:[
+{t:'Protocol spec document',s:'done',a:'SC'},{t:'Core delegation logic',s:'done',a:'SC'},{t:'Event serialisation',s:'done',a:'MC'},{t:'Witness verification',s:'done',a:'SC'},{t:'Key pre-rotation support',s:'done',a:'MC'},
+{t:'Integration test suite',s:'progress',a:'SC'},
+{t:'API documentation',s:'todo',a:'MC'}
+]}};
+const p=projects[id]||projects[1];
+const todo=p.tasks.filter(t=>t.s==='todo'),prog=p.tasks.filter(t=>t.s==='progress'),done=p.tasks.filter(t=>t.s==='done');
+const colColors={todo:'var(--text-muted)',progress:'var(--warning)',done:'var(--success)'};
+const renderCard=(t)=>`<div style="background:var(--cream-light);border:1px solid var(--card-border);border-radius:10px;padding:10px 12px;margin-bottom:8px">
+<div style="font-size:13px;font-weight:500;color:var(--text-primary);margin-bottom:6px">${t.t}</div>
+<div style="display:flex;align-items:center;gap:6px"><div class="avatar" style="background:var(--brown-warm);width:22px;height:22px;font-size:9px;border-radius:6px">${t.a}</div><span style="font-size:11px;color:var(--text-muted)">${t.a}</span></div>
+</div>`;
+openModal(`
+<div class="modal-header"><div class="modal-header-left"><div class="page-icon" style="width:38px;height:38px">${I('folder',20,'var(--brown-warm)')}</div><div><div class="modal-title">${p.name} — Board</div><div class="modal-subtitle">Lead: ${p.lead} · ${p.tasks.length} tasks</div></div></div><button class="modal-close" onclick="closeModal()">✕</button></div>
+<div class="modal-body" style="padding:16px">
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;min-height:300px">
+<div><div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--text-muted)"><span style="font-size:13px;font-weight:700;color:var(--text-muted)">TO DO</span><span style="font-size:11px;background:var(--cream-pale);color:var(--text-muted);padding:2px 8px;border-radius:10px">${todo.length}</span></div>${todo.map(renderCard).join('')}</div>
+<div><div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--warning)"><span style="font-size:13px;font-weight:700;color:var(--warning)">IN PROGRESS</span><span style="font-size:11px;background:rgba(200,160,60,0.12);color:var(--warning);padding:2px 8px;border-radius:10px">${prog.length}</span></div>${prog.map(renderCard).join('')}</div>
+<div><div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--success)"><span style="font-size:13px;font-weight:700;color:var(--success)">DONE</span><span style="font-size:11px;background:rgba(107,138,94,0.12);color:var(--success);padding:2px 8px;border-radius:10px">${done.length}</span></div>${done.map(renderCard).join('')}</div>
+</div>
+</div>
+<div class="modal-footer"><button class="btn" onclick="closeModal()">Close</button><button class="btn btn-primary">${I('plus',14,'#edd6b7')} Add Task</button></div>
+`,true);
+}
+
+// ═══════════════════════════════════════
+// VIEW TEAM
+// ═══════════════════════════════════════
+function openViewTeam(id){
+const teams={1:{name:'Identity Working Group',lead:'Sarah Chen',desc:'Focused on SSI credential systems, KERI delegation protocols, and identity wallet development.',members:[
+{name:'Sarah Chen',role:'Identity Lead',avatar:'SC',color:'var(--olive)'},{name:'David Park',role:'Security Analyst',avatar:'DP',color:'#5a7a6a'}
+],projects:['Identity Wallet v2','KERI Delegation Module'],meetings:'Tuesdays 10am'},
+2:{name:'Governance Council',lead:'James Whitfield',desc:'Oversees community governance processes, proposal management, and constitutional compliance.',members:[
+{name:'James Whitfield',role:'Facilitator',avatar:'JW',color:'#7a6a8a'},{name:'Governance Council',role:'Body',avatar:'GC',color:'var(--brown-deep)'}
+],projects:['Governance Framework'],meetings:'Wednesdays 2pm'},
+3:{name:'Development',lead:'Alex Rivera',desc:'Full-stack development, API integration, portal frontend, and mobile applications.',members:[
+{name:'Alex Rivera',role:'Developer',avatar:'AR',color:'var(--info)'},{name:'Mei Lin',role:'Contributor',avatar:'ML',color:'var(--success)'}
+],projects:['Community Portal Redesign'],meetings:'Mon / Wed / Fri standup 9am'},
+4:{name:'Operations',lead:'TANA Insurance Co.',desc:'Infrastructure management, hosting, deployments, and community tooling.',members:[
+{name:'TANA Insurance Co.',role:'Member Org',avatar:'TI',color:'var(--brown-warm)'}
+],projects:[],meetings:'As needed'}};
+const t=teams[id]||teams[1];
+openModal(`
+<div class="modal-header"><div class="modal-header-left"><div class="page-icon" style="width:38px;height:38px">${I('users',20,'var(--brown-warm)')}</div><div><div class="modal-title">${t.name}</div><div class="modal-subtitle">Lead: ${t.lead} · ${t.members.length} members</div></div></div><button class="modal-close" onclick="closeModal()">✕</button></div>
+<div class="modal-body">
+<p style="color:var(--text-secondary);line-height:1.7;margin-bottom:20px">${t.desc}</p>
+<div class="form-section-title">${I('users',15,'var(--brown-warm)')} Members</div>
+${t.members.map(m=>`<div class="list-item"><div class="avatar" style="background:${m.color};width:36px;height:36px;font-size:12px">${m.avatar}</div><div class="list-item-content"><div class="list-item-title">${m.name}</div><div class="list-item-sub">${m.role}</div></div></div>`).join('')}
+${t.projects.length?`<div class="form-section-title" style="margin-top:20px">${I('folder',15,'var(--brown-warm)')} Active Projects</div>
+${t.projects.map(p=>`<div style="display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:8px;background:var(--cream-pale);margin-bottom:8px"><span style="font-size:13.5px">${p}</span></div>`).join('')}`:''}
+<div class="form-section-title" style="margin-top:20px">${I('calendar',15,'var(--brown-warm)')} Meeting Schedule</div>
+<div style="padding:12px 16px;border-radius:10px;background:var(--cream-pale);font-size:13.5px">${I('clock',14,'var(--text-muted)')} ${t.meetings}</div>
+</div>
+<div class="modal-footer"><button class="btn" onclick="closeModal()">Close</button><button class="btn btn-primary">${I('msgCircle',14,'#edd6b7')} Message Team</button></div>
+`,true);
+}
+
+// ═══════════════════════════════════════
+// ADD PRODUCT
+// ═══════════════════════════════════════
+function openAddProduct(){
+openModal(`
+<div class="modal-header"><div class="modal-header-left"><div class="page-icon" style="width:38px;height:38px">${I('plus',20,'var(--brown-warm)')}</div><div><div class="modal-title">Add Product</div><div class="modal-subtitle">Register a new product or service</div></div></div><button class="modal-close" onclick="closeModal()">✕</button></div>
+<div class="modal-body">
+<div class="form-group"><label class="form-label">Product Name <span style="color:var(--danger)">*</span></label><input class="form-input" placeholder="e.g. Identity Wallet"></div>
+<div class="form-row">
+<div class="form-group"><label class="form-label">Type <span style="color:var(--danger)">*</span></label><select class="form-input"><option value="">Select type…</option><option>Application</option><option>Web App</option><option>Mobile App</option><option>Service</option><option>API</option><option>Library</option><option>Other</option></select></div>
+<div class="form-group"><label class="form-label">Version</label><input class="form-input" placeholder="e.g. v1.0.0"></div>
+</div>
+<div class="form-group"><label class="form-label">Description</label><textarea class="form-input" placeholder="Describe the product…" style="min-height:80px"></textarea></div>
+<div class="form-row">
+<div class="form-group"><label class="form-label">Status</label><select class="form-input"><option>Active</option><option>Beta</option><option>Development</option><option>Deprecated</option></select></div>
+<div class="form-group"><label class="form-label">Owner / Team</label><select class="form-input"><option value="">Select…</option><option>Development</option><option>Identity WG</option><option>Operations</option><option>Governance Council</option></select></div>
+</div>
+<div class="form-group"><label class="form-label">URL / Repository</label><input class="form-input" placeholder="https://…"></div>
+<div class="form-row">
+<div class="form-group"><label class="form-label">Pricing Model</label><select class="form-input"><option>Free</option><option>Freemium</option><option>Subscription</option><option>One-time</option><option>Per-use</option></select></div>
+<div class="form-group"><label class="form-label">User Count</label><input class="form-input" type="number" placeholder="0"></div>
+</div>
+</div>
+<div class="modal-footer"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn btn-primary">${I('check',14,'#edd6b7')} Save Product</button></div>
+`,true);
+}
+
+// ═══════════════════════════════════════
+// VIEW PRODUCT
+// ═══════════════════════════════════════
+function openViewProduct(id){
+const products={1:{name:'Identity Wallet',type:'Application',ver:'v2.3.1',users:1247,status:'Active',desc:'Community SSI wallet application for managing credentials, delegation, and identity verification. Supports KERI protocols and WebAuthn passkey authentication.',owner:'Identity WG',url:'https://wallet.selfdriven.ai',pricing:'Free',launched:'Jun 2025',updated:'Feb 28, 2026'},
+2:{name:'Governance Portal',type:'Web App',ver:'v3.0.0',users:892,status:'Active',desc:'Web-based governance platform for submitting proposals, casting votes, tracking quorum, and managing community decisions.',owner:'Development',url:'https://governance.selfdriven.ai',pricing:'Free',launched:'Sep 2024',updated:'Mar 1, 2026'},
+3:{name:'KERI Witness Node',type:'Service',ver:'v1.4.2',users:24,status:'Active',desc:'Distributed witness service for KERI credential verification and event receipt infrastructure.',owner:'Identity WG',url:'https://witness.selfdriven.network',pricing:'Free',launched:'Jan 2026',updated:'Feb 20, 2026'},
+4:{name:'Community API',type:'API',ver:'v5.0.43',users:156,status:'Active',desc:'RESTful API for community data including members, projects, tokens, governance, and identity services.',owner:'Development',url:'https://api.selfdriven.cloud',pricing:'Free',launched:'Mar 2023',updated:'Feb 25, 2026'},
+5:{name:'Mobile Companion',type:'Mobile App',ver:'v1.1.0',users:643,status:'Beta',desc:'Mobile companion app for notifications, quick voting, token balance checking, and credential presentation.',owner:'Development',url:'',pricing:'Free',launched:'Dec 2025',updated:'Feb 15, 2026'},
+6:{name:'Analytics Dashboard',type:'Web App',ver:'v0.9.3',users:45,status:'Beta',desc:'Real-time analytics showing community engagement metrics, governance participation rates, and project progress.',owner:'Development',url:'',pricing:'Free',launched:'Feb 2026',updated:'Feb 28, 2026'}};
+const p=products[id]||products[1];
+openModal(`
+<div class="modal-header"><div class="modal-header-left"><div class="page-icon" style="width:38px;height:38px">${I('pie',20,'var(--brown-warm)')}</div><div><div class="modal-title">${p.name}</div><div class="modal-subtitle">${p.type} · <code style="font-size:12px;background:var(--accent-light);padding:2px 8px;border-radius:4px">${p.ver}</code></div></div></div><button class="modal-close" onclick="closeModal()">✕</button></div>
+<div class="modal-body">
+<div style="display:flex;gap:10px;margin-bottom:16px"><span class="badge badge-${p.status==='Active'?'open':'pending'}">${p.status}</span><span class="badge badge-info">${p.type}</span></div>
+<p style="color:var(--text-secondary);line-height:1.7;margin-bottom:20px">${p.desc}</p>
+<div style="display:flex;gap:16px;padding:16px;border-radius:12px;background:var(--cream-pale);margin-bottom:20px"><div style="text-align:center;flex:1"><div style="font-size:28px;font-weight:700;color:var(--text-heading)">${p.users.toLocaleString()}</div><div style="font-size:12px;color:var(--text-muted)">Users</div></div><div style="text-align:center;flex:1"><div style="font-size:16px;font-weight:600;color:var(--text-heading)">${p.pricing}</div><div style="font-size:12px;color:var(--text-muted)">Pricing</div></div><div style="text-align:center;flex:1"><div style="font-size:16px;font-weight:600;color:var(--text-heading)">${p.ver}</div><div style="font-size:12px;color:var(--text-muted)">Version</div></div></div>
+<div class="form-row"><div class="form-group"><label class="form-label">Owner</label><div style="font-size:14px">${p.owner}</div></div><div class="form-group"><label class="form-label">Launched</label><div style="font-size:14px">${p.launched}</div></div></div>
+<div class="form-row"><div class="form-group"><label class="form-label">Last Updated</label><div style="font-size:14px">${p.updated}</div></div><div class="form-group"><label class="form-label">URL</label><div style="font-size:13px;font-family:monospace;color:var(--info)">${p.url||'—'}</div></div></div>
+</div>
+<div class="modal-footer"><button class="btn" onclick="closeModal()">Close</button><button class="btn">${I('settings',14)} Edit</button></div>
+`,true);
+}
+
+// ═══════════════════════════════════════
+// ADD ORDER
+// ═══════════════════════════════════════
+function openAddOrder(){
+openModal(`
+<div class="modal-header"><div class="modal-header-left"><div class="page-icon" style="width:38px;height:38px">${I('plus',20,'var(--brown-warm)')}</div><div><div class="modal-title">Add Order</div><div class="modal-subtitle">Create a new resource or service order</div></div></div><button class="modal-close" onclick="closeModal()">✕</button></div>
+<div class="modal-body">
+<div class="form-group"><label class="form-label">Order Description <span style="color:var(--danger)">*</span></label><input class="form-input" placeholder="e.g. SSL Certificate Renewal"></div>
+<div class="form-row">
+<div class="form-group"><label class="form-label">Category <span style="color:var(--danger)">*</span></label><select class="form-input"><option value="">Select…</option><option>Infrastructure</option><option>Software License</option><option>Hardware</option><option>Service</option><option>Hosting</option><option>Domain</option><option>Certificate</option><option>Other</option></select></div>
+<div class="form-group"><label class="form-label">Priority</label><select class="form-input"><option>Normal</option><option>Low</option><option>High</option><option>Urgent</option></select></div>
+</div>
+<div class="form-group"><label class="form-label">Details / Justification</label><textarea class="form-input" placeholder="Why is this order needed?" style="min-height:80px"></textarea></div>
+<div class="form-row">
+<div class="form-group"><label class="form-label">Requested By</label><select class="form-input"><option value="">Select member…</option><option>Alex Rivera</option><option>Sarah Chen</option><option>Mark</option><option>James Whitfield</option><option>Mei Lin</option><option>Operations</option></select></div>
+<div class="form-group"><label class="form-label">Needed By</label><input class="form-input" type="date"></div>
+</div>
+<div class="form-row">
+<div class="form-group"><label class="form-label">Estimated Cost</label><div style="display:flex;gap:8px"><select class="form-input" style="width:80px"><option>USD</option><option>AUD</option><option>EUR</option><option>ADA</option></select><input class="form-input" type="number" placeholder="0.00" step="0.01"></div></div>
+<div class="form-group"><label class="form-label">Vendor / Supplier</label><input class="form-input" placeholder="e.g. AWS, Namecheap"></div>
+</div>
+<div class="form-group"><label class="form-label">Attachments</label><div style="border:2px dashed var(--card-border);border-radius:10px;padding:20px;text-align:center;color:var(--text-muted);font-size:13px;cursor:pointer">${I('upload',20,'var(--text-muted)')}<div style="margin-top:6px">Drop files here or click to upload</div></div></div>
+</div>
+<div class="modal-footer"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn btn-primary">${I('check',14,'#edd6b7')} Submit Order</button></div>
+`,true);
+}
+
+// ═══════════════════════════════════════
+// VIEW ORDER
+// ═══════════════════════════════════════
+function openViewOrder(id){
+const orders={'ORD-042':{desc:'SSL Certificate Renewal',req:'Alex Rivera',type:'Certificate',date:'Mar 1, 2026',status:'Pending',priority:'High',cost:'$180',vendor:'DigiCert',needed:'Mar 10, 2026',notes:'Wildcard SSL certificate for *.selfdriven.ai and *.selfdriven.foundation expiring March 12. Needs urgent renewal to avoid service disruption.',history:[{act:'Order submitted',by:'Alex Rivera',date:'Mar 1, 2026'},{act:'Approved by Operations',by:'Operations',date:'Mar 1, 2026'}]},
+'ORD-041':{desc:'AWS Reserved Instance',req:'Operations',type:'Infrastructure',date:'Feb 28, 2026',status:'Pending',priority:'Normal',cost:'$2,400/yr',vendor:'AWS',needed:'Mar 15, 2026',notes:'Convert 2 on-demand EC2 instances (t3.large) to 1-year reserved instances for cost savings. Estimated 40% savings.',history:[{act:'Order submitted',by:'Operations',date:'Feb 28, 2026'}]},
+'ORD-040':{desc:'KERI Node Scale-up',req:'Sarah Chen',type:'Infrastructure',date:'Feb 25, 2026',status:'Pending',priority:'Normal',cost:'$480/mo',vendor:'AWS / Hetzner',needed:'Mar 20, 2026',notes:'Deploy 2 additional KERI witness nodes in EU-West and APAC regions for redundancy and latency improvements.',history:[{act:'Order submitted',by:'Sarah Chen',date:'Feb 25, 2026'},{act:'Under review',by:'Operations',date:'Feb 27, 2026'}]},
+'ORD-039':{desc:'Domain Registration',req:'Mark',type:'Domain',date:'Feb 20, 2026',status:'Complete',priority:'Normal',cost:'$45',vendor:'Namecheap',needed:'Feb 25, 2026',notes:'Register tana.community domain for the community hub portal.',history:[{act:'Order submitted',by:'Mark',date:'Feb 20, 2026'},{act:'Approved',by:'Operations',date:'Feb 20, 2026'},{act:'Purchased & configured',by:'Operations',date:'Feb 21, 2026'},{act:'DNS propagated — Complete',by:'Operations',date:'Feb 22, 2026'}]},
+'ORD-038':{desc:'Video Conferencing License',req:'James Whitfield',type:'Software License',date:'Feb 15, 2026',status:'Complete',priority:'Low',cost:'$150/yr',vendor:'Zoom',needed:'Mar 1, 2026',notes:'Annual Zoom Pro license for governance meetings and community calls.',history:[{act:'Order submitted',by:'James Whitfield',date:'Feb 15, 2026'},{act:'Approved & purchased',by:'Ellen Morris',date:'Feb 16, 2026'},{act:'License activated',by:'Operations',date:'Feb 17, 2026'}]}};
+const o=orders[id]||orders['ORD-042'];
+const isPending=o.status==='Pending';
+openModal(`
+<div class="modal-header"><div class="modal-header-left"><div class="page-icon" style="width:38px;height:38px">${I('file',20,'var(--brown-warm)')}</div><div><div class="modal-title">${id} — ${o.desc}</div><div class="modal-subtitle">Requested by ${o.req} · ${o.date}</div></div></div><button class="modal-close" onclick="closeModal()">✕</button></div>
+<div class="modal-body">
+<div style="display:flex;gap:10px;margin-bottom:16px"><span class="badge badge-${isPending?'pending':'active'}">${o.status}</span><span class="badge badge-info">${o.type}</span>${o.priority==='High'||o.priority==='Urgent'?`<span class="badge badge-closed">${o.priority}</span>`:''}</div>
+<div style="display:flex;gap:16px;padding:16px;border-radius:12px;background:var(--cream-pale);margin-bottom:20px"><div style="text-align:center;flex:1"><div style="font-size:18px;font-weight:700;color:var(--text-heading)">${o.cost}</div><div style="font-size:12px;color:var(--text-muted)">Estimated Cost</div></div><div style="text-align:center;flex:1"><div style="font-size:14px;font-weight:600;color:var(--text-heading)">${o.vendor}</div><div style="font-size:12px;color:var(--text-muted)">Vendor</div></div><div style="text-align:center;flex:1"><div style="font-size:14px;font-weight:600;color:${isPending?'var(--warning)':'var(--text-heading)'}">${o.needed}</div><div style="font-size:12px;color:var(--text-muted)">Needed By</div></div></div>
+<div class="form-section-title">${I('file',15,'var(--brown-warm)')} Details</div>
+<p style="color:var(--text-secondary);line-height:1.7;margin-bottom:20px">${o.notes}</p>
+<div class="form-section-title">${I('clock',15,'var(--brown-warm)')} Timeline</div>
+${o.history.map((h,i)=>`<div style="display:flex;gap:12px;padding:10px 0;${i<o.history.length-1?'border-bottom:1px solid var(--card-border)':''}">
+<div style="width:10px;height:10px;border-radius:50%;background:${i===o.history.length-1?'var(--success)':'var(--text-muted)'};margin-top:5px;flex-shrink:0"></div>
+<div><div style="font-size:13px;font-weight:500">${h.act}</div><div style="font-size:12px;color:var(--text-muted)">${h.by} · ${h.date}</div></div>
+</div>`).join('')}
+</div>
+<div class="modal-footer"><button class="btn" onclick="closeModal()">Close</button>${isPending?`<button class="btn" style="color:var(--danger)">Cancel Order</button><button class="btn btn-primary">${I('check',14,'#edd6b7')} Approve</button>`:''}</div>
+`,true);
 }
 
 // ─── INIT ───
