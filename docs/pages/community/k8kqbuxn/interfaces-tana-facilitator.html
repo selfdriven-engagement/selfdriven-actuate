@@ -7,710 +7,1130 @@ title: TANA Facilitator Interface
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TANA — Dashboard</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            /* TANA Brand Palette */
-            --tana-brown-deep: #593934;
-            --tana-brown-warm: #af815f;
-            --tana-olive: #6b5f38;
-            --tana-cream: #edd6b7;
-            --tana-cream-light: #f5ebe0;
-            --tana-cream-pale: #faf6f1;
-
-            /* Functional Colors */
-            --sidebar-bg: #593934;
-            --sidebar-text: #edd6b7;
-            --sidebar-text-muted: rgba(237, 214, 183, 0.55);
-            --sidebar-hover: rgba(237, 214, 183, 0.1);
-            --sidebar-active: rgba(237, 214, 183, 0.15);
-            --sidebar-icon: rgba(237, 214, 183, 0.7);
-
-            --page-bg: #f8f4ef;
-            --card-bg: #ffffff;
-            --card-border: rgba(175, 129, 95, 0.12);
-            --card-shadow: 0 1px 4px rgba(89, 57, 52, 0.06);
-            --card-shadow-hover: 0 4px 16px rgba(89, 57, 52, 0.1);
-
-            --text-primary: #3a2e2a;
-            --text-secondary: #7a6a62;
-            --text-muted: #a89888;
-            --text-heading: #593934;
-
-            --accent: #af815f;
-            --accent-light: rgba(175, 129, 95, 0.12);
-            --accent-dots: #c47a4a;
-
-            --tab-active-border: #af815f;
-            --badge-text: #6b5f38;
-
-            --sidebar-width: 220px;
-            --right-panel-width: 280px;
-        }
-
-        *, *::before, *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html, body {
-            height: 100%;
-        }
-
-        body {
-            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--page-bg);
-            color: var(--text-primary);
-            display: flex;
-            overflow: hidden;
-            height: 100vh;
-        }
-
-        /* ═══════════════════════════════════════
-           SIDEBAR
-           ═══════════════════════════════════════ */
-        .sidebar {
-            width: var(--sidebar-width);
-            min-width: var(--sidebar-width);
-            background: var(--sidebar-bg);
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            overflow-y: auto;
-            padding: 0;
-            position: relative;
-        }
-
-        /* Subtle gradient overlay on sidebar */
-        .sidebar::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 80px;
-            background: linear-gradient(to top, rgba(60, 38, 34, 0.4), transparent);
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .sidebar-logo {
-            padding: 22px 24px 18px;
-            display: flex;
-            align-items: center;
-        }
-
-        .sidebar-nav {
-            flex: 1;
-            padding: 4px 10px;
-            display: flex;
-            flex-direction: column;
-            gap: 1px;
-        }
-
-        .nav-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 10px 14px;
-            border-radius: 10px;
-            text-decoration: none;
-            color: var(--sidebar-text);
-            font-size: 14px;
-            font-weight: 400;
-            transition: all 0.2s ease;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .nav-item:hover {
-            background: var(--sidebar-hover);
-        }
-
-        .nav-item.active {
-            background: var(--sidebar-active);
-            font-weight: 500;
-        }
-
-        .nav-item.active::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 8px;
-            bottom: 8px;
-            width: 3px;
-            background: var(--tana-brown-warm);
-            border-radius: 0 3px 3px 0;
-        }
-
-        .nav-icon {
-            width: 20px;
-            height: 20px;
-            color: var(--sidebar-icon);
-            flex-shrink: 0;
-            stroke-width: 1.8;
-        }
-
-        .nav-item.active .nav-icon {
-            color: var(--tana-cream);
-        }
-
-        .nav-spacer {
-            flex: 1;
-        }
-
-        .nav-divider {
-            height: 1px;
-            background: rgba(237, 214, 183, 0.1);
-            margin: 6px 14px;
-        }
-
-        /* ═══════════════════════════════════════
-           MAIN CONTENT AREA
-           ═══════════════════════════════════════ */
-        .main-wrapper {
-            flex: 1;
-            display: flex;
-            overflow: hidden;
-        }
-
-        .main-content {
-            flex: 1;
-            overflow-y: auto;
-            padding: 28px 32px 40px;
-        }
-
-        /* Tabs: My | Community */
-        .tabs-bar {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 28px;
-        }
-
-        .tab-btn {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            padding: 9px 18px;
-            border-radius: 24px;
-            border: 1.5px solid var(--card-border);
-            background: var(--card-bg);
-            color: var(--text-secondary);
-            font-family: inherit;
-            font-size: 13.5px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            position: relative;
-        }
-
-        .tab-btn:hover {
-            border-color: var(--tana-brown-warm);
-            color: var(--text-primary);
-        }
-
-        .tab-btn.active {
-            border-color: var(--tana-brown-warm);
-            color: var(--tana-brown-deep);
-            background: var(--accent-light);
-        }
-
-        .tab-btn.active::after {
-            content: '';
-            position: absolute;
-            bottom: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 28px;
-            height: 3px;
-            background: var(--tana-brown-warm);
-            border-radius: 3px;
-        }
-
-        .tab-btn svg {
-            width: 15px;
-            height: 15px;
-        }
-
-        /* Section heading */
-        .section-heading {
-            font-size: 14px;
-            font-weight: 400;
-            color: var(--text-muted);
-            margin-bottom: 18px;
-            letter-spacing: 0.01em;
-        }
-
-        /* Dashboard cards grid */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 18px;
-            margin-bottom: 18px;
-        }
-
-        .dash-card {
-            background: var(--card-bg);
-            border-radius: 14px;
-            padding: 22px 24px;
-            border: 1px solid var(--card-border);
-            box-shadow: var(--card-shadow);
-            transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            min-height: 140px;
-        }
-
-        .dash-card:hover {
-            box-shadow: var(--card-shadow-hover);
-            transform: translateY(-1px);
-            border-color: rgba(175, 129, 95, 0.25);
-        }
-
-        .dash-card-title {
-            font-size: 15px;
-            font-weight: 600;
-            color: var(--text-heading);
-            margin-bottom: 4px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid rgba(175, 129, 95, 0.08);
-        }
-
-        .dash-card-spacer {
-            flex: 1;
-        }
-
-        .dash-card-footer {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .loading-dots {
-            display: flex;
-            gap: 4px;
-        }
-
-        .loading-dots span {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--accent-dots);
-            animation: dotPulse 1.4s ease-in-out infinite;
-        }
-
-        .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
-        .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
-
-        @keyframes dotPulse {
-            0%, 80%, 100% { opacity: 0.3; transform: scale(0.85); }
-            40% { opacity: 1; transform: scale(1); }
-        }
-
-        .dash-card-badge {
-            font-size: 11.5px;
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: var(--badge-text);
-        }
-
-        .dash-card-count {
-            font-family: 'Playfair Display', Georgia, serif;
-            font-size: 32px;
-            font-weight: 600;
-            color: var(--tana-brown-deep);
-            line-height: 1;
-        }
-
-        /* ═══════════════════════════════════════
-           RIGHT PANEL
-           ═══════════════════════════════════════ */
-        .right-panel {
-            width: var(--right-panel-width);
-            min-width: var(--right-panel-width);
-            background: var(--page-bg);
-            border-left: 1px solid rgba(175, 129, 95, 0.1);
-            overflow-y: auto;
-            padding: 28px 22px 40px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .panel-card {
-            background: var(--card-bg);
-            border-radius: 14px;
-            padding: 20px;
-            border: 1px solid var(--card-border);
-            box-shadow: var(--card-shadow);
-        }
-
-        .panel-card-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 4px;
-        }
-
-        .panel-card-title {
-            font-size: 15px;
-            font-weight: 700;
-            color: var(--text-heading);
-        }
-
-        .panel-card-icon {
-            width: 20px;
-            height: 20px;
-            color: var(--text-muted);
-        }
-
-        .panel-card-body {
-            font-size: 13.5px;
-            color: var(--text-secondary);
-            line-height: 1.55;
-            margin-top: 8px;
-        }
-
-        .panel-card-btn {
-            display: block;
-            width: 100%;
-            margin-top: 16px;
-            padding: 10px 16px;
-            border-radius: 24px;
-            border: 1.5px solid var(--card-border);
-            background: transparent;
-            color: var(--text-primary);
-            font-family: inherit;
-            font-size: 13px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-align: center;
-        }
-
-        .panel-card-btn:hover {
-            border-color: var(--tana-brown-warm);
-            background: var(--accent-light);
-            color: var(--tana-brown-deep);
-        }
-
-        /* Updates panel - special styling */
-        .updates-panel {
-            background: linear-gradient(135deg, var(--card-bg) 0%, var(--tana-cream-pale) 100%);
-            min-height: 120px;
-        }
-
-        .updates-panel .panel-card-body {
-            color: var(--text-muted);
-            font-style: italic;
-            font-size: 13px;
-            margin-top: 12px;
-        }
-
-        /* ═══════════════════════════════════════
-           ANIMATIONS
-           ═══════════════════════════════════════ */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .main-content > * {
-            animation: fadeIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
-        }
-
-        .main-content > *:nth-child(1) { animation-delay: 0.05s; }
-        .main-content > *:nth-child(2) { animation-delay: 0.1s; }
-        .main-content > *:nth-child(3) { animation-delay: 0.15s; }
-
-        .dash-card {
-            animation: fadeIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
-        }
-
-        .cards-grid:first-of-type .dash-card:nth-child(1) { animation-delay: 0.12s; }
-        .cards-grid:first-of-type .dash-card:nth-child(2) { animation-delay: 0.18s; }
-        .cards-grid:last-of-type .dash-card:nth-child(1) { animation-delay: 0.24s; }
-        .cards-grid:last-of-type .dash-card:nth-child(2) { animation-delay: 0.30s; }
-
-        .right-panel > * {
-            animation: fadeIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
-        }
-        .right-panel > *:nth-child(1) { animation-delay: 0.15s; }
-        .right-panel > *:nth-child(2) { animation-delay: 0.25s; }
-        .right-panel > *:nth-child(3) { animation-delay: 0.35s; }
-
-        /* ═══════════════════════════════════════
-           SCROLLBAR
-           ═══════════════════════════════════════ */
-        .main-content::-webkit-scrollbar,
-        .right-panel::-webkit-scrollbar,
-        .sidebar::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .main-content::-webkit-scrollbar-track,
-        .right-panel::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .main-content::-webkit-scrollbar-thumb,
-        .right-panel::-webkit-scrollbar-thumb {
-            background: rgba(175, 129, 95, 0.18);
-            border-radius: 3px;
-        }
-
-        .sidebar::-webkit-scrollbar-track { background: transparent; }
-        .sidebar::-webkit-scrollbar-thumb { background: rgba(237, 214, 183, 0.15); border-radius: 3px; }
-
-        /* ═══════════════════════════════════════
-           RESPONSIVE
-           ═══════════════════════════════════════ */
-        @media (max-width: 1100px) {
-            .right-panel {
-                display: none;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 60px;
-                min-width: 60px;
-            }
-            .sidebar-logo img {
-                width: 32px;
-                height: 32px;
-            }
-            .sidebar-logo { padding: 18px 14px; }
-            .nav-item span { display: none; }
-            .nav-item { justify-content: center; padding: 10px; }
-            .nav-item.active::before { display: none; }
-            .main-content { padding: 20px 18px; }
-            .cards-grid { grid-template-columns: 1fr; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TANA — Community Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Playfair+Display:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════
+   CSS VARIABLES
+   ═══════════════════════════════════════ */
+:root {
+  --brown-deep: #593934;
+  --brown-warm: #af815f;
+  --olive: #6b5f38;
+  --cream: #edd6b7;
+  --cream-light: #f5ebe0;
+  --cream-pale: #faf6f1;
+  --page-bg: #f8f4ef;
+  --card-bg: #ffffff;
+  --card-border: rgba(175,129,95,0.12);
+  --card-shadow: 0 1px 4px rgba(89,57,52,0.06);
+  --card-shadow-hover: 0 4px 16px rgba(89,57,52,0.1);
+  --text-primary: #3a2e2a;
+  --text-secondary: #7a6a62;
+  --text-muted: #a89888;
+  --text-heading: #593934;
+  --accent: #af815f;
+  --accent-light: rgba(175,129,95,0.12);
+  --danger: #c0604a;
+  --success: #6b8a5e;
+  --info: #5b7a8a;
+  --warning: #c49a4a;
+  --sidebar-width: 220px;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html, body { height:100%; overflow:hidden; }
+body {
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--page-bg); color: var(--text-primary);
+  display: flex; height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ═══ SIDEBAR ═══ */
+.sidebar {
+  width: var(--sidebar-width); min-width: var(--sidebar-width);
+  background: var(--brown-deep); display: flex; flex-direction: column;
+  height: 100vh; overflow-y: auto; position: relative;
+}
+.sidebar::after {
+  content:''; position:absolute; bottom:0; left:0; right:0; height:80px;
+  background: linear-gradient(to top, rgba(60,38,34,0.4), transparent);
+  pointer-events:none; z-index:1;
+}
+.sidebar-logo { padding: 22px 24px 18px; display:flex; align-items:center; }
+.sidebar-nav {
+  flex:1; padding:4px 10px; display:flex; flex-direction:column; gap:1px;
+}
+.nav-item {
+  display:flex; align-items:center; gap:12px; padding:10px 14px;
+  border-radius:10px; text-decoration:none; color:var(--cream);
+  font-size:14px; font-weight:400; transition:all 0.2s ease;
+  cursor:pointer; position:relative; border:none; background:none;
+  width:100%; text-align:left; font-family:inherit;
+}
+.nav-item:hover { background:rgba(237,214,183,0.1); }
+.nav-item.active { background:rgba(237,214,183,0.15); font-weight:500; }
+.nav-item.active::before {
+  content:''; position:absolute; left:0; top:8px; bottom:8px;
+  width:3px; background:var(--brown-warm); border-radius:0 3px 3px 0;
+}
+.nav-item svg { color:rgba(237,214,183,0.7); flex-shrink:0; }
+.nav-item.active svg { color:var(--cream); }
+.nav-spacer { flex:1; }
+.nav-divider { height:1px; background:rgba(237,214,183,0.1); margin:6px 14px; }
+
+/* ═══ MAIN ═══ */
+.main-wrapper { flex:1; display:flex; overflow:hidden; }
+.main-content {
+  flex:1; overflow-y:auto; padding:28px 32px 40px;
+  transition: opacity 0.2s ease;
+}
+.main-content::-webkit-scrollbar { width:6px; }
+.main-content::-webkit-scrollbar-track { background:transparent; }
+.main-content::-webkit-scrollbar-thumb { background:rgba(175,129,95,0.18); border-radius:3px; }
+.sidebar::-webkit-scrollbar { width:4px; }
+.sidebar::-webkit-scrollbar-track { background:transparent; }
+.sidebar::-webkit-scrollbar-thumb { background:rgba(237,214,183,0.15); border-radius:2px; }
+
+/* ═══ SCREEN CONTAINERS ═══ */
+.screen { display:none; }
+.screen.active { display:block; animation: fadeIn 0.35s ease both; }
+
+/* ═══ PAGE HEADER ═══ */
+.page-header {
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom:24px; gap:16px;
+}
+.page-header-left { display:flex; align-items:center; gap:14px; }
+.page-icon {
+  width:44px; height:44px; border-radius:12px; background:var(--accent-light);
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+}
+.page-title {
+  font-family:'Playfair Display', Georgia, serif;
+  font-size:22px; font-weight:700; color:var(--text-heading);
+}
+.page-subtitle { font-size:13px; color:var(--text-muted); margin-top:1px; }
+.header-actions { display:flex; gap:8px; }
+
+/* ═══ BUTTONS ═══ */
+.btn {
+  display:inline-flex; align-items:center; gap:7px;
+  padding:9px 18px; border-radius:10px; border:1.5px solid var(--card-border);
+  background:var(--card-bg); color:var(--text-primary);
+  font-size:13px; font-weight:500; font-family:inherit;
+  cursor:pointer; transition:all 0.2s ease; white-space:nowrap;
+}
+.btn:hover { border-color:var(--brown-warm); }
+.btn-primary {
+  background:var(--brown-deep); color:var(--cream); border-color:var(--brown-deep);
+}
+.btn-primary:hover { background:#4a302c; }
+.btn-sm { padding:6px 12px; font-size:12px; border-radius:8px; }
+.btn-ghost { border:none; background:transparent; color:var(--text-secondary); }
+.btn-ghost:hover { color:var(--text-primary); background:var(--accent-light); }
+
+/* ═══ TABS ═══ */
+.tabs { display:flex; gap:0; border-bottom:1px solid var(--card-border); margin-bottom:20px; }
+.tab-btn {
+  padding:10px 18px; border:none; background:transparent;
+  color:var(--text-muted); font-size:13.5px; font-weight:500;
+  font-family:inherit; cursor:pointer; position:relative;
+  transition:color 0.2s ease; border-bottom:2px solid transparent; margin-bottom:-1px;
+}
+.tab-btn:hover { color:var(--text-primary); }
+.tab-btn.active { color:var(--brown-deep); border-bottom-color:var(--brown-warm); }
+
+/* ═══ CARDS ═══ */
+.card {
+  background:var(--card-bg); border-radius:14px; border:1px solid var(--card-border);
+  box-shadow:var(--card-shadow); transition:all 0.2s ease;
+}
+.card:hover { box-shadow:var(--card-shadow-hover); }
+.card-body { padding:20px; }
+
+/* ═══ TABLE ═══ */
+.data-table { width:100%; border-collapse:collapse; }
+.data-table th {
+  text-align:left; padding:10px 16px; font-size:11.5px; font-weight:600;
+  letter-spacing:0.06em; text-transform:uppercase; color:var(--text-muted);
+  border-bottom:1px solid var(--card-border); background:var(--cream-pale);
+}
+.data-table th:first-child { border-radius:10px 0 0 0; }
+.data-table th:last-child { border-radius:0 10px 0 0; }
+.data-table td {
+  padding:12px 16px; font-size:13.5px; color:var(--text-primary);
+  border-bottom:1px solid var(--card-border); vertical-align:middle;
+}
+.data-table tr { transition:background 0.15s ease; cursor:pointer; }
+.data-table tbody tr:hover { background:var(--accent-light); }
+
+/* ═══ BADGES ═══ */
+.badge {
+  display:inline-flex; align-items:center; gap:4px; padding:3px 10px;
+  border-radius:20px; font-size:11.5px; font-weight:600; letter-spacing:0.02em;
+}
+.badge-open { background:rgba(107,138,94,0.12); color:var(--success); }
+.badge-pending { background:rgba(196,154,74,0.12); color:var(--warning); }
+.badge-closed { background:rgba(168,152,136,0.12); color:var(--text-muted); }
+.badge-active { background:rgba(175,129,95,0.12); color:var(--brown-warm); }
+.badge-danger { background:rgba(192,96,74,0.1); color:var(--danger); }
+.badge-info { background:rgba(91,122,138,0.12); color:var(--info); }
+
+/* ═══ STAT CARDS ═══ */
+.stats-row { display:grid; grid-template-columns:repeat(auto-fit, minmax(160px,1fr)); gap:14px; margin-bottom:20px; }
+.stat-card {
+  background:var(--card-bg); border-radius:14px; padding:18px 20px;
+  border:1px solid var(--card-border); box-shadow:var(--card-shadow);
+}
+.stat-label { font-size:12px; font-weight:500; color:var(--text-muted); margin-bottom:6px; text-transform:uppercase; letter-spacing:0.06em; }
+.stat-value {
+  font-family:'Playfair Display', Georgia, serif;
+  font-size:28px; font-weight:600; color:var(--text-heading); line-height:1;
+}
+.stat-change { font-size:12px; margin-top:6px; font-weight:500; }
+.stat-change.up { color:var(--success); }
+.stat-change.down { color:var(--danger); }
+
+/* ═══ AVATAR ═══ */
+.avatar {
+  width:36px; height:36px; border-radius:10px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:13px; font-weight:600; color:#fff; flex-shrink:0;
+}
+
+/* ═══ FORM ELEMENTS ═══ */
+.form-group { margin-bottom:18px; }
+.form-label { display:block; font-size:13px; font-weight:500; color:var(--text-secondary); margin-bottom:6px; }
+.form-input {
+  width:100%; padding:10px 14px; font-size:14px; font-family:inherit;
+  color:var(--text-primary); background:var(--card-bg);
+  border:1.5px solid var(--card-border); border-radius:10px; outline:none;
+  transition:border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.form-input:focus { border-color:var(--brown-warm); box-shadow:0 0 0 3px rgba(175,129,95,0.1); }
+textarea.form-input { min-height:80px; resize:vertical; line-height:1.5; }
+.form-hint { font-size:12px; color:var(--text-muted); margin-top:4px; }
+
+/* ═══ TOGGLE SWITCH ═══ */
+.toggle-row {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 0; border-bottom:1px solid var(--card-border);
+}
+.toggle-row:last-child { border-bottom:none; }
+.toggle-info { flex:1; }
+.toggle-title { font-size:14px; font-weight:500; color:var(--text-primary); }
+.toggle-desc { font-size:12.5px; color:var(--text-muted); margin-top:2px; }
+.toggle-switch {
+  width:44px; height:24px; border-radius:12px; background:#d4c8bc;
+  cursor:pointer; position:relative; transition:background 0.2s ease; flex-shrink:0;
+  border:none; padding:0;
+}
+.toggle-switch::after {
+  content:''; position:absolute; left:2px; top:2px;
+  width:20px; height:20px; border-radius:50%; background:#fff;
+  box-shadow:0 1px 3px rgba(0,0,0,0.15); transition:transform 0.2s ease;
+}
+.toggle-switch.on { background:var(--success); }
+.toggle-switch.on::after { transform:translateX(20px); }
+
+/* ═══ SEARCH ═══ */
+.search-box {
+  display:flex; align-items:center; gap:10px; padding:0 14px;
+  height:40px; border-radius:10px; background:var(--card-bg);
+  border:1.5px solid var(--card-border); transition:border-color 0.2s ease;
+  max-width:280px;
+}
+.search-box:focus-within { border-color:var(--brown-warm); }
+.search-box input {
+  border:none; outline:none; background:transparent; font-size:13.5px;
+  font-family:inherit; color:var(--text-primary); flex:1; width:100%;
+}
+.search-box input::placeholder { color:var(--text-muted); }
+
+/* ═══ POST / COMMENT ═══ */
+.post-card { margin-bottom:16px; }
+.post-header { display:flex; align-items:center; gap:12px; margin-bottom:10px; }
+.post-meta { flex:1; }
+.post-author { font-size:14px; font-weight:600; color:var(--text-primary); }
+.post-time { font-size:12px; color:var(--text-muted); }
+.post-body { font-size:14px; line-height:1.6; color:var(--text-secondary); margin-bottom:12px; }
+.post-actions { display:flex; gap:16px; padding-top:10px; border-top:1px solid var(--card-border); }
+.post-action {
+  display:flex; align-items:center; gap:5px; font-size:12.5px; font-weight:500;
+  color:var(--text-muted); cursor:pointer; border:none; background:none;
+  font-family:inherit; padding:4px 0; transition:color 0.2s ease;
+}
+.post-action:hover { color:var(--brown-warm); }
+
+/* ═══ CHAT ═══ */
+.chat-container {
+  display:flex; flex-direction:column; height:calc(100vh - 180px);
+  background:var(--card-bg); border-radius:14px; border:1px solid var(--card-border);
+  overflow:hidden;
+}
+.chat-messages { flex:1; overflow-y:auto; padding:20px; display:flex; flex-direction:column; gap:12px; }
+.chat-messages::-webkit-scrollbar { width:4px; }
+.chat-messages::-webkit-scrollbar-thumb { background:rgba(175,129,95,0.15); border-radius:2px; }
+.chat-bubble {
+  max-width:75%; padding:12px 16px; border-radius:14px;
+  font-size:13.5px; line-height:1.5;
+}
+.chat-bubble.user {
+  align-self:flex-end; background:var(--brown-deep); color:var(--cream);
+  border-bottom-right-radius:4px;
+}
+.chat-bubble.ai {
+  align-self:flex-start; background:var(--cream-light); color:var(--text-primary);
+  border-bottom-left-radius:4px;
+}
+.chat-bubble .ai-label {
+  font-size:10.5px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em;
+  color:var(--brown-warm); margin-bottom:4px;
+}
+.chat-input-bar {
+  display:flex; align-items:center; gap:10px; padding:14px 16px;
+  border-top:1px solid var(--card-border); background:var(--cream-pale);
+}
+.chat-input {
+  flex:1; padding:10px 14px; font-size:14px; font-family:inherit;
+  background:var(--card-bg); border:1.5px solid var(--card-border);
+  border-radius:10px; outline:none; color:var(--text-primary);
+}
+.chat-input:focus { border-color:var(--brown-warm); }
+.chat-send {
+  width:40px; height:40px; border-radius:10px; border:none;
+  background:var(--brown-deep); color:var(--cream); cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  transition:background 0.2s ease;
+}
+.chat-send:hover { background:#4a302c; }
+
+/* ═══ PROGRESS BAR ═══ */
+.progress-bar { height:6px; background:var(--cream-light); border-radius:3px; overflow:hidden; }
+.progress-fill { height:100%; border-radius:3px; transition:width 0.6s cubic-bezier(0.22,1,0.36,1); }
+
+/* ═══ VOTE BAR ═══ */
+.vote-bar { display:flex; gap:8px; align-items:center; margin-top:8px; }
+.vote-btn {
+  display:flex; align-items:center; gap:5px; padding:6px 14px;
+  border-radius:8px; border:1.5px solid var(--card-border);
+  background:transparent; font-size:12.5px; font-weight:500;
+  font-family:inherit; cursor:pointer; color:var(--text-secondary);
+  transition:all 0.2s ease;
+}
+.vote-btn:hover { border-color:var(--brown-warm); color:var(--brown-deep); }
+.vote-btn.voted { border-color:var(--success); background:rgba(107,138,94,0.08); color:var(--success); }
+.vote-count { font-size:12px; color:var(--text-muted); }
+
+/* ═══ SECTION CARD ═══ */
+.section-card { margin-bottom:20px; }
+.section-card .card-body > h3 {
+  font-size:15px; font-weight:600; color:var(--text-heading); margin-bottom:14px;
+}
+
+/* ═══ LIST ITEM ═══ */
+.list-item {
+  display:flex; align-items:center; gap:14px; padding:12px 0;
+  border-bottom:1px solid var(--card-border);
+}
+.list-item:last-child { border-bottom:none; }
+.list-item-icon {
+  width:40px; height:40px; border-radius:10px;
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+}
+.list-item-content { flex:1; min-width:0; }
+.list-item-title { font-size:14px; font-weight:500; color:var(--text-primary); }
+.list-item-sub { font-size:12.5px; color:var(--text-muted); margin-top:1px; }
+
+/* ═══ SECURITY KEY ═══ */
+.security-item {
+  display:flex; align-items:center; gap:14px; padding:14px 16px;
+  background:var(--cream-pale); border-radius:10px; margin-bottom:8px;
+}
+.security-item-icon {
+  width:40px; height:40px; border-radius:10px; background:var(--card-bg);
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  border:1px solid var(--card-border);
+}
+.security-item-info { flex:1; }
+.security-item-name { font-size:14px; font-weight:500; color:var(--text-primary); }
+.security-item-date { font-size:12px; color:var(--text-muted); }
+
+/* ═══ TWO COLUMN ═══ */
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.three-col { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
+
+/* ═══ TOKEN DISPLAY ═══ */
+.token-hero {
+  text-align:center; padding:32px 20px; margin-bottom:20px;
+  background:linear-gradient(135deg, var(--brown-deep) 0%, #6b4a3a 100%);
+  border-radius:16px; color:var(--cream);
+}
+.token-balance {
+  font-family:'Playfair Display', Georgia, serif;
+  font-size:48px; font-weight:700; line-height:1; margin-bottom:4px;
+}
+.token-label { font-size:13px; opacity:0.7; margin-bottom:16px; }
+.token-actions { display:flex; gap:10px; justify-content:center; }
+.token-btn {
+  padding:8px 20px; border-radius:20px; border:1.5px solid rgba(237,214,183,0.3);
+  background:transparent; color:var(--cream); font-size:13px; font-weight:500;
+  font-family:inherit; cursor:pointer; transition:all 0.2s ease;
+}
+.token-btn:hover { background:rgba(237,214,183,0.1); border-color:var(--cream); }
+
+/* ═══ FINANCIALS CHART PLACEHOLDER ═══ */
+.chart-placeholder {
+  height:200px; border-radius:12px; background:var(--cream-pale);
+  display:flex; align-items:center; justify-content:center; position:relative;
+  overflow:hidden;
+}
+.chart-bars { display:flex; align-items:flex-end; gap:8px; height:140px; padding:0 20px; }
+.chart-bar {
+  width:28px; border-radius:4px 4px 0 0;
+  transition:height 0.6s cubic-bezier(0.22,1,0.36,1);
+}
+
+/* ═══ ON-CHAIN ═══ */
+.onchain-hash {
+  font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--info);
+  background:rgba(91,122,138,0.08); padding:3px 8px; border-radius:4px;
+  word-break:break-all;
+}
+
+/* ═══ ANIMATIONS ═══ */
+@keyframes fadeIn {
+  from { opacity:0; transform:translateY(6px); }
+  to { opacity:1; transform:translateY(0); }
+}
+@keyframes slideIn {
+  from { opacity:0; transform:translateX(-8px); }
+  to { opacity:1; transform:translateX(0); }
+}
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width:1100px) {
+  .two-col, .three-col { grid-template-columns:1fr; }
+}
+@media (max-width:768px) {
+  .sidebar { width:60px; min-width:60px; }
+  .sidebar-logo svg { width:28px; height:28px; }
+  .sidebar-logo { padding:18px 16px; }
+  .nav-item span { display:none; }
+  .nav-item { justify-content:center; padding:10px; }
+  .nav-item.active::before { display:none; }
+  .main-content { padding:20px 16px; }
+  .stats-row { grid-template-columns:1fr 1fr; }
+}
+</style>
 </head>
 <body>
 
-    <!-- ════════ SIDEBAR ════════ -->
-    <nav class="sidebar">
-        <div class="sidebar-logo">
-            <svg width="48" height="48" viewBox="0 0 120 120" fill="none">
-              <g transform="translate(10,10)">
-                <path d="M50 0 L95 25 L95 35 L55 13 L55 100 L45 100 L45 13 L5 35 L5 25 Z" fill="#edd6b7" opacity="0.9"/>
-                <path d="M25 40 L70 15 L70 25 L30 47 L30 100 L20 100 L20 47 Z" fill="#edd6b7" opacity="0.6"/>
-                <path d="M65 50 L65 100 L75 100 L75 45 L100 32 L100 25 Z" fill="#edd6b7" opacity="0.35"/>
-              </g>
-            </svg>
-        </div>
+<!-- ═══════════ SIDEBAR ═══════════ -->
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <svg width="48" height="48" viewBox="0 0 120 120" fill="none">
+      <g transform="translate(10,10)">
+        <path d="M50 0 L95 25 L95 35 L55 13 L55 100 L45 100 L45 13 L5 35 L5 25 Z" fill="#edd6b7" opacity="0.9"/>
+        <path d="M25 40 L70 15 L70 25 L30 47 L30 100 L20 100 L20 47 Z" fill="#edd6b7" opacity="0.6"/>
+        <path d="M65 50 L65 100 L75 100 L75 45 L100 32 L100 25 Z" fill="#edd6b7" opacity="0.35"/>
+      </g>
+    </svg>
+  </div>
+  <div class="sidebar-nav" id="sidebarNav"></div>
+</nav>
 
-        <div class="sidebar-nav">
-            <a href="#" class="nav-item active">
-                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-                <span>Home</span>
-            </a>
-            <a href="#" class="nav-item">
-                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-                <span>What's Up?</span>
-            </a>
-            <a href="#" class="nav-item">
-                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                <span>Conversations</span>
-            </a>
-            <a href="#" class="nav-item">
-                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                <span>Contacts</span>
-            </a>
-            <a href="#" class="nav-item">
-                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
-                <span>Opportunities</span>
-            </a>
-            <a href="#" class="nav-item">
-                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M6 21V9a9 9 0 0 0 9 9"/></svg>
-                <span>Decisions</span>
-            </a>
-            <a href="#" class="nav-item">
-                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-                <span>Projects</span>
-            </a>
-            <a href="#" class="nav-item">
-                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                <span>Docs</span>
-            </a>
-            <a href="#" class="nav-item">
-                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
-                <span>Tokens</span>
-            </a>
-            <a href="#" class="nav-item">
-                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
-                <span>Operations</span>
-            </a>
-            <a href="#" class="nav-item">
-                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                <span>Financials</span>
-            </a>
-            <a href="#" class="nav-item">
-                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                <span>Reports</span>
-            </a>
+<!-- ═══════════ MAIN ═══════════ -->
+<div class="main-wrapper">
+  <main class="main-content" id="mainContent"></main>
+</div>
 
-            <div class="nav-spacer"></div>
-            <div class="nav-divider"></div>
+<script>
+// ═══ ICON HELPER ═══
+function I(name,s=20,c='currentColor',sw=1.8){
+const m={
+home:'<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>',
+zap:'<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>',
+chat:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
+users:'<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+smile:'<circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/>',
+git:'<circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M6 21V9a9 9 0 0 0 9 9"/>',
+folder:'<path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>',
+docs:'<rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>',
+token:'<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/>',
+pie:'<path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/>',
+dollar:'<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>',
+search:'<circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>',
+settings:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.26.6.85 1 1.51 1H21a2 2 0 0 1 0 4h-.09c-.66 0-1.25.4-1.51 1z"/>',
+logout:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>',
+check:'<polyline points="20 6 9 17 4 12"/>',
+plus:'<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>',
+chevron:'<polyline points="9 18 15 12 9 6"/>',
+file:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>',
+shield:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+key:'<path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/>',
+lock:'<rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
+bell:'<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/>',
+globe:'<circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>',
+heart:'<path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>',
+send:'<line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>',
+download:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>',
+upload:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>',
+user:'<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
+building:'<rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><line x1="9" y1="22" x2="9" y2="2"/><line x1="15" y1="22" x2="15" y2="2"/><line x1="4" y1="12" x2="20" y2="12"/>',
+rss:'<path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/>',
+thumbsUp:'<path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/>',
+msgCircle:'<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>',
+link:'<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>',
+fingerprint:'<path d="M2 12C2 6.48 6.48 2 12 2s10 4.48 10 10"/><path d="M12 2a14.5 14.5 0 0 0 0 20"/><path d="M2 12h4"/><circle cx="12" cy="12" r="2"/>',
+smartphone:'<rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/>',
+};
+return `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round">${m[name]||''}</svg>`;
+}
 
-            <a href="#" class="nav-item">
-                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-                <span>Settings</span>
-            </a>
-            <a href="#" class="nav-item" id="logoutBtn">
-                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-                <span>Log Out</span>
-            </a>
-        </div>
-    </nav>
+// ═══ NAV CONFIG ═══
+const NAV=[
+  {id:'home',icon:'home',label:'Home'},
+  {id:'whatsup',icon:'zap',label:"What's Up?"},
+  {id:'conversations',icon:'chat',label:'Conversations'},
+  {id:'contacts',icon:'users',label:'Contacts'},
+  {id:'opportunities',icon:'smile',label:'Opportunities'},
+  {id:'decisions',icon:'git',label:'Decisions'},
+  {id:'projects',icon:'folder',label:'Projects'},
+  {id:'docs',icon:'docs',label:'Docs'},
+  {id:'tokens',icon:'token',label:'Tokens'},
+  {id:'operations',icon:'pie',label:'Operations'},
+  {id:'financials',icon:'dollar',label:'Financials'},
+  {id:'reports',icon:'search',label:'Reports'},
+  {id:'_spacer'},
+  {id:'_divider'},
+  {id:'settings',icon:'settings',label:'Settings'},
+  {id:'logout',icon:'logout',label:'Log Out'},
+];
 
-    <!-- ════════ MAIN CONTENT ════════ -->
-    <div class="main-wrapper">
-        <main class="main-content">
-            <!-- Tabs -->
-            <div class="tabs-bar">
-                <button class="tab-btn active" onclick="setTab(this)">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                    My
-                </button>
-                <button class="tab-btn" onclick="setTab(this)">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                    Community
-                </button>
-            </div>
+// Build sidebar
+const sidebarNav=document.getElementById('sidebarNav');
+NAV.forEach(n=>{
+  if(n.id==='_spacer'){sidebarNav.innerHTML+='<div class="nav-spacer"></div>';return;}
+  if(n.id==='_divider'){sidebarNav.innerHTML+='<div class="nav-divider"></div>';return;}
+  const cls=n.id==='home'?'nav-item active':'nav-item';
+  sidebarNav.innerHTML+=`<button class="${cls}" data-nav="${n.id}" onclick="navigate('${n.id}')">${I(n.icon,20)}<span>${n.label}</span></button>`;
+});
 
-            <!-- Section -->
-            <p class="section-heading">What you are accountable for…</p>
+// ═══ NAVIGATION ═══
+let currentPage='home';
+function navigate(id){
+  if(id==='logout')return;
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.toggle('active',n.dataset.nav===id));
+  currentPage=id;
+  render();
+}
 
-            <!-- Top row cards -->
-            <div class="cards-grid">
-                <div class="dash-card" onclick="this.style.transform='scale(0.98)'; setTimeout(()=>this.style.transform='',150)">
-                    <div class="dash-card-title">Tasks</div>
-                    <div class="dash-card-spacer"></div>
-                    <div class="dash-card-footer">
-                        <div class="dash-card-count" id="tasksCount">—</div>
-                        <div class="dash-card-badge">OPEN</div>
-                    </div>
-                </div>
+// ═══ RENDER ═══
+const mc=document.getElementById('mainContent');
+function render(){
+  mc.style.opacity='0';
+  setTimeout(()=>{
+    mc.innerHTML=pages[currentPage]?pages[currentPage]():'';
+    mc.scrollTop=0;
+    mc.style.opacity='1';
+    if(currentPage==='reports')initChat();
+    if(currentPage==='financials')animateBars();
+    if(currentPage==='tokens')animateTokens();
+  },150);
+}
 
-                <div class="dash-card" onclick="this.style.transform='scale(0.98)'; setTimeout(()=>this.style.transform='',150)">
-                    <div class="dash-card-title">Teams</div>
-                    <div class="dash-card-spacer"></div>
-                    <div class="dash-card-footer">
-                        <div class="dash-card-count" id="teamsCount">—</div>
-                        <div class="dash-card-badge">ACTIVE</div>
-                    </div>
-                </div>
-            </div>
+// ═══ HELPER: TABS ═══
+function tabsHTML(tabs,active=0){
+  return `<div class="tabs">${tabs.map((t,i)=>`<button class="tab-btn${i===active?' active':''}" onclick="this.parentElement.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));this.classList.add('active')">${t}</button>`).join('')}</div>`;
+}
 
-            <!-- Bottom row cards -->
-            <div class="cards-grid">
-                <div class="dash-card" onclick="this.style.transform='scale(0.98)'; setTimeout(()=>this.style.transform='',150)">
-                    <div class="dash-card-title">Tasks Due Soon</div>
-                    <div class="dash-card-spacer"></div>
-                    <div class="dash-card-footer">
-                        <div class="dash-card-count" id="dueSoonCount">—</div>
-                        <div class="dash-card-badge">TOTAL</div>
-                    </div>
-                </div>
+// ═══════════════════════════════════════
+// PAGE CONTENT GENERATORS
+// ═══════════════════════════════════════
 
-                <div class="dash-card" onclick="this.style.transform='scale(0.98)'; setTimeout(()=>this.style.transform='',150)">
-                    <div class="dash-card-title">Overdue Tasks</div>
-                    <div class="dash-card-spacer"></div>
-                    <div class="dash-card-footer">
-                        <div class="dash-card-count" id="overdueCount">—</div>
-                        <div class="dash-card-badge">TOTAL</div>
-                    </div>
-                </div>
-            </div>
-        </main>
+const pages={};
 
-        <!-- ════════ RIGHT PANEL ════════ -->
-        <aside class="right-panel">
-            <!-- Updates -->
-            <div class="panel-card updates-panel">
-                <div class="panel-card-header">
-                    <div class="panel-card-title">Updates</div>
-                    <svg class="panel-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/>
-                    </svg>
-                </div>
-                <div class="panel-card-body">No new updates</div>
-            </div>
-
-            <!-- What's up -->
-            <div class="panel-card">
-                <div class="panel-card-title">What's up?</div>
-                <div class="panel-card-body">
-                    What's going on and who's doing it?
-                </div>
-                <button class="panel-card-btn">Community Planning</button>
-            </div>
-
-            <!-- Need help -->
-            <div class="panel-card">
-                <div class="panel-card-title">Need help?</div>
-                <div class="panel-card-body">
-                    There are other members of this community that can help you.
-                </div>
-                <button class="panel-card-btn">Find a facilitator</button>
-            </div>
-        </aside>
+// ─── HOME ───
+pages.home=()=>`
+<div class="page-header">
+  <div class="page-header-left">
+    <div class="page-icon" style="background:var(--brown-deep)">${I('home',22,'#edd6b7')}</div>
+    <div><div class="page-title">Dashboard</div><div class="page-subtitle">Welcome back</div></div>
+  </div>
+</div>
+<div class="stats-row">
+  <div class="stat-card"><div class="stat-label">Open Tasks</div><div class="stat-value">12</div><div class="stat-change up">↑ 3 this week</div></div>
+  <div class="stat-card"><div class="stat-label">Active Teams</div><div class="stat-value">3</div></div>
+  <div class="stat-card"><div class="stat-label">Due Soon</div><div class="stat-value" style="color:var(--warning)">5</div></div>
+  <div class="stat-card"><div class="stat-label">Overdue</div><div class="stat-value" style="color:var(--danger)">2</div><div class="stat-change down">↓ 1 from last week</div></div>
+</div>
+<div class="two-col">
+  <div class="card section-card"><div class="card-body">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+      <span style="font-size:15px;font-weight:700;color:var(--text-heading)">Updates</span>${I('rss',16,'#a89888')}
     </div>
+    <p style="font-size:13px;color:var(--text-muted);font-style:italic">No new updates</p>
+  </div></div>
+  <div class="card section-card"><div class="card-body">
+    <h3>What's up?</h3>
+    <p style="font-size:13.5px;color:var(--text-secondary);line-height:1.5;margin-bottom:14px">What's going on and who's doing it?</p>
+    <button class="btn" style="width:100%;justify-content:center" onclick="navigate('conversations')">Community Planning</button>
+  </div></div>
+</div>`;
 
-    <script>
-        // Tab switching
-        function setTab(btn) {
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-        }
+// ─── WHAT'S UP ───
+pages.whatsup=()=>`
+<div class="page-header">
+  <div class="page-header-left">
+    <div class="page-icon">${I('zap',22,'var(--brown-warm)')}</div>
+    <div><div class="page-title">What's Up?</div><div class="page-subtitle">Community activity feed</div></div>
+  </div>
+</div>
+<div class="card" style="margin-bottom:16px"><div class="card-body">
+  <div style="display:flex;gap:12px;align-items:flex-start">
+    <div class="avatar" style="background:var(--brown-deep)">MC</div>
+    <textarea class="form-input" placeholder="Share an update with the community…" style="min-height:60px"></textarea>
+  </div>
+  <div style="display:flex;justify-content:flex-end;margin-top:10px"><button class="btn btn-primary btn-sm">Post Update</button></div>
+</div></div>
+<div class="card post-card"><div class="card-body">
+  <div class="post-header"><div class="avatar" style="background:var(--olive)">SC</div><div class="post-meta"><div class="post-author">Sarah Chen</div><div class="post-time">2 hours ago</div></div></div>
+  <div class="post-body">KERI delegation module has been merged. Next steps: integration testing with the identity wallet. Looking for volunteers to help with QA.</div>
+  <div class="post-actions"><button class="post-action">${I('thumbsUp',14)} 8</button><button class="post-action">${I('msgCircle',14)} 3 Comments</button></div>
+</div></div>
+<div class="card post-card"><div class="card-body">
+  <div class="post-header"><div class="avatar" style="background:var(--info)">AR</div><div class="post-meta"><div class="post-author">Alex Rivera</div><div class="post-time">Yesterday</div></div></div>
+  <div class="post-body">Community governance vote on the new SSI credential schema is now open. Please cast your vote in the Decisions section before March 15.</div>
+  <div class="post-actions"><button class="post-action">${I('thumbsUp',14)} 14</button><button class="post-action">${I('msgCircle',14)} 7 Comments</button></div>
+</div></div>`;
 
-        // Simulate loading data
-        setTimeout(() => {
-            const counters = [
-                { el: 'tasksCount', target: 12 },
-                { el: 'teamsCount', target: 3 },
-                { el: 'dueSoonCount', target: 5 },
-                { el: 'overdueCount', target: 2 }
-            ];
+// ─── DECISIONS ───
+pages.decisions=()=>`
+<div class="page-header">
+  <div class="page-header-left">
+    <div class="page-icon">${I('git',22,'var(--brown-warm)')}</div>
+    <div><div class="page-title">Decisions</div><div class="page-subtitle">Community governance decisions</div></div>
+  </div>
+  <div class="header-actions"><button class="btn btn-primary">${I('plus',14,'#edd6b7')} New Proposal</button></div>
+</div>
+${tabsHTML(['Active (3)','Passed (12)','Rejected (2)','Draft (1)'])}
+<div class="card section-card" style="margin-bottom:16px"><div class="card-body">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
+    <div>
+      <h3 style="margin-bottom:4px">DEC-024: Adopt SSI Credential Schema v2</h3>
+      <div style="font-size:12.5px;color:var(--text-muted)">Proposed by Sarah Chen · Mar 1, 2026 · Closes Mar 15</div>
+    </div>
+    <span class="badge badge-open">Active</span>
+  </div>
+  <p style="font-size:13.5px;color:var(--text-secondary);line-height:1.6;margin-bottom:12px">Proposal to upgrade the community's SSI credential schema to v2 to support KERI delegation, multi-sig attestations, and cross-chain anchoring.</p>
+  <div style="display:flex;gap:24px;margin-bottom:10px">
+    <div><span style="font-size:24px;font-weight:700;color:var(--success)">18</span><span style="font-size:12px;color:var(--text-muted)"> For</span></div>
+    <div><span style="font-size:24px;font-weight:700;color:var(--danger)">3</span><span style="font-size:12px;color:var(--text-muted)"> Against</span></div>
+    <div><span style="font-size:24px;font-weight:700;color:var(--text-muted)">4</span><span style="font-size:12px;color:var(--text-muted)"> Abstain</span></div>
+  </div>
+  <div class="progress-bar" style="margin-bottom:10px"><div class="progress-fill" style="width:72%;background:var(--success)"></div></div>
+  <div class="vote-bar">
+    <button class="vote-btn voted">${I('check',14,'var(--success)',2)} Voted For</button>
+    <span class="vote-count">25 of 32 members voted · Quorum reached</span>
+  </div>
+</div></div>
+<div class="card section-card" style="margin-bottom:16px"><div class="card-body">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
+    <div><h3 style="margin-bottom:4px">DEC-023: Community Treasury Allocation Q2</h3><div style="font-size:12.5px;color:var(--text-muted)">Proposed by Governance Council · Feb 28 · Closes Mar 12</div></div>
+    <span class="badge badge-open">Active</span>
+  </div>
+  <p style="font-size:13.5px;color:var(--text-secondary);line-height:1.6;margin-bottom:12px">Allocate 15% of community treasury to infrastructure development, 10% to education, and 5% to outreach programs for Q2 2026.</p>
+  <div class="progress-bar" style="margin-bottom:10px"><div class="progress-fill" style="width:45%;background:var(--warning)"></div></div>
+  <div class="vote-bar">
+    <button class="vote-btn">${I('thumbsUp',14)} Vote For</button>
+    <button class="vote-btn">Against</button>
+    <button class="vote-btn">Abstain</button>
+    <span class="vote-count">14 of 32 voted</span>
+  </div>
+</div></div>
+<div class="card section-card"><div class="card-body">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
+    <div><h3 style="margin-bottom:4px">DEC-022: Add Constitutional Committee Role</h3><div style="font-size:12.5px;color:var(--text-muted)">Proposed by Mark · Feb 20 · Closes Mar 5</div></div>
+    <span class="badge badge-pending">Pending Quorum</span>
+  </div>
+  <p style="font-size:13.5px;color:var(--text-secondary);line-height:1.6;margin-bottom:12px">Establish a Constitutional Committee to oversee governance protocol compliance and arbitration processes.</p>
+  <div class="progress-bar" style="margin-bottom:10px"><div class="progress-fill" style="width:28%;background:var(--warning)"></div></div>
+  <div class="vote-bar"><button class="vote-btn">${I('thumbsUp',14)} Vote For</button><button class="vote-btn">Against</button><span class="vote-count">9 of 32 voted · Need 16 for quorum</span></div>
+</div></div>`;
 
-            counters.forEach(({ el, target }, i) => {
-                setTimeout(() => {
-                    const element = document.getElementById(el);
-                    element.style.opacity = '0';
-                    element.style.transform = 'translateY(4px)';
-                    element.style.transition = 'all 0.35s cubic-bezier(0.22, 1, 0.36, 1)';
-                    
-                    setTimeout(() => {
-                        element.textContent = target;
-                        element.style.opacity = '1';
-                        element.style.transform = 'translateY(0)';
-                    }, 100);
-                }, i * 120);
-            });
-        }, 800);
+// ─── CONVERSATIONS ───
+pages.conversations=()=>`
+<div class="page-header">
+  <div class="page-header-left">
+    <div class="page-icon">${I('chat',22,'var(--brown-warm)')}</div>
+    <div><div class="page-title">Conversations</div><div class="page-subtitle">Posts & comments</div></div>
+  </div>
+  <div class="header-actions"><button class="btn btn-primary">${I('plus',14,'#edd6b7')} New Post</button></div>
+</div>
+${tabsHTML(['All Posts','Announcements','Discussion','Questions'])}
+<div class="card" style="margin-bottom:16px"><div class="card-body">
+  <textarea class="form-input" placeholder="Start a conversation…" style="min-height:70px;margin-bottom:10px"></textarea>
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <div style="display:flex;gap:8px"><button class="btn btn-sm btn-ghost">${I('file',14)} Attach</button><button class="btn btn-sm btn-ghost">${I('link',14)} Link</button></div>
+    <button class="btn btn-primary btn-sm">${I('send',14,'#edd6b7')} Post</button>
+  </div>
+</div></div>
+${[
+{author:'Governance Council',avatar:'GC',color:'var(--brown-deep)',time:'2 hours ago',title:'📢 Q2 Budget Vote Now Open',body:'The Q2 community treasury allocation proposal is now live. All members are encouraged to review the proposal in Decisions and cast their vote before March 12. This allocation covers infrastructure, education, and outreach.',likes:14,comments:7,badge:'Announcement'},
+{author:'Sarah Chen',avatar:'SC',color:'var(--olive)',time:'5 hours ago',title:'KERI Delegation Module — Testing Help Needed',body:'The delegation module PR has been merged! We need volunteers for integration testing with the identity wallet. If you have experience with KERI protocols or want to learn, please comment below.',likes:8,comments:3,badge:'Discussion'},
+{author:'Alex Rivera',avatar:'AR',color:'var(--info)',time:'Yesterday',title:'How do we handle cross-chain credential verification?',body:"I've been thinking about how credentials issued on one chain can be verified on another. Has anyone explored LayerZero or similar bridging solutions for identity resolution?",likes:6,comments:11,badge:'Question'},
+].map(p=>`
+<div class="card post-card"><div class="card-body">
+  <div class="post-header">
+    <div class="avatar" style="background:${p.color}">${p.avatar}</div>
+    <div class="post-meta"><div class="post-author">${p.author} <span class="badge badge-info" style="margin-left:6px">${p.badge}</span></div><div class="post-time">${p.time}</div></div>
+  </div>
+  <div style="font-size:15px;font-weight:600;color:var(--text-primary);margin-bottom:6px">${p.title}</div>
+  <div class="post-body">${p.body}</div>
+  <div class="post-actions">
+    <button class="post-action">${I('thumbsUp',14)} ${p.likes}</button>
+    <button class="post-action">${I('msgCircle',14)} ${p.comments} Comments</button>
+    <button class="post-action">${I('link',14)} Share</button>
+  </div>
+</div></div>`).join('')}`;
 
-        // Active nav highlight
-        document.querySelectorAll('.nav-item').forEach(item => {
-            item.addEventListener('click', function(e) {
-                if (this.id === 'logoutBtn') return;
-                e.preventDefault();
-                document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
-    </script>
+// ─── CONTACTS ───
+pages.contacts=()=>`
+<div class="page-header">
+  <div class="page-header-left">
+    <div class="page-icon">${I('users',22,'var(--brown-warm)')}</div>
+    <div><div class="page-title">Contacts</div><div class="page-subtitle">Organisations & individuals</div></div>
+  </div>
+  <div class="header-actions">
+    <div class="search-box">${I('search',16,'#a89888')}<input placeholder="Search contacts…"></div>
+    <button class="btn btn-primary">${I('plus',14,'#edd6b7')} Add Contact</button>
+  </div>
+</div>
+${tabsHTML(['All','Organisations','Individuals','Teams'])}
+<div class="card"><div class="card-body" style="padding:0">
+<table class="data-table">
+<thead><tr><th>Name</th><th>Type</th><th>Role</th><th>Location</th><th>Status</th></tr></thead>
+<tbody>
+${[
+{name:'selfdriven Foundation',type:'Organisation',role:'Governance Body',loc:'Global',status:'active',avatar:'SF',color:'var(--brown-deep)'},
+{name:'Sarah Chen',type:'Individual',role:'Identity Lead',loc:'Singapore',status:'active',avatar:'SC',color:'var(--olive)'},
+{name:'Alex Rivera',type:'Individual',role:'Developer',loc:'Austin, TX',status:'active',avatar:'AR',color:'var(--info)'},
+{name:'Cardano Foundation',type:'Organisation',role:'Partner',loc:'Zug, Switzerland',status:'active',avatar:'CF',color:'#2a4b7c'},
+{name:'TANA Insurance Co.',type:'Organisation',role:'Member Org',loc:'Sydney, AU',status:'active',avatar:'TI',color:'var(--brown-warm)'},
+{name:'James Whitfield',type:'Individual',role:'Facilitator',loc:'London, UK',status:'pending',avatar:'JW',color:'#7a6a8a'},
+{name:'Mei Lin',type:'Individual',role:'Contributor',loc:'Taipei',status:'active',avatar:'ML',color:'var(--success)'},
+].map(c=>`<tr>
+<td><div style="display:flex;align-items:center;gap:10px"><div class="avatar" style="background:${c.color};width:32px;height:32px;font-size:11px;border-radius:8px">${c.avatar}</div><span style="font-weight:500">${c.name}</span></div></td>
+<td><span style="display:flex;align-items:center;gap:5px">${I(c.type==='Organisation'?'building':'user',14,'#a89888')} ${c.type}</span></td>
+<td>${c.role}</td><td>${c.loc}</td>
+<td><span class="badge badge-${c.status==='active'?'open':'pending'}">${c.status==='active'?'Active':'Pending'}</span></td>
+</tr>`).join('')}
+</tbody></table>
+</div></div>`;
+
+// ─── OPPORTUNITIES ───
+pages.opportunities=()=>`
+<div class="page-header">
+  <div class="page-header-left">
+    <div class="page-icon">${I('smile',22,'var(--brown-warm)')}</div>
+    <div><div class="page-title">Opportunities</div><div class="page-subtitle">Community improvements for consideration</div></div>
+  </div>
+  <div class="header-actions"><button class="btn btn-primary">${I('plus',14,'#edd6b7')} Submit Opportunity</button></div>
+</div>
+${tabsHTML(['Open (5)','Under Review (2)','Approved (8)','Archived'])}
+<div class="stats-row">
+  <div class="stat-card"><div class="stat-label">Open</div><div class="stat-value">5</div></div>
+  <div class="stat-card"><div class="stat-label">Under Review</div><div class="stat-value" style="color:var(--warning)">2</div></div>
+  <div class="stat-card"><div class="stat-label">Approved</div><div class="stat-value" style="color:var(--success)">8</div></div>
+  <div class="stat-card"><div class="stat-label">Impact Score</div><div class="stat-value">87</div></div>
+</div>
+${[
+{title:'Cross-Chain Identity Resolution',desc:'Implement LayerZero integration for cross-chain SSI credential verification between Cardano and Ethereum ecosystems.',impact:'High',votes:14,status:'open',author:'Alex Rivera'},
+{title:'Community Onboarding Portal',desc:'Create an interactive onboarding experience for new community members with guided setup of their SSI wallet and credential issuance.',impact:'Medium',votes:9,status:'review',author:'Mei Lin'},
+{title:'AI-Assisted Governance Summaries',desc:'Use AI to generate plain-language summaries of governance proposals to improve participation rates among non-technical members.',impact:'High',votes:22,status:'open',author:'Sarah Chen'},
+{title:'Mobile Wallet Push Notifications',desc:'Add push notification support to the identity wallet for credential requests, governance votes, and community updates.',impact:'Medium',votes:7,status:'open',author:'James Whitfield'},
+].map(o=>`
+<div class="card section-card"><div class="card-body">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+    <h3 style="margin-bottom:0">${o.title}</h3>
+    <span class="badge badge-${o.status==='open'?'open':'pending'}">${o.status==='open'?'Open':'Under Review'}</span>
+  </div>
+  <div style="font-size:12.5px;color:var(--text-muted);margin-bottom:8px">Submitted by ${o.author} · Impact: <strong style="color:${o.impact==='High'?'var(--danger)':'var(--warning)'}"> ${o.impact}</strong></div>
+  <p style="font-size:13.5px;color:var(--text-secondary);line-height:1.6;margin-bottom:12px">${o.desc}</p>
+  <div class="vote-bar"><button class="vote-btn">${I('thumbsUp',14)} ${o.votes} Upvotes</button><button class="vote-btn">${I('msgCircle',14)} Discuss</button></div>
+</div></div>`).join('')}`;
+
+// ─── PROJECTS ───
+pages.projects=()=>`
+<div class="page-header">
+  <div class="page-header-left">
+    <div class="page-icon">${I('folder',22,'var(--brown-warm)')}</div>
+    <div><div class="page-title">Projects</div><div class="page-subtitle">Community projects with tasks</div></div>
+  </div>
+  <div class="header-actions"><button class="btn btn-primary">${I('plus',14,'#edd6b7')} New Project</button></div>
+</div>
+${[
+{name:'Identity Wallet v2',progress:68,tasks:24,done:16,members:['SC','AR','ML'],status:'active',color:'var(--success)'},
+{name:'Governance Framework',progress:45,tasks:18,done:8,members:['GC','JW'],status:'active',color:'var(--warning)'},
+{name:'Community Portal Redesign',progress:12,tasks:30,done:4,members:['AR','ML','SC'],status:'active',color:'var(--danger)'},
+{name:'KERI Delegation Module',progress:92,tasks:15,done:14,members:['SC','MC'],status:'active',color:'var(--success)'},
+].map(p=>`
+<div class="card section-card"><div class="card-body">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+    <div>
+      <h3 style="margin-bottom:4px">${p.name}</h3>
+      <div style="font-size:12.5px;color:var(--text-muted)">${p.done} of ${p.tasks} tasks complete</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <div style="display:flex">
+        ${p.members.map((m,i)=>`<div class="avatar" style="background:var(--brown-warm);width:28px;height:28px;font-size:10px;border-radius:7px;margin-left:${i>0?'-6':'0'}px;border:2px solid #fff">${m}</div>`).join('')}
+      </div>
+      <span class="badge badge-active">${p.progress}%</span>
+    </div>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" style="width:${p.progress}%;background:${p.color}"></div></div>
+  <div style="margin-top:14px;display:flex;flex-wrap:wrap;gap:6px">
+    ${['Design','Development','Testing','Documentation'].slice(0,Math.floor(Math.random()*3)+2).map(t=>`<span style="padding:3px 10px;border-radius:6px;font-size:11.5px;background:var(--accent-light);color:var(--olive)">${t}</span>`).join('')}
+  </div>
+</div></div>`).join('')}`;
+
+// ─── DOCS ───
+pages.docs=()=>`
+<div class="page-header">
+  <div class="page-header-left">
+    <div class="page-icon">${I('docs',22,'var(--brown-warm)')}</div>
+    <div><div class="page-title">Docs</div><div class="page-subtitle">Share community documents</div></div>
+  </div>
+  <div class="header-actions">
+    <div class="search-box">${I('search',16,'#a89888')}<input placeholder="Search documents…"></div>
+    <button class="btn btn-primary">${I('upload',14,'#edd6b7')} Upload</button>
+  </div>
+</div>
+${tabsHTML(['All Documents','Governance','Technical','Templates'])}
+<div class="card"><div class="card-body" style="padding:0">
+<table class="data-table">
+<thead><tr><th>Document</th><th>Category</th><th>Author</th><th>Modified</th><th>Size</th></tr></thead>
+<tbody>
+${[
+{name:'Community Constitution v3.2',cat:'Governance',author:'Governance Council',date:'Mar 1, 2026',size:'245 KB',icon:'file'},
+{name:'SSI Credential Schema v2 Spec',cat:'Technical',author:'Sarah Chen',date:'Feb 28, 2026',size:'1.2 MB',icon:'file'},
+{name:'KERI Delegation Architecture',cat:'Technical',author:'Mark',date:'Feb 25, 2026',size:'890 KB',icon:'file'},
+{name:'Q1 2026 Treasury Report',cat:'Financial',author:'Operations',date:'Feb 20, 2026',size:'340 KB',icon:'file'},
+{name:'New Member Onboarding Guide',cat:'Template',author:'Alex Rivera',date:'Feb 15, 2026',size:'156 KB',icon:'file'},
+{name:'Governance Proposal Template',cat:'Template',author:'Governance Council',date:'Feb 10, 2026',size:'42 KB',icon:'file'},
+].map(d=>`<tr>
+<td><div style="display:flex;align-items:center;gap:10px">${I('file',18,'var(--brown-warm)')}<span style="font-weight:500">${d.name}</span></div></td>
+<td><span class="badge badge-info">${d.cat}</span></td>
+<td>${d.author}</td><td>${d.date}</td><td>${d.size}</td>
+</tr>`).join('')}
+</tbody></table>
+</div></div>`;
+
+// ─── TOKENS ───
+pages.tokens=()=>`
+<div class="page-header">
+  <div class="page-header-left">
+    <div class="page-icon">${I('token',22,'var(--brown-warm)')}</div>
+    <div><div class="page-title">Tokens</div><div class="page-subtitle">Community participation tokens</div></div>
+  </div>
+</div>
+<div class="token-hero" id="tokenHero">
+  <div style="font-size:13px;opacity:0.6;margin-bottom:4px">Your Balance</div>
+  <div class="token-balance" id="tokenVal">0</div>
+  <div class="token-label">TANA Tokens</div>
+  <div class="token-actions">
+    <button class="token-btn">Transaction History</button>
+    <button class="token-btn">Redeem</button>
+  </div>
+</div>
+<div class="stats-row">
+  <div class="stat-card"><div class="stat-label">Earned This Month</div><div class="stat-value" style="color:var(--success)">+142</div></div>
+  <div class="stat-card"><div class="stat-label">Governance Votes</div><div class="stat-value">48</div></div>
+  <div class="stat-card"><div class="stat-label">Community Rank</div><div class="stat-value">#7</div></div>
+  <div class="stat-card"><div class="stat-label">Streak</div><div class="stat-value">14d</div></div>
+</div>
+<div class="card section-card"><div class="card-body">
+<h3>Recent Activity</h3>
+${[
+{action:'Voted on DEC-024',tokens:'+15',time:'2 hours ago',type:'up'},
+{action:'Completed PR review',tokens:'+25',time:'Yesterday',type:'up'},
+{action:'Submitted opportunity',tokens:'+10',time:'2 days ago',type:'up'},
+{action:'Attended governance meeting',tokens:'+20',time:'3 days ago',type:'up'},
+{action:'Redeemed for community credits',tokens:'-50',time:'1 week ago',type:'down'},
+].map(a=>`
+<div class="list-item">
+  <div class="list-item-icon" style="background:${a.type==='up'?'rgba(107,138,94,0.1)':'rgba(192,96,74,0.1)'}">${I(a.type==='up'?'plus':'download',18,a.type==='up'?'var(--success)':'var(--danger)')}</div>
+  <div class="list-item-content"><div class="list-item-title">${a.action}</div><div class="list-item-sub">${a.time}</div></div>
+  <div style="font-size:14px;font-weight:600;color:${a.type==='up'?'var(--success)':'var(--danger)'}">${a.tokens}</div>
+</div>`).join('')}
+</div></div>`;
+
+// ─── OPERATIONS ───
+pages.operations=()=>`
+<div class="page-header">
+  <div class="page-header-left">
+    <div class="page-icon">${I('pie',22,'var(--brown-warm)')}</div>
+    <div><div class="page-title">Operations</div><div class="page-subtitle">Community resources, products & orders</div></div>
+  </div>
+</div>
+${tabsHTML(['Resources','Products','Orders'])}
+<div class="stats-row">
+  <div class="stat-card"><div class="stat-label">Active Resources</div><div class="stat-value">18</div></div>
+  <div class="stat-card"><div class="stat-label">Products</div><div class="stat-value">6</div></div>
+  <div class="stat-card"><div class="stat-label">Pending Orders</div><div class="stat-value" style="color:var(--warning)">3</div></div>
+  <div class="stat-card"><div class="stat-label">Utilisation</div><div class="stat-value">78%</div></div>
+</div>
+<div class="card"><div class="card-body" style="padding:0">
+<table class="data-table">
+<thead><tr><th>Resource</th><th>Type</th><th>Status</th><th>Allocation</th><th>Utilisation</th></tr></thead>
+<tbody>
+${[
+{name:'AWS Infrastructure',type:'Cloud',status:'active',alloc:'Operations',util:82},
+{name:'Identity Wallet API',type:'Service',status:'active',alloc:'Development',util:64},
+{name:'KERI Node Cluster',type:'Infrastructure',status:'active',alloc:'Identity WG',util:91},
+{name:'Community Portal Hosting',type:'Cloud',status:'active',alloc:'Operations',util:45},
+{name:'Cardano Node',type:'Infrastructure',status:'maintenance',alloc:'Blockchain',util:0},
+].map(r=>`<tr>
+<td style="font-weight:500">${r.name}</td>
+<td><span class="badge badge-info">${r.type}</span></td>
+<td><span class="badge badge-${r.status==='active'?'open':'pending'}">${r.status==='active'?'Active':'Maintenance'}</span></td>
+<td>${r.alloc}</td>
+<td><div style="display:flex;align-items:center;gap:8px"><div class="progress-bar" style="width:80px"><div class="progress-fill" style="width:${r.util}%;background:${r.util>80?'var(--danger)':r.util>50?'var(--warning)':'var(--success)'}"></div></div><span style="font-size:12px;color:var(--text-muted)">${r.util}%</span></div></td>
+</tr>`).join('')}
+</tbody></table>
+</div></div>`;
+
+// ─── FINANCIALS ───
+pages.financials=()=>`
+<div class="page-header">
+  <div class="page-header-left">
+    <div class="page-icon">${I('dollar',22,'var(--brown-warm)')}</div>
+    <div><div class="page-title">Financials</div><div class="page-subtitle">Expenses, income, reporting & on-chain</div></div>
+  </div>
+  <div class="header-actions"><button class="btn">${I('download',14)} Export</button></div>
+</div>
+${tabsHTML(['Overview','Expenses','Income','On-Chain'])}
+<div class="stats-row">
+  <div class="stat-card"><div class="stat-label">Total Balance</div><div class="stat-value">$48,250</div><div class="stat-change up">↑ 12% from last month</div></div>
+  <div class="stat-card"><div class="stat-label">Monthly Income</div><div class="stat-value" style="color:var(--success)">$8,400</div></div>
+  <div class="stat-card"><div class="stat-label">Monthly Expenses</div><div class="stat-value" style="color:var(--danger)">$5,200</div></div>
+  <div class="stat-card"><div class="stat-label">On-Chain Treasury</div><div class="stat-value">₳125K</div></div>
+</div>
+<div class="two-col">
+  <div class="card section-card"><div class="card-body">
+    <h3>Monthly Overview</h3>
+    <div class="chart-placeholder"><div class="chart-bars" id="chartBars">
+      ${['Jan','Feb','Mar','Apr','May','Jun'].map((m,i)=>`<div style="text-align:center;flex:1"><div class="chart-bar" data-h="${[60,75,55,80,70,90][i]}" style="height:0;background:${i<5?'var(--brown-warm)':'var(--brown-deep)'};width:100%;margin:0 auto"></div><div style="font-size:10px;color:var(--text-muted);margin-top:6px">${m}</div></div>`).join('')}
+    </div></div>
+  </div></div>
+  <div class="card section-card"><div class="card-body">
+    <h3>Recent Transactions</h3>
+    ${[
+      {desc:'AWS Infrastructure',amount:'-$1,240',type:'expense',date:'Mar 1'},
+      {desc:'Member contributions',amount:'+$3,200',type:'income',date:'Feb 28'},
+      {desc:'KERI node hosting',amount:'-$680',type:'expense',date:'Feb 25'},
+      {desc:'Partner grant (Cardano)',amount:'+$5,000',type:'income',date:'Feb 20'},
+    ].map(t=>`
+    <div class="list-item">
+      <div class="list-item-icon" style="background:${t.type==='income'?'rgba(107,138,94,0.1)':'rgba(192,96,74,0.1)'}">${I(t.type==='income'?'plus':'download',18,t.type==='income'?'var(--success)':'var(--danger)')}</div>
+      <div class="list-item-content"><div class="list-item-title">${t.desc}</div><div class="list-item-sub">${t.date}</div></div>
+      <div style="font-size:14px;font-weight:600;color:${t.type==='income'?'var(--success)':'var(--danger)'}">${t.amount}</div>
+    </div>`).join('')}
+  </div></div>
+</div>
+<div class="card section-card" style="margin-top:16px"><div class="card-body">
+  <h3>On-Chain Transactions</h3>
+  <div style="overflow-x:auto">
+  <table class="data-table">
+  <thead><tr><th>Tx Hash</th><th>Type</th><th>Amount</th><th>Block</th><th>Date</th></tr></thead>
+  <tbody>
+  ${[
+    {hash:'0x8f2a...c4b1',type:'Treasury Deposit',amount:'₳5,000',block:'#12,847,392',date:'Mar 1'},
+    {hash:'0x3e7b...91d5',type:'Governance Reward',amount:'₳250',block:'#12,846,108',date:'Feb 28'},
+    {hash:'0xa1c9...f8e2',type:'Staking Reward',amount:'₳1,200',block:'#12,840,551',date:'Feb 25'},
+  ].map(tx=>`<tr>
+    <td><span class="onchain-hash">${tx.hash}</span></td>
+    <td>${tx.type}</td><td style="font-weight:500">${tx.amount}</td><td style="font-size:12px">${tx.block}</td><td>${tx.date}</td>
+  </tr>`).join('')}
+  </tbody></table>
+  </div>
+</div></div>`;
+
+// ─── REPORTS ───
+pages.reports=()=>`
+<div class="page-header">
+  <div class="page-header-left">
+    <div class="page-icon">${I('search',22,'var(--brown-warm)')}</div>
+    <div><div class="page-title">Reports</div><div class="page-subtitle">AI-powered community insights</div></div>
+  </div>
+  <div class="header-actions"><button class="btn">${I('download',14)} Export Report</button></div>
+</div>
+${tabsHTML(['AI Chat','Generated Reports','Metrics'])}
+<div class="chat-container" id="chatContainer">
+  <div class="chat-messages" id="chatMessages">
+    <div class="chat-bubble ai">
+      <div class="ai-label">TANA AI</div>
+      Hello! I can help you explore community data and generate reports. Try asking me about membership trends, governance participation, token distribution, or project progress.
+    </div>
+  </div>
+  <div class="chat-input-bar">
+    <input class="chat-input" id="chatInput" placeholder="Ask about community data…" onkeydown="if(event.key==='Enter')sendChat()">
+    <button class="chat-send" onclick="sendChat()">${I('send',18,'#edd6b7')}</button>
+  </div>
+</div>`;
+
+// ─── SETTINGS ───
+pages.settings=()=>`
+<div class="page-header">
+  <div class="page-header-left">
+    <div class="page-icon">${I('settings',22,'var(--brown-warm)')}</div>
+    <div><div class="page-title">Settings</div><div class="page-subtitle">Account & security</div></div>
+  </div>
+</div>
+${tabsHTML(['Profile','Security','Notifications','Privacy'])}
+
+<div class="two-col">
+<div>
+  <div class="card section-card"><div class="card-body">
+    <h3>${I('shield',16,'var(--brown-warm)')} Authentication</h3>
+    <div class="toggle-row">
+      <div class="toggle-info"><div class="toggle-title">Multi-Factor Authentication (MFA)</div><div class="toggle-desc">Require a second factor when signing in</div></div>
+      <button class="toggle-switch on" onclick="this.classList.toggle('on')"></button>
+    </div>
+    <div class="toggle-row">
+      <div class="toggle-info"><div class="toggle-title">Passkey Authentication</div><div class="toggle-desc">Use biometric or device-based passkeys for passwordless login</div></div>
+      <button class="toggle-switch on" onclick="this.classList.toggle('on')"></button>
+    </div>
+    <div class="toggle-row">
+      <div class="toggle-info"><div class="toggle-title">SSI Credential Login</div><div class="toggle-desc">Authenticate using your Self-Sovereign Identity credential</div></div>
+      <button class="toggle-switch" onclick="this.classList.toggle('on')"></button>
+    </div>
+    <div class="toggle-row">
+      <div class="toggle-info"><div class="toggle-title">Session Timeout</div><div class="toggle-desc">Automatically log out after 30 minutes of inactivity</div></div>
+      <button class="toggle-switch on" onclick="this.classList.toggle('on')"></button>
+    </div>
+  </div></div>
+
+  <div class="card section-card"><div class="card-body">
+    <h3>${I('key',16,'var(--brown-warm)')} Registered Passkeys</h3>
+    <div class="security-item">
+      <div class="security-item-icon">${I('fingerprint',20,'var(--brown-warm)')}</div>
+      <div class="security-item-info"><div class="security-item-name">MacBook Pro Touch ID</div><div class="security-item-date">Added Feb 15, 2026</div></div>
+      <button class="btn btn-sm btn-ghost" style="color:var(--danger)">Remove</button>
+    </div>
+    <div class="security-item">
+      <div class="security-item-icon">${I('smartphone',20,'var(--brown-warm)')}</div>
+      <div class="security-item-info"><div class="security-item-name">iPhone Face ID</div><div class="security-item-date">Added Jan 8, 2026</div></div>
+      <button class="btn btn-sm btn-ghost" style="color:var(--danger)">Remove</button>
+    </div>
+    <div class="security-item">
+      <div class="security-item-icon">${I('key',20,'var(--brown-warm)')}</div>
+      <div class="security-item-info"><div class="security-item-name">YubiKey 5C</div><div class="security-item-date">Added Dec 20, 2025</div></div>
+      <button class="btn btn-sm btn-ghost" style="color:var(--danger)">Remove</button>
+    </div>
+    <button class="btn" style="margin-top:12px;width:100%;justify-content:center">${I('plus',14)} Register New Passkey</button>
+  </div></div>
+</div>
+
+<div>
+  <div class="card section-card"><div class="card-body">
+    <h3>${I('lock',16,'var(--brown-warm)')} MFA Methods</h3>
+    <div class="security-item">
+      <div class="security-item-icon">${I('smartphone',20,'var(--success)')}</div>
+      <div class="security-item-info"><div class="security-item-name">Authenticator App</div><div class="security-item-date">Primary · Configured</div></div>
+      <span class="badge badge-open">Active</span>
+    </div>
+    <div class="security-item">
+      <div class="security-item-icon">${I('smartphone',20,'var(--text-muted)')}</div>
+      <div class="security-item-info"><div class="security-item-name">SMS Backup</div><div class="security-item-date">+61 •••• ••42</div></div>
+      <span class="badge badge-info">Backup</span>
+    </div>
+    <div class="security-item">
+      <div class="security-item-icon">${I('key',20,'var(--text-muted)')}</div>
+      <div class="security-item-info"><div class="security-item-name">Recovery Codes</div><div class="security-item-date">6 of 10 remaining</div></div>
+      <button class="btn btn-sm">Regenerate</button>
+    </div>
+  </div></div>
+
+  <div class="card section-card"><div class="card-body">
+    <h3>${I('globe',16,'var(--brown-warm)')} Active Sessions</h3>
+    ${[
+      {device:'Chrome on macOS',loc:'Sydney, AU',time:'Current session',current:true},
+      {device:'Safari on iPhone',loc:'Sydney, AU',time:'2 hours ago',current:false},
+      {device:'Firefox on Ubuntu',loc:'Singapore',time:'3 days ago',current:false},
+    ].map(s=>`
+    <div class="list-item">
+      <div class="list-item-icon" style="background:${s.current?'rgba(107,138,94,0.1)':'var(--cream-light)'}">${I('globe',18,s.current?'var(--success)':'var(--text-muted)')}</div>
+      <div class="list-item-content"><div class="list-item-title">${s.device} ${s.current?'<span class="badge badge-open" style="margin-left:6px">Current</span>':''}</div><div class="list-item-sub">${s.loc} · ${s.time}</div></div>
+      ${!s.current?'<button class="btn btn-sm btn-ghost" style="color:var(--danger)">Revoke</button>':''}
+    </div>`).join('')}
+    <button class="btn" style="margin-top:12px;width:100%;justify-content:center;color:var(--danger);border-color:rgba(192,96,74,0.3)">Revoke All Other Sessions</button>
+  </div></div>
+
+  <div class="card section-card"><div class="card-body">
+    <h3>${I('shield',16,'var(--brown-warm)')} Password</h3>
+    <div class="form-group"><label class="form-label">Current Password</label><input type="password" class="form-input" placeholder="Enter current password"></div>
+    <div class="form-group"><label class="form-label">New Password</label><input type="password" class="form-input" placeholder="Enter new password"></div>
+    <div class="form-group"><label class="form-label">Confirm Password</label><input type="password" class="form-input" placeholder="Confirm new password"></div>
+    <button class="btn btn-primary" style="width:100%;justify-content:center">Update Password</button>
+  </div></div>
+</div>
+</div>`;
+
+// ─── CHAT FUNCTIONALITY ───
+function initChat(){
+  const input=document.getElementById('chatInput');
+  if(input)input.focus();
+}
+function sendChat(){
+  const input=document.getElementById('chatInput');
+  const msgs=document.getElementById('chatMessages');
+  const val=input.value.trim();
+  if(!val)return;
+  msgs.innerHTML+=`<div class="chat-bubble user">${val}</div>`;
+  input.value='';
+  msgs.scrollTop=msgs.scrollHeight;
+  setTimeout(()=>{
+    const responses={
+      'default':'Based on the community data, I can see that governance participation is up 23% this quarter with 32 active members. The most engaged areas are identity infrastructure (68% contribution rate) and governance voting (72% participation). Would you like me to generate a detailed report on any specific area?',
+    };
+    msgs.innerHTML+=`<div class="chat-bubble ai"><div class="ai-label">TANA AI</div>${responses.default}</div>`;
+    msgs.scrollTop=msgs.scrollHeight;
+  },1200);
+}
+
+// ─── ANIMATE CHART BARS ───
+function animateBars(){
+  setTimeout(()=>{
+    document.querySelectorAll('.chart-bar').forEach((b,i)=>{
+      setTimeout(()=>{ b.style.height=b.dataset.h+'%'; },i*100);
+    });
+  },300);
+}
+
+// ─── ANIMATE TOKEN COUNT ───
+function animateTokens(){
+  const el=document.getElementById('tokenVal');
+  if(!el)return;
+  let v=0;const target=1247;
+  const step=()=>{
+    v+=Math.ceil((target-v)/8);
+    if(v>=target){el.textContent=target.toLocaleString();return;}
+    el.textContent=v.toLocaleString();
+    requestAnimationFrame(step);
+  };
+  setTimeout(step,400);
+}
+
+// ─── INIT ───
+render();
+</script>
 </body>
 </html>
