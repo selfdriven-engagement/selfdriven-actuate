@@ -13,11 +13,11 @@ title: Actuate | selfdriven Community
 - [Cooperative](https://www.selfdriven.coop) - templates etc
 - [Framework for AI Assisted Actuation](/framework/ai-assisted-actuation)
 
-### References
+### Resources
 
 - [Steps](/steps/)
 - [Use-Cases](/use-cases/) - Examples.
-- [Resources](/resources/) - Templates, Reading etc.
+- [Templates, Reading etc](/resources/) - .
 - [selfdriven.fyi/on-boarding](https://selfdriven.fyi/on-boarding)
 - [selfdriven.services](https://selfdriven.services)
 - [skillzeb.io Resource Transformer Template](https://skillzeb.io/template-explorer/resource-transformer-starter)
