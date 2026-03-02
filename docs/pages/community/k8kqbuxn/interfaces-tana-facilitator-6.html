@@ -1,3 +1,8 @@
+---
+layout: null
+permalink: /interfaces/k8kqbuxn/tana/facilitator
+title: TANA Facilitator Interface
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -769,12 +774,12 @@ pages.whatsup=()=>`
   </div>
   <div style="display:flex;justify-content:flex-end;margin-top:10px"><button class="btn btn-primary btn-sm" onclick="openNewPost()">Post Update</button></div>
 </div></div>
-<div class="card post-card"><div class="card-body">
+<div class="card post-card" style="cursor:pointer" onclick="openViewPost(1)"><div class="card-body">
   <div class="post-header"><div class="avatar" style="background:var(--olive)">SC</div><div class="post-meta"><div class="post-author">Lucy Hartwell</div><div class="post-time">2 hours ago</div></div></div>
   <div class="post-body">Just finished hand-dyeing a batch of merino in indigo and walnut. The colours came out beautifully — swatches will be at the studio this weekend! 🧶</div>
   <div class="post-actions"><button class="post-action">${I('thumbsUp',14)} 12</button><button class="post-action">${I('msgCircle',14)} 4 Comments</button></div>
 </div></div>
-<div class="card post-card"><div class="card-body">
+<div class="card post-card" style="cursor:pointer" onclick="openViewPost(2)"><div class="card-body">
   <div class="post-header"><div class="avatar" style="background:var(--info)">TP</div><div class="post-meta"><div class="post-author">Tom Pearson</div><div class="post-time">Yesterday</div></div></div>
   <div class="post-body">Vote on the new Saturday ceramics workshop is open in Decisions. We need input on timing — morning or afternoon session? Cast your vote! 🏺</div>
   <div class="post-actions"><button class="post-action">${I('thumbsUp',14)} 14</button><button class="post-action">${I('msgCircle',14)} 7 Comments</button></div>
@@ -871,6 +876,7 @@ ${tp('ctTabs',0)}${renderTable(contacts)}${tpc}
 ${tp('ctTabs',1)}${renderTable(contacts.filter(c=>c.type==='Organisation'))}${tpc}
 ${tp('ctTabs',2)}${renderTable(contacts.filter(c=>c.type==='Individual'))}${tpc}
 ${tp('ctTabs',3)}
+<div style="display:flex;justify-content:flex-end;margin-bottom:12px"><button class="btn btn-primary btn-sm" onclick="openAddTeam()">${I('plus',14,'#edd6b7')} Add Team</button></div>
 ${teams.map(t=>`<div class="card section-card"><div class="card-body" style="cursor:pointer" onclick="openViewTeam(${t.id})"><div style="display:flex;justify-content:space-between;align-items:center">
 <div><h3 style="margin-bottom:4px">${t.name}</h3><div style="font-size:12.5px;color:var(--text-muted)">Lead: ${t.lead} · ${t.members} members</div></div>
 <button class="btn btn-sm" onclick="event.stopPropagation();openViewTeam(${t.id})">View Team</button></div></div></div>`).join('')}
@@ -1002,12 +1008,12 @@ ${tabsHTML(['Resources (5)','Products (6)','Orders (3)'],0,'opsTabs')}
 ${tp('opsTabs',0)}
 <div class="card"><div class="card-body" style="padding:0"><table class="data-table"><thead><tr><th>Resource</th><th>Type</th><th>Status</th><th>Allocation</th><th>Utilisation</th></tr></thead><tbody>
 ${[
-{name:'Community Kiln (gas)',type:'Equipment',status:'active',alloc:'Ceramics Studio',util:88},
-{name:'4× Juki Industrial Sewing Machines',type:'Equipment',status:'active',alloc:'Textile Studio',util:72},
-{name:'Floor Loom (8-shaft)',type:'Equipment',status:'active',alloc:'Weaving Room',util:60},
-{name:'Dye Kitchen & Ventilation',type:'Facility',status:'active',alloc:'Natural Dye Lab',util:45},
-{name:'Pottery Wheels (×6)',type:'Equipment',status:'maintenance',alloc:'Ceramics Studio',util:0},
-].map(r=>`<tr><td style="font-weight:500">${r.name}</td><td><span class="badge badge-info">${r.type}</span></td><td><span class="badge badge-${r.status==='active'?'open':'pending'}">${r.status==='active'?'Active':'Maintenance'}</span></td><td>${r.alloc}</td><td><div style="display:flex;align-items:center;gap:8px"><div class="progress-bar" style="width:80px"><div class="progress-fill" style="width:${r.util}%;background:${r.util>80?'var(--danger)':r.util>50?'var(--warning)':'var(--success)'}"></div></div><span style="font-size:12px;color:var(--text-muted)">${r.util}%</span></div></td></tr>`).join('')}
+{id:1,name:'Community Kiln (gas)',type:'Equipment',status:'active',alloc:'Ceramics Studio',util:88},
+{id:2,name:'4× Juki Industrial Sewing Machines',type:'Equipment',status:'active',alloc:'Textile Studio',util:72},
+{id:3,name:'Floor Loom (8-shaft)',type:'Equipment',status:'active',alloc:'Weaving Room',util:60},
+{id:4,name:'Dye Kitchen & Ventilation',type:'Facility',status:'active',alloc:'Natural Dye Lab',util:45},
+{id:5,name:'Pottery Wheels (×6)',type:'Equipment',status:'maintenance',alloc:'Ceramics Studio',util:0},
+].map(r=>`<tr style="cursor:pointer" onclick="openViewResource(${r.id})"><td style="font-weight:500">${r.name}</td><td><span class="badge badge-info">${r.type}</span></td><td><span class="badge badge-${r.status==='active'?'open':'pending'}">${r.status==='active'?'Active':'Maintenance'}</span></td><td>${r.alloc}</td><td><div style="display:flex;align-items:center;gap:8px"><div class="progress-bar" style="width:80px"><div class="progress-fill" style="width:${r.util}%;background:${r.util>80?'var(--danger)':r.util>50?'var(--warning)':'var(--success)'}"></div></div><span style="font-size:12px;color:var(--text-muted)">${r.util}%</span></div></td></tr>`).join('')}
 </tbody></table></div></div>
 ${tpc}
 ${tp('opsTabs',1)}
@@ -1073,7 +1079,7 @@ ${tp('finTabs',1)}${renderTxTable(expenses)}${tpc}
 ${tp('finTabs',2)}${renderTxTable(income)}${tpc}
 ${tp('finTabs',3)}
 <div class="card"><div class="card-body" style="padding:0"><div style="overflow-x:auto"><table class="data-table"><thead><tr><th>Reference</th><th>Type</th><th>Amount</th><th>Status</th><th>Date</th><th></th></tr></thead><tbody>
-${chain.map(tx=>`<tr><td><span style="font-family:monospace;font-size:12px">${tx.hash}</span></td><td>${tx.type}</td><td style="font-weight:500">${tx.amount}</td><td>${tx.block}</td><td>${tx.date}</td><td><span class="badge badge-open">Received</span></td></tr>`).join('')}
+${chain.map((tx,i)=>`<tr style="cursor:pointer" onclick="openViewGrant('${tx.hash}')"><td><span style="font-family:monospace;font-size:12px">${tx.hash}</span></td><td>${tx.type}</td><td style="font-weight:500">${tx.amount}</td><td>${tx.block}</td><td>${tx.date}</td><td><span class="badge badge-open">Received</span></td></tr>`).join('')}
 </tbody></table></div></div></div>
 ${tpc}`;
 };
@@ -1112,11 +1118,54 @@ pages.settings=()=>`
 <div class="page-header">
   <div class="page-header-left">
     <div class="page-icon">${I('settings',22,'var(--brown-warm)')}</div>
-    <div><div class="page-title">Settings</div><div class="page-subtitle">Account & security</div></div>
+    <div><div class="page-title">Settings</div><div class="page-subtitle">Account, security & identity</div></div>
   </div>
 </div>
-${tabsHTML(['Profile','Security','Notifications','Privacy'])}
+${tabsHTML(['Profile','Security','Notifications','Privacy'],0,'setTabs')}
 
+${tp('setTabs',0)}
+<div class="two-col">
+<div>
+  <div class="card section-card"><div class="card-body">
+    <h3>${I('user',16,'var(--brown-warm)')} Personal Information</h3>
+    <div class="form-row"><div class="form-group"><label class="form-label">Full Name</label><input class="form-input" value="Mark"></div><div class="form-group"><label class="form-label">Display Name</label><input class="form-input" value="Mark"></div></div>
+    <div class="form-group"><label class="form-label">Email</label><input class="form-input" value="mark@makershub.com.au" type="email"></div>
+    <div class="form-row"><div class="form-group"><label class="form-label">Location</label><input class="form-input" value="Sydney, AU"></div><div class="form-group"><label class="form-label">Timezone</label><select class="form-select"><option>AEST (UTC+10)</option><option>AEDT (UTC+11)</option><option>ACST (UTC+9:30)</option><option>AWST (UTC+8)</option></select></div></div>
+    <div class="form-group"><label class="form-label">Bio</label><textarea class="form-input" style="min-height:70px">Maker, builder, and community organiser. Interested in digital identity, craft technologies, and community self-governance.</textarea></div>
+    <button class="btn btn-primary" style="width:100%;justify-content:center">Save Changes</button>
+  </div></div>
+</div>
+<div>
+  <div class="card section-card"><div class="card-body">
+    <h3>${I('smile',16,'var(--brown-warm)')} Craft Profile</h3>
+    <div class="form-group"><label class="form-label">Primary Craft Discipline</label><select class="form-select"><option>Mixed / Multi-discipline</option><option>Textiles & Quilting</option><option>Ceramics</option><option>Weaving</option><option>Natural Dyeing</option><option>Spinning & Fibre</option><option>Embroidery</option><option>Woodwork</option></select></div>
+    <div class="form-group"><label class="form-label">Skill Level</label><select class="form-select"><option>Advanced</option><option>Intermediate</option><option>Beginner</option></select></div>
+    <div class="form-group"><label class="form-label">Skills & Interests</label>
+      <div class="form-tag-input" onclick="this.querySelector('input').focus()">
+        <span class="form-tag">Digital identity <button onclick="this.parentElement.remove()">×</button></span>
+        <span class="form-tag">KERI protocols <button onclick="this.parentElement.remove()">×</button></span>
+        <span class="form-tag">Community governance <button onclick="this.parentElement.remove()">×</button></span>
+        <input placeholder="Add skill…" onkeydown="if(event.key==='Enter'&&this.value.trim()){const t=document.createElement('span');t.className='form-tag';t.innerHTML=this.value.trim()+' <button onclick=\\'this.parentElement.remove()\\'>×</button>';this.parentElement.insertBefore(t,this);this.value='';event.preventDefault();}">
+      </div>
+    </div>
+    <div class="form-group"><label class="form-label">Membership Tier</label>
+      <div style="padding:14px;border-radius:12px;background:var(--cream-pale);display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:600;color:var(--text-heading)">Studio Pass — Full Access</div><div style="font-size:12.5px;color:var(--text-muted)">Renewed monthly · $40/month</div></div><span class="badge badge-open">Active</span></div>
+    </div>
+  </div></div>
+
+  <div class="card section-card"><div class="card-body">
+    <h3>${I('palette',16,'var(--brown-warm)')} Appearance</h3>
+    <div class="form-group"><label class="form-label">Theme</label><select class="form-select"><option>Light (Default)</option><option>Dark</option><option>System Preference</option></select></div>
+    <div class="toggle-row">
+      <div class="toggle-info"><div class="toggle-title">Compact View</div><div class="toggle-desc">Reduce spacing for denser information display</div></div>
+      <button class="toggle-switch" onclick="this.classList.toggle('on')"></button>
+    </div>
+  </div></div>
+</div>
+</div>
+${tpc}
+
+${tp('setTabs',1)}
 <div class="two-col">
 <div>
   <div class="card section-card"><div class="card-body">
@@ -1157,6 +1206,25 @@ ${tabsHTML(['Profile','Security','Notifications','Privacy'])}
       <button class="btn btn-sm btn-ghost" style="color:var(--danger)">Remove</button>
     </div>
     <button class="btn" style="margin-top:12px;width:100%;justify-content:center" onclick="openRegisterPasskey()">${I('plus',14)} Register New Passkey</button>
+  </div></div>
+
+  <div class="card section-card"><div class="card-body">
+    <h3>${I('shield',16,'var(--brown-warm)')} Self-Sovereign Identity (SSI)</h3>
+    <p style="font-size:13.5px;color:var(--text-secondary);line-height:1.6;margin-bottom:16px">Link a KERI-based decentralised identifier to your account for cryptographic credential verification and community attestations.</p>
+    <div class="security-item" style="background:var(--cream-pale);border-radius:12px;padding:14px">
+      <div class="security-item-icon" style="background:rgba(107,138,94,0.12)">${I('fingerprint',20,'var(--success)')}</div>
+      <div class="security-item-info"><div class="security-item-name">KERI Identifier</div><div class="security-item-date" style="font-family:monospace;font-size:11.5px">did:keri:EBf7...x4a9</div></div>
+      <span class="badge badge-open">Linked</span>
+    </div>
+    <div style="margin-top:12px;font-size:12.5px;color:var(--text-muted)">
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px">${I('check',14,'var(--success)')} <span>Identifier verified and anchored</span></div>
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px">${I('check',14,'var(--success)')} <span>Key rotation configured</span></div>
+      <div style="display:flex;align-items:center;gap:6px">${I('check',14,'var(--success)')} <span>2 witness nodes active</span></div>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:14px">
+      <button class="btn btn-sm" style="flex:1;justify-content:center" onclick="openAddSSI()">Manage Credential</button>
+      <button class="btn btn-sm" style="flex:1;justify-content:center">Rotate Keys</button>
+    </div>
   </div></div>
 </div>
 
@@ -1203,7 +1271,142 @@ ${tabsHTML(['Profile','Security','Notifications','Privacy'])}
     <button class="btn btn-primary" style="width:100%;justify-content:center">Update Password</button>
   </div></div>
 </div>
-</div>`;
+</div>
+${tpc}
+
+${tp('setTabs',2)}
+<div class="two-col">
+<div>
+  <div class="card section-card"><div class="card-body">
+    <h3>${I('bell',16,'var(--brown-warm)')} Email Notifications</h3>
+    <div class="toggle-row">
+      <div class="toggle-info"><div class="toggle-title">Workshop Reminders</div><div class="toggle-desc">Get reminded 24 hours before workshops you have registered for</div></div>
+      <button class="toggle-switch on" onclick="this.classList.toggle('on')"></button>
+    </div>
+    <div class="toggle-row">
+      <div class="toggle-info"><div class="toggle-title">Decision Votes</div><div class="toggle-desc">Notified when new proposals open or votes are closing soon</div></div>
+      <button class="toggle-switch on" onclick="this.classList.toggle('on')"></button>
+    </div>
+    <div class="toggle-row">
+      <div class="toggle-info"><div class="toggle-title">Makers Market Updates</div><div class="toggle-desc">Stall confirmations, event logistics, and market reminders</div></div>
+      <button class="toggle-switch on" onclick="this.classList.toggle('on')"></button>
+    </div>
+    <div class="toggle-row">
+      <div class="toggle-info"><div class="toggle-title">New Conversations</div><div class="toggle-desc">Email digest of new posts and replies in your teams</div></div>
+      <button class="toggle-switch" onclick="this.classList.toggle('on')"></button>
+    </div>
+    <div class="toggle-row">
+      <div class="toggle-info"><div class="toggle-title">Monthly Newsletter</div><div class="toggle-desc">Makers Hub monthly newsletter with member spotlights and events</div></div>
+      <button class="toggle-switch on" onclick="this.classList.toggle('on')"></button>
+    </div>
+  </div></div>
+</div>
+<div>
+  <div class="card section-card"><div class="card-body">
+    <h3>${I('msgCircle',16,'var(--brown-warm)')} In-App Notifications</h3>
+    <div class="toggle-row">
+      <div class="toggle-info"><div class="toggle-title">Mentions & Replies</div><div class="toggle-desc">When someone mentions you or replies to your posts</div></div>
+      <button class="toggle-switch on" onclick="this.classList.toggle('on')"></button>
+    </div>
+    <div class="toggle-row">
+      <div class="toggle-info"><div class="toggle-title">Task Assignments</div><div class="toggle-desc">When you are assigned to a project task</div></div>
+      <button class="toggle-switch on" onclick="this.classList.toggle('on')"></button>
+    </div>
+    <div class="toggle-row">
+      <div class="toggle-info"><div class="toggle-title">Order Status Changes</div><div class="toggle-desc">When supply orders you submitted change status</div></div>
+      <button class="toggle-switch on" onclick="this.classList.toggle('on')"></button>
+    </div>
+    <div class="toggle-row">
+      <div class="toggle-info"><div class="toggle-title">Token Activity</div><div class="toggle-desc">When you earn or redeem community tokens</div></div>
+      <button class="toggle-switch" onclick="this.classList.toggle('on')"></button>
+    </div>
+  </div></div>
+
+  <div class="card section-card"><div class="card-body">
+    <h3>${I('clock',16,'var(--brown-warm)')} Digest Frequency</h3>
+    <div class="form-group"><label class="form-label">Email Digest Schedule</label><select class="form-select"><option>Instant (as events happen)</option><option>Daily summary</option><option>Weekly summary</option><option>Off</option></select></div>
+    <div class="form-group"><label class="form-label">Quiet Hours</label>
+    <div class="form-row"><div class="form-group"><label class="form-label" style="font-size:12px">From</label><input class="form-input" type="time" value="21:00"></div><div class="form-group"><label class="form-label" style="font-size:12px">Until</label><input class="form-input" type="time" value="07:00"></div></div>
+    <div class="form-hint">Notifications will be held until quiet hours end</div>
+    </div>
+  </div></div>
+</div>
+</div>
+${tpc}
+
+${tp('setTabs',3)}
+<div class="two-col">
+<div>
+  <div class="card section-card"><div class="card-body">
+    <h3>${I('eye',16,'var(--brown-warm)')} Profile Visibility</h3>
+    <div class="toggle-row">
+      <div class="toggle-info"><div class="toggle-title">Show Profile in Member Directory</div><div class="toggle-desc">Other members can see your name, bio, and craft interests</div></div>
+      <button class="toggle-switch on" onclick="this.classList.toggle('on')"></button>
+    </div>
+    <div class="toggle-row">
+      <div class="toggle-info"><div class="toggle-title">Show Email Address</div><div class="toggle-desc">Allow other members to see your email on your profile</div></div>
+      <button class="toggle-switch" onclick="this.classList.toggle('on')"></button>
+    </div>
+    <div class="toggle-row">
+      <div class="toggle-info"><div class="toggle-title">Show Location</div><div class="toggle-desc">Display your city/region on your public profile</div></div>
+      <button class="toggle-switch on" onclick="this.classList.toggle('on')"></button>
+    </div>
+    <div class="toggle-row">
+      <div class="toggle-info"><div class="toggle-title">Anonymous Voting</div><div class="toggle-desc">Hide your identity when voting on community decisions</div></div>
+      <button class="toggle-switch" onclick="this.classList.toggle('on')"></button>
+    </div>
+  </div></div>
+
+  <div class="card section-card"><div class="card-body">
+    <h3>${I('shield',16,'var(--brown-warm)')} Data & Consent</h3>
+    <div class="toggle-row">
+      <div class="toggle-info"><div class="toggle-title">Activity Tracking</div><div class="toggle-desc">Allow the platform to track workshop attendance and participation for reports</div></div>
+      <button class="toggle-switch on" onclick="this.classList.toggle('on')"></button>
+    </div>
+    <div class="toggle-row">
+      <div class="toggle-info"><div class="toggle-title">Photo Consent</div><div class="toggle-desc">Allow photos taken at events and workshops to include you</div></div>
+      <button class="toggle-switch on" onclick="this.classList.toggle('on')"></button>
+    </div>
+    <div style="margin-top:16px;display:flex;gap:8px"><button class="btn btn-sm" style="flex:1;justify-content:center">Download My Data</button><button class="btn btn-sm" style="flex:1;justify-content:center;color:var(--danger);border-color:rgba(192,96,74,0.3)">Delete Account</button></div>
+  </div></div>
+</div>
+<div>
+  <div class="card section-card"><div class="card-body">
+    <h3>${I('users',16,'var(--brown-warm)')} Sharing Permissions</h3>
+    <div class="toggle-row">
+      <div class="toggle-info"><div class="toggle-title">Share Token Balance</div><div class="toggle-desc">Allow your token balance to be visible on leaderboards</div></div>
+      <button class="toggle-switch on" onclick="this.classList.toggle('on')"></button>
+    </div>
+    <div class="toggle-row">
+      <div class="toggle-info"><div class="toggle-title">Share Project Activity</div><div class="toggle-desc">Show your project contributions on your public profile</div></div>
+      <button class="toggle-switch on" onclick="this.classList.toggle('on')"></button>
+    </div>
+    <div class="toggle-row">
+      <div class="toggle-info"><div class="toggle-title">Share Market Sales Data</div><div class="toggle-desc">Include your sales figures in aggregated market reports</div></div>
+      <button class="toggle-switch" onclick="this.classList.toggle('on')"></button>
+    </div>
+  </div></div>
+
+  <div class="card section-card"><div class="card-body">
+    <h3>${I('lock',16,'var(--brown-warm)')} SSI Credential Sharing</h3>
+    <p style="font-size:13.5px;color:var(--text-secondary);line-height:1.6;margin-bottom:16px">Control which verifiable credentials are shared when presenting your KERI identifier to external parties.</p>
+    <div class="toggle-row">
+      <div class="toggle-info"><div class="toggle-title">Membership Status</div><div class="toggle-desc">Share that you are an active Makers Hub member</div></div>
+      <button class="toggle-switch on" onclick="this.classList.toggle('on')"></button>
+    </div>
+    <div class="toggle-row">
+      <div class="toggle-info"><div class="toggle-title">Skill Attestations</div><div class="toggle-desc">Share verified skill credentials (e.g., kiln-certified, dye-kitchen-trained)</div></div>
+      <button class="toggle-switch on" onclick="this.classList.toggle('on')"></button>
+    </div>
+    <div class="toggle-row">
+      <div class="toggle-info"><div class="toggle-title">Governance Role</div><div class="toggle-desc">Share your committee or governance role when presenting identity</div></div>
+      <button class="toggle-switch" onclick="this.classList.toggle('on')"></button>
+    </div>
+  </div></div>
+</div>
+</div>
+${tpc}
+`;
 
 // ─── CHAT FUNCTIONALITY ───
 function initChat(){
@@ -2595,7 +2798,7 @@ openModal(`
 <div><div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--success)"><span style="font-size:13px;font-weight:700;color:var(--success)">DONE</span><span style="font-size:11px;background:rgba(107,138,94,0.12);color:var(--success);padding:2px 8px;border-radius:10px">${done.length}</span></div>${done.map(renderCard).join('')}</div>
 </div>
 </div>
-<div class="modal-footer"><button class="btn" onclick="closeModal()">Close</button><button class="btn btn-primary">${I('plus',14,'#edd6b7')} Add Task</button></div>
+<div class="modal-footer"><button class="btn" onclick="closeModal()">Close</button><button class="btn btn-primary" onclick="closeModal();openAddTask(${id})">${I('plus',14,'#edd6b7')} Add Task</button></div>
 `,true);
 }
 
@@ -2742,6 +2945,212 @@ ${o.history.map((h,i)=>`<div style="display:flex;gap:12px;padding:10px 0;${i<o.h
 
 // ─── INIT ───
 render();
+
+// ═══════════════════════════════════════
+// VIEW RESOURCE
+// ═══════════════════════════════════════
+function openViewResource(id){
+const resources={
+1:{name:'Community Kiln (gas)',type:'Equipment',status:'Active',alloc:'Ceramics Studio',util:88,desc:'Gas-fired community kiln for stoneware, earthenware, and raku firings. Capable of cone 10 temperatures. Shared by all ceramics members.',acquired:'Mar 2024',lastService:'Feb 10, 2026',nextService:'May 2026',custodian:'Tom Pearson',location:'Ceramics Studio — Rear yard',notes:'Kiln must be booked 48 hours in advance. Maximum 2 firings per week to manage gas costs. Raku firings require additional outdoor setup and at least 6 participants.',schedule:[{day:'Mon/Wed',time:'Studio hours',use:'Members bisque & glaze fire'},{day:'Saturday',time:'9am–3pm',use:'Raku firings (when booked)'},{day:'Tues/Thurs',time:'By arrangement',use:'Available for booking'}]},
+2:{name:'4× Juki Industrial Sewing Machines',type:'Equipment',status:'Active',alloc:'Textile Studio',util:72,desc:'Four Juki DDL-8700 industrial straight-stitch sewing machines for quilting, garment construction, and heavy-duty fabric work.',acquired:'Nov 2025',lastService:'Jan 15, 2026',nextService:'Apr 2026',custodian:'Lucy Hartwell',location:'Textile Studio — Main room',notes:'Machines are numbered 1–4. Please log usage in the sign-out book. Report any tension or bobbin issues immediately. Machine #2 has a walking foot attachment available.',schedule:[{day:'Mon–Fri',time:'9am–5pm',use:'Open studio access'},{day:'Saturday',time:'9am–12pm',use:'Workshop priority'},{day:'Evening',time:'6pm–9pm (Tue/Thu)',use:'Embroidery circle / classes'}]},
+3:{name:'Floor Loom (8-shaft)',type:'Equipment',status:'Active',alloc:'Weaving Room',util:60,desc:'Ashford 8-shaft floor loom with 90cm weaving width. Used for complex pattern weaving, tapestry, and teaching.',acquired:'Jun 2025',lastService:'Feb 28, 2026',nextService:'Aug 2026',custodian:'Rosa Delgado',location:'Weaving Room',notes:'Loom is currently warped for the beginner weaving course (plain weave, 10dpi cotton). Do not re-warp without checking with Rosa. Additional rigid heddle looms available for beginners.',schedule:[{day:'Mon/Wed',time:'10am–2pm',use:'Open weaving'},{day:'Thursday',time:'2pm–5pm',use:'Beginner course'},{day:'Other times',time:'By booking',use:'Available'}]},
+4:{name:'Dye Kitchen & Ventilation',type:'Facility',status:'Active',alloc:'Natural Dye Lab',util:45,desc:'Dedicated dye kitchen with stainless steel pots, extraction ventilation, hot plates, and wet-area drainage. Suitable for natural and acid dyes.',acquired:'Jan 2025',lastService:'Feb 20, 2026',nextService:'May 2026',custodian:'Ellen Morris',location:'Ground floor — Side annex',notes:'Safety guidelines must be read before first use. Mandatory gloves for all acid dyes. New ventilation protocol in effect for vat dyes. MSDS sheets in folder by door.',schedule:[{day:'Mon/Fri',time:'10am–3pm',use:'Open dyeing'},{day:'Wednesday',time:'10am–1pm',use:'Natural dye workshop'},{day:'Other times',time:'By booking',use:'Must have buddy present'}]},
+5:{name:'Pottery Wheels (×6)',type:'Equipment',status:'Maintenance',alloc:'Ceramics Studio',util:0,desc:'Six electric pottery wheels (4× Shimpo VL-Whisper, 2× Brent CXC). Currently offline — 2 wheels need bearing replacement, all 6 getting cleaned and recalibrated.',acquired:'Various (2023–2025)',lastService:'Feb 25, 2026',nextService:'Mar 8, 2026 (est.)',custodian:'Tom Pearson',location:'Ceramics Studio — Wheel bay',notes:'Wheels #3 and #5 have failed bearings — parts on order from Shimpo AU. Expected back online March 8. Hand-building tables are available in the meantime.',schedule:[{day:'—',time:'—',use:'Offline for maintenance until ~Mar 8'}]}
+};
+const r=resources[id]||resources[1];
+openModal(`
+<div class="modal-header"><div class="modal-header-left"><div class="page-icon" style="width:38px;height:38px">${I('box',20,'var(--brown-warm)')}</div><div><div class="modal-title">${r.name}</div><div class="modal-subtitle">${r.type} · ${r.alloc}</div></div></div><button class="modal-close" onclick="closeModal()">✕</button></div>
+<div class="modal-body">
+<div style="display:flex;gap:10px;margin-bottom:16px"><span class="badge badge-${r.status==='Active'?'open':'pending'}">${r.status}</span><span class="badge badge-info">${r.type}</span></div>
+<p style="color:var(--text-secondary);line-height:1.7;margin-bottom:20px">${r.desc}</p>
+<div style="display:flex;gap:16px;padding:16px;border-radius:12px;background:var(--cream-pale);margin-bottom:20px"><div style="text-align:center;flex:1"><div style="font-size:22px;font-weight:700;color:${r.util>80?'var(--danger)':r.util>50?'var(--warning)':'var(--success)'}">${r.util}%</div><div style="font-size:12px;color:var(--text-muted)">Utilisation</div></div><div style="text-align:center;flex:1"><div style="font-size:14px;font-weight:600;color:var(--text-heading)">${r.custodian}</div><div style="font-size:12px;color:var(--text-muted)">Custodian</div></div><div style="text-align:center;flex:1"><div style="font-size:14px;font-weight:600;color:var(--text-heading)">${r.location.split(' — ')[0]}</div><div style="font-size:12px;color:var(--text-muted)">Location</div></div></div>
+<div class="detail-section"><div class="form-section-title">${I('clock',15,'var(--brown-warm)')} Maintenance</div>
+<div class="form-row"><div class="form-group"><label class="form-label">Acquired</label><div style="font-size:14px">${r.acquired}</div></div><div class="form-group"><label class="form-label">Last Service</label><div style="font-size:14px">${r.lastService}</div></div><div class="form-group"><label class="form-label">Next Service</label><div style="font-size:14px">${r.nextService}</div></div></div></div>
+<div class="detail-section"><div class="form-section-title">${I('calendar',15,'var(--brown-warm)')} Schedule</div>
+${r.schedule.map(s=>`<div class="list-item" style="padding:8px 0"><div class="list-item-content"><div class="list-item-title">${s.day} — ${s.time}</div><div class="list-item-sub">${s.use}</div></div></div>`).join('')}</div>
+<div class="detail-section" style="border-bottom:none"><div class="form-section-title">${I('file',15,'var(--brown-warm)')} Notes</div>
+<p style="font-size:14px;color:var(--text-secondary);line-height:1.6">${r.notes}</p></div>
+</div>
+<div class="modal-footer"><button class="btn" onclick="closeModal()">Close</button><button class="btn btn-primary">${I('calendar',14,'#edd6b7')} Book Resource</button></div>
+`,true);
+}
+
+// ═══════════════════════════════════════
+// VIEW GRANT / DONATION
+// ═══════════════════════════════════════
+function openViewGrant(ref){
+const grants={
+'GR-2026-001':{ref:'GR-2026-001',type:'Arts Council Grant',amount:'$5,000',status:'Approved',source:'NSW Arts Council',date:'Mar 1, 2026',contact:'Grants Office',desc:'Annual community arts programme grant supporting workshop delivery, guest instructors, and materials for underrepresented makers. Covers calendar year 2026.',conditions:'Must deliver minimum 12 public workshops, provide quarterly progress reports, and acknowledge funding in all promotional materials.',timeline:[{act:'Application submitted',date:'Nov 15, 2025'},{act:'Interview with panel',date:'Dec 8, 2025'},{act:'Grant approved',date:'Jan 20, 2026'},{act:'Funds received',date:'Mar 1, 2026'}]},
+'DN-2026-004':{ref:'DN-2026-004',type:'Local Business Sponsorship',amount:'$750',status:'Received',source:'Heartwood Makers Collective',date:'Feb 28, 2026',contact:'hello@heartwoodmakers.com.au',desc:'Quarterly sponsorship from Heartwood Makers Collective towards the guest instructor programme and makers market promotion.',conditions:'Logo placement on market signage and mention in newsletter.',timeline:[{act:'Sponsorship agreement signed',date:'Jan 10, 2026'},{act:'Q1 payment received',date:'Feb 28, 2026'}]},
+'GR-2025-012':{ref:'GR-2025-012',type:'Community Foundation Grant',amount:'$3,200',status:'Approved',source:'Sydney Community Foundation',date:'Feb 25, 2026',contact:'grants@sydcf.org.au',desc:'Equipment upgrade grant for the ceramics studio — specifically kiln maintenance, pottery wheel repairs, and new shelving installation.',conditions:'Funds must be spent on capital equipment only. Receipts required. Completion report due within 6 months.',timeline:[{act:'Application submitted',date:'Oct 5, 2025'},{act:'Grant approved',date:'Dec 18, 2025'},{act:'Funds received',date:'Feb 25, 2026'},{act:'Equipment ordered',date:'Feb 28, 2026'}]},
+'DN-2026-003':{ref:'DN-2026-003',type:'Anonymous Donation',amount:'$200',status:'Received',source:'Anonymous',date:'Feb 20, 2026',contact:'—',desc:'Unsolicited anonymous donation received via bank transfer. Allocated to general operating fund.',conditions:'None.',timeline:[{act:'Funds received',date:'Feb 20, 2026'},{act:'Allocated to general fund',date:'Feb 21, 2026'}]},
+'GR-2025-011':{ref:'GR-2025-011',type:'Heritage Crafts Fund',amount:'$1,500',status:'Approved',source:'Australian Heritage Crafts Foundation',date:'Feb 15, 2026',contact:'info@heritagecrafts.org.au',desc:'Grant to support the preservation of traditional textile techniques through the beginner weaving programme and natural dye workshops.',conditions:'Must include at least one session focused on traditional Australian textile techniques. Final report with attendance data required.',timeline:[{act:'Application submitted',date:'Sep 20, 2025'},{act:'Grant approved',date:'Nov 30, 2025'},{act:'First instalment received',date:'Feb 15, 2026'}]}
+};
+const g=grants[ref]||grants['GR-2026-001'];
+openModal(`
+<div class="modal-header"><div class="modal-header-left"><div class="page-icon" style="width:38px;height:38px">${I('dollar',20,'var(--brown-warm)')}</div><div><div class="modal-title">${g.type}</div><div class="modal-subtitle">${g.ref} · ${g.date}</div></div></div><button class="modal-close" onclick="closeModal()">✕</button></div>
+<div class="modal-body">
+<div style="display:flex;gap:10px;margin-bottom:16px"><span class="badge badge-open">${g.status}</span><span class="badge badge-info">${g.type.includes('Grant')?'Grant':'Donation'}</span></div>
+<div style="text-align:center;padding:20px 0;margin-bottom:20px;border-bottom:1px solid var(--card-border)"><div style="font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:var(--success)">${g.amount}</div><div style="font-size:13px;color:var(--text-muted)">from ${g.source}</div></div>
+<div class="detail-section"><div class="form-section-title">${I('file',15,'var(--brown-warm)')} Description</div>
+<p style="font-size:14px;color:var(--text-secondary);line-height:1.6;margin-bottom:12px">${g.desc}</p>
+<div class="form-group"><label class="form-label">Conditions</label><div style="font-size:13.5px;color:var(--text-secondary);line-height:1.5;padding:12px;background:var(--cream-pale);border-radius:8px">${g.conditions}</div></div>
+<div class="form-group"><label class="form-label">Contact</label><div style="font-size:14px">${g.contact}</div></div></div>
+<div class="detail-section" style="border-bottom:none"><div class="form-section-title">${I('clock',15,'var(--brown-warm)')} Timeline</div>
+${g.timeline.map((t,i)=>`<div class="timeline-item"><div class="timeline-dot" style="background:${i===g.timeline.length-1?'rgba(107,138,94,0.15)':'var(--cream-pale)'}">${I(i===g.timeline.length-1?'check':'clock',14,i===g.timeline.length-1?'var(--success)':'var(--text-muted)')}</div><div class="timeline-content"><div class="timeline-text">${t.act}</div><div class="timeline-date">${t.date}</div></div></div>`).join('')}
+</div>
+</div>
+<div class="modal-footer"><button class="btn" onclick="closeModal()">Close</button><button class="btn">${I('download',14)} Export</button></div>
+`,true);
+}
+
+// ═══════════════════════════════════════
+// ADD TEAM
+// ═══════════════════════════════════════
+function openAddTeam(){
+openModal(`
+<div class="modal-header"><div class="modal-header-left"><div class="page-icon" style="width:38px;height:38px">${I('users',20,'var(--brown-warm)')}</div><div><div class="modal-title">Create New Team</div><div class="modal-subtitle">Add a working group or team</div></div></div><button class="modal-close" onclick="closeModal()">✕</button></div>
+<div class="modal-body">
+  <div class="form-section">
+    <div class="form-section-title">${I('users',15,'var(--brown-warm)')} Team Details</div>
+    <div class="form-group"><label class="form-label">Team Name <span style="color:var(--danger)">*</span></label><input class="form-input" placeholder="e.g., Printmaking Circle"></div>
+    <div class="form-group"><label class="form-label">Description</label><textarea class="form-input" placeholder="What does this team focus on? What activities will it run?" style="min-height:80px"></textarea></div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Team Lead <span style="color:var(--danger)">*</span></label>
+        <select class="form-select"><option value="">Select lead…</option><option>Lucy Hartwell</option><option>Tom Pearson</option><option>Rosa Delgado</option><option>Nina Chang</option><option>Ellen Morris</option><option>Jake Turner</option></select>
+      </div>
+      <div class="form-group"><label class="form-label">Category</label>
+        <select class="form-select"><option>Craft Discipline</option><option>Committee</option><option>Working Group</option><option>Event Team</option><option>Other</option></select>
+      </div>
+    </div>
+  </div>
+  <div class="form-section">
+    <div class="form-section-title">${I('users',15,'var(--brown-warm)')} Members</div>
+    <div class="form-group"><label class="form-label">Initial Members</label>
+      <div class="form-tag-input" onclick="this.querySelector('input').focus()">
+        <input placeholder="Type a name to add…" onkeydown="if(event.key==='Enter'&&this.value.trim()){const t=document.createElement('span');t.className='form-tag';t.innerHTML=this.value.trim()+' <button onclick=\\'this.parentElement.remove()\\'>×</button>';this.parentElement.insertBefore(t,this);this.value='';event.preventDefault();}">
+      </div>
+      <div class="form-hint">The team lead is automatically included</div>
+    </div>
+  </div>
+  <div class="form-section" style="margin-bottom:0">
+    <div class="form-section-title">${I('calendar',15,'var(--brown-warm)')} Schedule</div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Regular Meeting Day</label>
+        <select class="form-select"><option value="">None scheduled</option><option>Monday</option><option>Tuesday</option><option>Wednesday</option><option>Thursday</option><option>Friday</option><option>Saturday</option><option>Sunday</option></select>
+      </div>
+      <div class="form-group"><label class="form-label">Meeting Time</label><input class="form-input" type="time" value="18:00"></div>
+    </div>
+    <div class="form-group"><label class="form-label">Meeting Location</label><input class="form-input" placeholder="e.g., Textile Studio, Online, Community Hall"></div>
+  </div>
+</div>
+<div class="modal-footer"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn btn-primary">${I('check',14,'#edd6b7')} Create Team</button></div>
+`,true);
+}
+
+// ═══════════════════════════════════════
+// ADD TASK (Project Board)
+// ═══════════════════════════════════════
+function openAddTask(projectId){
+const projectNames={1:'Spring Quilting Retreat',2:'Community Quilt — Hospital',3:'Ceramics Studio Upgrade',4:'Beginner Weaving Course',5:'Makers Market April'};
+const pName=projectNames[projectId]||'Project';
+openModal(`
+<div class="modal-header"><div class="modal-header-left"><div class="page-icon" style="width:38px;height:38px">${I('plus',20,'var(--brown-warm)')}</div><div><div class="modal-title">Add Task</div><div class="modal-subtitle">${pName}</div></div></div><button class="modal-close" onclick="closeModal()">✕</button></div>
+<div class="modal-body">
+  <div class="form-section">
+    <div class="form-group"><label class="form-label">Task Title <span style="color:var(--danger)">*</span></label><input class="form-input" placeholder="e.g., Order extra batting for kits" id="taskTitle" oninput="document.getElementById('taskTitleCount').textContent=this.value.length+'/80'"><div class="char-count" id="taskTitleCount">0/80</div></div>
+    <div class="form-group"><label class="form-label">Description</label><textarea class="form-input" placeholder="Additional detail about what needs to be done…" style="min-height:70px"></textarea></div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Status</label>
+        <select class="form-select"><option>To Do</option><option>In Progress</option><option>Done</option></select>
+      </div>
+      <div class="form-group"><label class="form-label">Assign To</label>
+        <select class="form-select"><option value="">Unassigned</option><option>Lucy Hartwell</option><option>Tom Pearson</option><option>Rosa Delgado</option><option>Nina Chang</option><option>Ellen Morris</option><option>Jake Turner</option></select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Priority</label>
+        <select class="form-select"><option>Normal</option><option>High</option><option>Low</option></select>
+      </div>
+      <div class="form-group"><label class="form-label">Due Date</label><input class="form-input" type="date"></div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn btn-primary">${I('check',14,'#edd6b7')} Add Task</button></div>
+`);
+}
+
+// ═══════════════════════════════════════
+// ADD / MANAGE SSI KERI CREDENTIAL
+// ═══════════════════════════════════════
+function openAddSSI(){
+openModal(`
+<div class="modal-header"><div class="modal-header-left"><div class="page-icon" style="width:38px;height:38px">${I('fingerprint',20,'var(--brown-warm)')}</div><div><div class="modal-title">SSI / KERI Credential</div><div class="modal-subtitle">Self-Sovereign Identity Management</div></div></div><button class="modal-close" onclick="closeModal()">✕</button></div>
+<div class="modal-body">
+  <div class="form-section">
+    <div class="form-section-title">${I('fingerprint',15,'var(--brown-warm)')} Your KERI Identifier</div>
+    <div style="padding:16px;border-radius:12px;background:var(--cream-pale);margin-bottom:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><label class="form-label" style="margin-bottom:0">Decentralised Identifier (DID)</label><span class="badge badge-open">Verified</span></div>
+      <div style="font-family:monospace;font-size:13px;background:#fff;padding:10px 14px;border-radius:8px;border:1px solid var(--card-border);word-break:break-all">did:keri:EBf7a8c2d9e1f3b5a7c4d6e8f0a2b4c6d8e0f1a3b5c7d9e1f3a5b7c9d1e3f5a7b9</div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Identifier Type</label><div style="font-size:14px">KERI Autonomic Identifier (AID)</div></div>
+      <div class="form-group"><label class="form-label">Key State</label><div><span class="badge badge-open">Current</span></div></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Created</label><div style="font-size:14px">Dec 15, 2025</div></div>
+      <div class="form-group"><label class="form-label">Last Key Rotation</label><div style="font-size:14px">Feb 1, 2026</div></div>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <div class="form-section-title">${I('shield',15,'var(--brown-warm)')} Witness Configuration</div>
+    <div class="security-item">
+      <div class="security-item-icon" style="background:rgba(107,138,94,0.1)">${I('globe',18,'var(--success)')}</div>
+      <div class="security-item-info"><div class="security-item-name">Witness 1 — APAC Region</div><div class="security-item-date">wan1.keri.network · Online</div></div>
+      <span class="badge badge-open">Active</span>
+    </div>
+    <div class="security-item">
+      <div class="security-item-icon" style="background:rgba(107,138,94,0.1)">${I('globe',18,'var(--success)')}</div>
+      <div class="security-item-info"><div class="security-item-name">Witness 2 — EU Region</div><div class="security-item-date">weu1.keri.network · Online</div></div>
+      <span class="badge badge-open">Active</span>
+    </div>
+    <div class="form-hint" style="margin-top:8px">Minimum 2 witnesses required for identifier verification</div>
+  </div>
+
+  <div class="form-section">
+    <div class="form-section-title">${I('file',15,'var(--brown-warm)')} Issued Credentials</div>
+    ${[
+      {name:'Makers Hub Membership',issuer:'Makers Hub DAO',date:'Jan 5, 2026',status:'Active'},
+      {name:'Kiln Operation Certified',issuer:'Tom Pearson (Ceramics Lead)',date:'Feb 10, 2026',status:'Active'},
+      {name:'Dye Kitchen Safety Trained',issuer:'Ellen Morris (Dye Lab Lead)',date:'Feb 20, 2026',status:'Active'},
+      {name:'Committee Member — Market',issuer:'Makers Hub DAO',date:'Jan 15, 2026',status:'Active'},
+    ].map(c=>`
+    <div class="security-item">
+      <div class="security-item-icon">${I('check',18,'var(--success)')}</div>
+      <div class="security-item-info"><div class="security-item-name">${c.name}</div><div class="security-item-date">Issued by ${c.issuer} · ${c.date}</div></div>
+      <span class="badge badge-open">${c.status}</span>
+    </div>`).join('')}
+  </div>
+
+  <div class="form-section" style="margin-bottom:0">
+    <div class="form-section-title">${I('key',15,'var(--brown-warm)')} Key Management</div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Signing Algorithm</label><div style="font-size:14px;font-family:monospace">Ed25519</div></div>
+      <div class="form-group"><label class="form-label">Key Derivation</label><div style="font-size:14px;font-family:monospace">BIP-39 / Seed Phrase</div></div>
+    </div>
+    <div class="form-group"><label class="form-label">Next Key Pre-rotation Hash</label>
+      <div style="font-family:monospace;font-size:12px;background:var(--cream-pale);padding:8px 12px;border-radius:8px;word-break:break-all">EXq5v8b3a7c9d1e3f5a7b9c1d3e5f7a9b1c3d5e7f9</div>
+    </div>
+    <div style="background:rgba(212,175,55,0.08);border:1px solid rgba(212,175,55,0.2);border-radius:10px;padding:12px 14px;display:flex;align-items:flex-start;gap:10px;margin-top:12px">
+      ${I('shield',16,'var(--warning)')}
+      <div style="font-size:12.5px;color:var(--text-secondary);line-height:1.5"><strong style="color:var(--text-primary)">Security note:</strong> Your private signing key is stored locally and never transmitted. Key rotation updates your active key while maintaining identifier continuity through your KERI event log.</div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer"><button class="btn" onclick="closeModal()">Close</button><button class="btn">${I('key',14)} Rotate Keys</button><button class="btn btn-primary">${I('download',14,'#edd6b7')} Export KEL</button></div>
+`,true);
+}
 </script>
 </body>
 </html>
