@@ -1,3 +1,8 @@
+---
+layout: null
+permalink: /interfaces/k8kqbuxn/tana/facilitator
+title: TANA Facilitator Interface
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -3073,13 +3078,13 @@ ${u.did?`<div class="detail-section">
 </div>
 <div class="modal-footer">
   <div style="display:flex;gap:8px;flex:1">
-    ${isSuspended?'<button class="btn" style="color:var(--success);border-color:rgba(107,138,94,0.3)">${I("check",14)} Reactivate</button>':''}
-    ${isPending?'<button class="btn btn-primary">${I("check",14,"#edd6b7")} Approve</button><button class="btn" style="color:var(--danger);border-color:rgba(192,96,74,0.3)">Decline</button>':''}
-    ${isInvited?'<button class="btn">${I("mail",14)} Resend Invite</button>':''}
-    ${!isSuspended&&!isInvited&&!isPending?'<button class="btn" style="color:var(--danger);border-color:rgba(192,96,74,0.3)">Suspend User</button>':''}
+    ${isSuspended?`<button class="btn" style="color:var(--success);border-color:rgba(107,138,94,0.3)">${I("check",14)} Reactivate</button>`:''}
+    ${isPending?`<button class="btn btn-primary">${I("check",14,"#edd6b7")} Approve</button><button class="btn" style="color:var(--danger);border-color:rgba(192,96,74,0.3)">Decline</button>`:''}
+    ${isInvited?`<button class="btn">${I("mail",14)} Resend Invite</button>`:''}
+    ${!isSuspended&&!isInvited&&!isPending?`<button class="btn" style="color:var(--danger);border-color:rgba(192,96,74,0.3)">Suspend User</button>`:''}
   </div>
   <button class="btn" onclick="closeModal()">Close</button>
-  ${!isInvited?'<button class="btn btn-primary">${I("check",14,"#edd6b7")} Save Changes</button>':''}
+  ${!isInvited?`<button class="btn btn-primary">${I("check",14,"#edd6b7")} Save Changes</button>`:''}
 </div>
 `,true);
 }
