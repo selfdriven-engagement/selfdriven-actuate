@@ -87,5 +87,6 @@ The selfdriven Organisational Areas of Focus framework provides a comprehensive 
 
 ----
 
+- [As Overview](/framework/areas-of-focus/overview)
 - [A Modern Organisational Framework for the Speed of Agentic AI](/framework/organisation-for-speed-agentic-ai)
 - [Template Services Agreement](/framework/areas-of-focus/services-agreement)
