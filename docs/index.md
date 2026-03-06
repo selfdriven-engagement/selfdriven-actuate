@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: prose
 title: Actuate | selfdriven Community
 ---
 ## A Protocol (Frameworks & Resources) for Self-Actuating Communities/Organisations.
