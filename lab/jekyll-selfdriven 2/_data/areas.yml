@@ -1,0 +1,47 @@
+- id: 1
+  title: Direction
+  subtitle: "Overall direction, path, intent, and design setting, including the reflection process."
+  tagline: "Overall direction, path, intent, and design setting, including the reflection process."
+  body: "Direction serves as the strategic compass of the organisation. It encompasses the articulation of vision, mission, and purpose, as well as the ongoing process of reflecting on whether the organisation remains aligned with its founding intent. This area ensures that all subsequent activities are anchored in a coherent and evolving sense of purpose. It includes the design of governance structures, strategic planning cycles, and the mechanisms by which the organisation reviews and adapts its trajectory. Direction is not a static declaration but a living process of continuous alignment between aspiration and action."
+
+- id: 2
+  title: Engagement
+  subtitle: "Explainability of values, protocols, and processes — the soul and the story."
+  tagline: "Explainability of values, protocols, and processes — the soul and the story."
+  body: "Engagement is the communicative and relational layer of the organisation. It is concerned with how the organisation explains itself — its values, its protocols, and its processes — to both internal participants and external stakeholders. This area recognises that an organisation's identity is expressed through narrative as much as through structure. Engagement covers community building, stakeholder communication, educational outreach, and the cultivation of trust. It ensures that the 'why' behind every protocol and process is accessible and compelling, enabling authentic participation and shared ownership."
+
+- id: 3
+  title: Enablement
+  subtitle: "The outputs and products of the organisation."
+  tagline: "The outputs and products of the organisation."
+  body: "Enablement focuses on the tangible deliverables that the organisation produces. This includes the applications, tools, platforms, and services that communities and individuals use to self-actuate. Whether it is the selfdriven apps, the community operating system, or the skill frameworks, Enablement ensures that the organisation's vision is translated into functional, accessible outputs. This area bridges the gap between strategic intent and practical utility, ensuring that products meet the real needs of the communities they serve and are continuously improved through feedback and iteration."
+
+- id: 4
+  title: Protocols
+  subtitle: "Standards, technologies (e.g. SSI, KERI), templates and interoperability frameworks."
+  tagline: "The protocol representing standards, technologies (e.g. SSI, KERI), templates etc."
+  body: "Protocols define the technical and procedural standards that underpin the organisation's infrastructure. This area encompasses the adoption and development of standards such as Self-Sovereign Identity (SSI), Key Event Receipt Infrastructure (KERI), and related cryptographic and decentralised identity technologies. It also covers templates, data formats, and interoperability frameworks that ensure consistency and trust across the ecosystem. Protocols are the foundational agreements that allow autonomous agents, communities, and systems to interact with integrity and verifiability."
+
+- id: 5
+  title: Sustainability
+  subtitle: "Long-term viability including capital for sustained human attention and conductors."
+  tagline: "Ongoing sustainability including capital for sustained human attention and conductors."
+  body: "Sustainability addresses the long-term viability of the organisation. It encompasses financial sustainability — including capital management, economics, and funding strategies — as well as the sustainability of human attention and energy. This area recognises that organisations require not only financial resources but also the sustained focus and motivation of their participants. It includes the design of incentive structures, reward mechanisms, and governance models that ensure the organisation can endure and thrive beyond its founding phase."
+
+- id: 6
+  title: Processes
+  subtitle: "Operational processes that drive enablement and the functioning of the organisation."
+  tagline: "The operational processes that drive enablement and the functioning of the organisation."
+  body: "Processes are the operational engine of the organisation. This area covers the workflows, procedures, and systems that translate strategy into execution. It includes development processes, quality assurance, release management, documentation practices, and the day-to-day operational routines that keep the organisation functioning effectively. Processes ensure that Enablement is delivered consistently and that the Protocols are implemented reliably. This area also encompasses the continuous improvement of operational methods to increase efficiency and reduce friction."
+
+- id: 7
+  title: Accountability
+  subtitle: "Internal and external accountability, including sovereign state regulatory obligations."
+  tagline: "Internal and external accountability, including sovereign state regulatory obligations."
+  body: "Accountability ensures that the organisation operates with transparency and integrity. Internally, this means clear reporting structures, measurable outcomes, and mechanisms for holding teams and individuals responsible for their commitments. Externally, it encompasses compliance with sovereign state regulatory obligations, legal frameworks, and industry standards. In a decentralised context, accountability frameworks must balance autonomy with responsibility, creating trust without centralised control."
+
+- id: 8
+  title: Organisational
+  subtitle: "Coordination and synchronisation across Areas of Focus, including team alignment."
+  tagline: "Coordination and synchronisation across Areas of Focus, including team alignment."
+  body: "The Organisational area serves as the integrative function that ensures all other areas of focus work together coherently. It is concerned with coordination, synchronisation, and alignment across teams, projects, and initiatives. This includes managing communication channels, facilitating cross-functional collaboration, maintaining shared calendars and workspaces, and ensuring that physical and digital spaces support productive interaction. The Organisational area is the connective tissue that prevents silos and ensures the whole is greater than the sum of its parts."

@@ -1,10 +1,14 @@
 ---
 layout: prose
-title: selfdriven | A Modern Organisational Framework for the Speed of Agentic AI
+title: "selfdriven | A Modern Organisational Framework for the Speed of Agentic AI"
+description: "A modern organisational framework designed for the speed, autonomy, and verifiability demands of Agentic AI — extending the selfdriven Areas of Focus model into an AI-native architecture."
 permalink: /framework/organisation-for-speed-agentic-ai
+parent_title: Areas of Focus
+parent_url: /framework/areas-of-focus
+section: Framework
 ---
 
-# A Modern Organisational Framework for the Speed of Agentic AI 
+# A Modern Organisational Framework for the Speed of Agentic AI
 
 **Derived from the [Areas of Focus Framework](/framework/areas-of-focus).**
 
@@ -72,7 +76,7 @@ These Areas of Focus become the organisational operating system for AI-speed env
 
 ### 4.1 Direction — Strategic Intent at Machine Speed
 
-Definition:
+**Definition:**
 The continuously updated intent vector guiding both human and AI agents.
 
 In an Agentic AI organisation:
@@ -81,41 +85,41 @@ In an Agentic AI organisation:
 - Direction is continuously recalibrated
 - AI agents require explicit intent anchors and constraints
 
-Key Components:
+**Key Components:**
 
 - Purpose graph instead of static mission statements
 - Strategic guardrails for autonomous agents
 - Constraint-aware optimisation logic
 - Reflection-driven recalibration loops
 
-Risk if absent:
+**Risk if absent:**
 Autonomous systems optimise locally rather than organisationally.
 
 ### 4.2 Engagement — Human Legitimacy in an AI-Accelerated System
 
 Engagement evolves from communication to co-actuation.
 
-Traditional Engagement:
+**Traditional Engagement:**
 
 - Stakeholder communication
 - Periodic reporting
 - Passive feedback channels
 
-Agentic Engagement:
+**Agentic Engagement:**
 
 - Human-in-the-loop governance
 - Continuous feedback ingestion
 - Explainable AI decision interfaces
 - Personal AI agent representation of stakeholders
 
-Purpose:
+**Purpose:**
 To preserve trust, meaning, and social legitimacy while automation and autonomy increase.
 
 ### 4.3 Enablement — Execution Infrastructure for Autonomous Output
 
 Enablement becomes the operational capability layer that allows agents and humans to act effectively at speed.
 
-Core Components:
+**Core Components:**
 
 - AI agents and orchestration systems
 - APIs and service layers
@@ -130,13 +134,13 @@ In AI-speed organisations, enablement removes manual bottlenecks and replaces th
 
 Policies must evolve from static documents into executable governance systems.
 
-Traditional Governance:
+**Traditional Governance:**
 
 - Static policy documents
 - Manual interpretation
 - Human enforcement
 
-Agentic Governance:
+**Agentic Governance:**
 
 - Policy-as-code
 - Automated compliance logic
@@ -167,13 +171,13 @@ A modern organisation must actively manage these trade-offs.
 
 Processes shift from rigid workflows to adaptive intelligence loops.
 
-Traditional Processes:
+**Traditional Processes:**
 
 - Fixed SOPs
 - Linear approvals
 - Static task ownership
 
-Agentic Processes:
+**Agentic Processes:**
 
 - Dynamic workflows
 - AI-assisted decision routing
@@ -187,7 +191,7 @@ The organisation becomes conducted rather than manually orchestrated.
 
 As AI-generated outputs increase, trust must transition from authority-based to proof-based systems.
 
-Core Mechanisms:
+**Core Mechanisms:**
 
 - Cryptographic audit trails
 - Verifiable credentials
@@ -195,20 +199,20 @@ Core Mechanisms:
 - Explainable AI layers
 - Transparent data lineage
 
-Key Principle:
+**Key Principle:**
 Every critical organisational output should be provable, auditable, and traceable.
 
 This is especially critical in high-trust sectors such as insurance, governance, identity, and cooperative ecosystems.
 
 ### 4.8 Organisational — Coordination Fabric Instead of Hierarchy
 
-Traditional Structure:
+**Traditional Structure:**
 
 - Departments
 - Silos
 - Fixed reporting lines
 
-Agentic Structure:
+**Agentic Structure:**
 
 - Modular cells
 - Interface-based coordination
@@ -220,13 +224,13 @@ The organisation becomes a synchronised network rather than a rigid hierarchy.
 
 ## 5. The Agentic Speed Stack (Organisational Architecture)
 
-Layer 1: Direction (Intent & Purpose)
-Layer 2: Protocols (Rules & Constraints)
-Layer 3: Enablement (Agents, Tools, Infrastructure)
-Layer 4: Processes (Actuation Loops)
-Layer 5: Accountability (Proof & Verifiability)
-Layer 6: Engagement (Human Legitimacy)
-Layer 7: Sustainability (Resilience Systems)
+Layer 1: Direction (Intent & Purpose)  
+Layer 2: Protocols (Rules & Constraints)  
+Layer 3: Enablement (Agents, Tools, Infrastructure)  
+Layer 4: Processes (Actuation Loops)  
+Layer 5: Accountability (Proof & Verifiability)  
+Layer 6: Engagement (Human Legitimacy)  
+Layer 7: Sustainability (Resilience Systems)  
 Layer 8: Organisational (Coordination Fabric)
 
 Each layer operates continuously and in parallel rather than sequentially.

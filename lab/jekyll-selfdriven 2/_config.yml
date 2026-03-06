@@ -1,0 +1,23 @@
+title: selfdriven Foundation — Areas of Focus
+description: A structured framework for decentralised governance — distributing responsibility across interconnected domains.
+baseurl: ""        # Set to "/repo-name" if deploying to a subdirectory
+url: "https://selfdriven.foundation"
+
+# Build settings
+theme: null
+plugins:
+  - jekyll-relative-links
+
+# Markdown
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+
+# Exclude from build
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor

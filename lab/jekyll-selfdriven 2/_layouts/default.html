@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% if page.title %}{{ page.title }} — {% endif %}{{ site.title | default: "selfdriven Foundation" }}</title>
+  <meta name="description" content="{{ page.description | default: site.description | default: 'A structured framework for decentralised governance — distributing responsibility across interconnected domains.' }}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/style.css" />
+</head>
+<body>
+
+<nav id="nav">
+  <a href="{{ site.baseurl }}/" class="nav-logo">
+    <img src="{{ site.baseurl }}/assets/img/selfdriven-logo.png"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='block'"
+         alt="selfdriven" />
+    <span style="display:none;font-size:16px;font-weight:700;letter-spacing:-0.03em;color:var(--text)">selfdriven</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="https://selfdriven.foundation">Foundation</a></li>
+    <li><a href="https://selfdriven.community">Community</a></li>
+    <li><a href="https://actuate.selfdriven.community">Actuate</a></li>
+    <li><a href="https://selfdriven.services">Services</a></li>
+  </ul>
+</nav>
+
+{{ content }}
+
+<footer>
+  <div class="footer-logo">
+    <img src="{{ site.baseurl }}/assets/img/selfdriven-logo.png"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='block'"
+         alt="selfdriven" />
+    <span style="display:none;font-size:13px;font-weight:600;color:var(--muted)">selfdriven</span>
+  </div>
+  <ul class="footer-links">
+    <li><a href="https://selfdriven.community">community</a></li>
+    <li><a href="https://selfdriven.fyi">fyi</a></li>
+    <li><a href="https://selfdriven.network">network</a></li>
+    <li><a href="https://github.com/selfdriven-foundation">github</a></li>
+    <li><a href="https://selfdriven.services">services</a></li>
+  </ul>
+</footer>
+
+<script>
+  // Scroll nav effect
+  const navEl = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    navEl.classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // Interactive area cards (present on pages that use the grid)
+  const cards = document.querySelectorAll('.area-card');
+  if (cards.length) {
+    const panel      = document.getElementById('detailPanel');
+    const detailNum  = document.getElementById('detailNum');
+    const detailTitle= document.getElementById('detailTitle');
+    const detailTag  = document.getElementById('detailTagline');
+    const detailBody = document.getElementById('detailBody');
+    const closeBtn   = document.getElementById('detailClose');
+    let activeId = null;
+
+    function openArea(id) {
+      const data = window.AREAS_DATA[id];
+      if (!data) return;
+      detailNum.textContent  = String(id).padStart(2, '0');
+      detailTitle.textContent= data.title;
+      detailTag.textContent  = data.tagline;
+      detailBody.textContent = data.body;
+      panel.classList.add('open');
+      cards.forEach(c => c.classList.toggle('active', parseInt(c.dataset.id) === id));
+      activeId = id;
+      setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+    }
+
+    function closeArea() {
+      panel.classList.remove('open');
+      cards.forEach(c => c.classList.remove('active'));
+      activeId = null;
+    }
+
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        const id = parseInt(card.dataset.id);
+        activeId === id ? closeArea() : openArea(id);
+      });
+    });
+
+    closeBtn && closeBtn.addEventListener('click', closeArea);
+  }
+</script>
+
+</body>
+</html>
