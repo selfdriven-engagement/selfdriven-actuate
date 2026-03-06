@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: prose
 title: Resources - selfdriven Actuate
 permalink: /resources/
 ---

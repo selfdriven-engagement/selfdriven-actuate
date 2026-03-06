@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: prose
 title: Design - selfdriven Actuate
 permalink: /design/
 ---

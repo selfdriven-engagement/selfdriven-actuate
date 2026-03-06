@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: prose
 title: selfdriven Areas of Focus Framework
 permalink: /framework/areas-of-focus/md
 redirect_from:

@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: prose
 title: Use-Case, BioHub Mallorca - selfdriven Actuate
 permalink: /use-cases/biohub-mallorca/
 ---

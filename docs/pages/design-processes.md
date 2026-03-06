@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: prose
 title: Processes - selfdriven Actuate
 permalink: /design/processes/
 ---

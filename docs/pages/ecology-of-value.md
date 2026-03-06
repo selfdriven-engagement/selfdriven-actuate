@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: prose
 title: selfdriven - Ecology of Value
 permalink: /ecology-of-value
 ---

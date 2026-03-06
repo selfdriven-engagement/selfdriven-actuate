@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: prose
 title: Services Agreement - selfdriven Areas of Focus Framework
 permalink: /framework/areas-of-focus/services-agreement
 ---

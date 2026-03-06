@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: prose
 title: Steps - selfdriven Actuate
 permalink: /steps/
 ---

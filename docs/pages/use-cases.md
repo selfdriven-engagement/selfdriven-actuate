@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: prose
 title: Use-Cases - selfdriven Actuate
 permalink: /use-cases/
 ---

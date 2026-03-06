@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: prose
 title: Progressive Self-Actuation Framework - selfdriven Actuate
 permalink: /framework
 ---
