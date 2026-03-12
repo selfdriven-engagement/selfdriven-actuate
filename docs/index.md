@@ -1,5 +1,5 @@
 ---
-layout: prose
+layout: selfdriven
 title: Actuate | selfdriven Community
 ---
 ## Frameworks & Resources for Self-Actuating Communities/Organisations.
@@ -24,6 +24,8 @@ title: Actuate | selfdriven Community
 - [selfdriven.network Human Interface](https://selfdriven.network/human-interface)
 
 ### Related
+- [selfdriven.ai/research](https://selfdriven.ai/research)
+- [selfdriven.tel](https://selfdriven.tel) - become a network verifier & earn rewards.
 - [selfdriven.network Interfaces](https://selfdriven.network/)
 - [selfdriven.foundation](selfdriven.foundation)
 - [energy.selfdriven.foundation](https://energy.selfdriven.foundation) - Passive (Funding) & Active
