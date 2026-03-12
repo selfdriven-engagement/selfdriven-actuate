@@ -2,9 +2,9 @@
 layout: selfdriven
 title: Actuate | selfdriven Community
 ---
-## Frameworks & Resources for Self-Actuating Communities/Organisations.
+# Frameworks & Resources for Self-Actuating Communities/Organisations.
 
-### Frameworks
+## Frameworks
 
 - [Progressive Self-Actuation Framework](/framework)
 - [Engagement–Lab–Production Framework for Continuous Actuation](/framework/engagement-lab-production)
@@ -13,8 +13,12 @@ title: Actuate | selfdriven Community
 - [Cooperative](https://www.selfdriven.coop) - templates etc
 - [Framework for AI Assisted Actuation](/framework/ai-assisted-actuation)
 
-### Resources
+## Self-Actuate Now
+- [selfdriven.ai/research](https://selfdriven.ai/research)
+- [selfdriven.tel](https://selfdriven.tel) - become a network verifier & earn rewards.
+- [selfdriven.community](https://selfdriven.community) - helping communities self-actuate.
 
+## Resources
 - [Steps](/steps/)
 - [Use-Cases](/use-cases/) - Examples.
 - [Templates, Reading etc](/resources/) - .
@@ -23,9 +27,7 @@ title: Actuate | selfdriven Community
 - [skillzeb.io Resource Transformer Template](https://skillzeb.io/template-explorer/resource-transformer-starter)
 - [selfdriven.network Human Interface](https://selfdriven.network/human-interface)
 
-### Related
-- [selfdriven.ai/research](https://selfdriven.ai/research)
-- [selfdriven.tel](https://selfdriven.tel) - become a network verifier & earn rewards.
+## Related
 - [selfdriven.network Interfaces](https://selfdriven.network/)
 - [selfdriven.foundation](selfdriven.foundation)
 - [energy.selfdriven.foundation](https://energy.selfdriven.foundation) - Passive (Funding) & Active
