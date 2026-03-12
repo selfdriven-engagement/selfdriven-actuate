@@ -16,7 +16,7 @@ title: Actuate | selfdriven Community
 ## Self-Actuate Now
 - [selfdriven.ai/research](https://selfdriven.ai/research)
 - [selfdriven.tel](https://selfdriven.tel) - become a network verifier & earn rewards.
-- [selfdriven.community](https://selfdriven.community) - helping communities self-actuate.
+- [selfdriven.community](https://selfdriven.community) - actuate your community.
 
 ## Resources
 - [Steps](/steps/)
