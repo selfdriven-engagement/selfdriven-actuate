@@ -12,6 +12,7 @@ title: Actuate | selfdriven Community
 - [Input, Injected-Intelligence, Output Framework](https://selfdriven.ai/input-injected-intelligence-output-framework)
 - [Cooperative](https://www.selfdriven.coop) - templates etc
 - [Framework for AI Assisted Actuation](/framework/ai-assisted-actuation)
+- [Collaborative Day Framework](/framework/the-collaborative-day)
 
 ## Self-Actuate Now
 - [selfdriven.ai/research](https://selfdriven.ai/research)
