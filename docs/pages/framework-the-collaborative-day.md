@@ -188,4 +188,5 @@ When these modes are intentionally sequenced, collaboration becomes calmer, clea
 
 ### Related
 
-- [The 8 Areas of Focus Framework](https://actuate.selfdriven.community/framework/areas-of-focus)
+- [The 8 Areas of Focus Framework](/framework/areas-of-focus)
+- [The Collabortive Day 5Cs Format](/framework/areas-of-focus-5cs)

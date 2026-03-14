@@ -13,6 +13,7 @@ title: Actuate | selfdriven Community
 - [Cooperative](https://www.selfdriven.coop) - templates etc
 - [Framework for AI Assisted Actuation](/framework/ai-assisted-actuation)
 - [Collaborative Day Framework](/framework/the-collaborative-day)
+- [Collaborative Day Framework - 5Cs](/framework/the-collaborative-day-5cs)
 
 ## Self-Actuate Now
 - [selfdriven.ai/research](https://selfdriven.ai/research)
