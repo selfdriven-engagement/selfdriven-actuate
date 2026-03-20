@@ -14,6 +14,7 @@ title: Actuate | selfdriven Community
 - [Framework for AI Assisted Actuation](/framework/ai-assisted-actuation)
 - [Collaborative Day Framework](/framework/the-collaborative-day)
 - [Collaborative Session Framework - 5Cs](/framework/the-collaborative-5cs)
+- [Sustainable Human Participation Framework](https://selfdriven.ai/framework/sustainable-human-participation)
 
 ## Self-Actuate Now
 - [selfdriven.ai/research](https://selfdriven.ai/research)
